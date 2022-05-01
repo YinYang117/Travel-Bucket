@@ -52,3 +52,5 @@ jobs:
       env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} flask db upgrade
+
+    # seed updates?
