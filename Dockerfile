@@ -27,8 +27,8 @@ COPY . .
 COPY /react-app/build/* app/static/
 
 # Run the next two python install commands with PIP
-RUN install -r requirements.txt
-RUN install psycopg2
+RUN pip install -r requirements.txt
+RUN pip install psycopg2
 
 
 # Start the flask environment by setting our
