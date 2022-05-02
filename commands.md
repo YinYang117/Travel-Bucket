@@ -1,3 +1,5 @@
+Note: App is the flask backend. react-app is frontend
+
 pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
 
 psql
