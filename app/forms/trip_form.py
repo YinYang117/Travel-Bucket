@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired
 class NewTrip(FlaskForm):
     name = StringField("Trip Name", validators=[DataRequired()])
     destination = StringField("Destination", validators=[DataRequired()])
-    image_url = StringField("Image URL", validators=[DataRequired()])
-    start_date = DateField("Start Date", validators=[DataRequired()])
-    end_date = DateField("Start Date", validators=[DataRequired()])
+    image_url = StringField("Image URL")
+    start_date = DateField("Start Date")
+    end_date = DateField("Start Date")
     submit = SubmitField("Submit")

@@ -19,7 +19,7 @@ class Trip(db.Model):
 
     # notes = db.relationship("Note", back_populates=("trip"))
 
-    @property 
+    @property
     def to_dict(self):
         return {
             "id": self.id,
@@ -32,6 +32,5 @@ class Trip(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
-    
-    # We could have a helper funciton to return a limited scope trip aka. a trip with no notes or events for displaying on a sers profile
 
+    # We could have a helper funciton to return a limited scope trip aka. a trip with no notes or events for displaying on a sers profile
