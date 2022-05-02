@@ -1,4 +1,5 @@
 from .db import db
+from datetime import datetime
 
 
 class Trip(db.Model):
@@ -11,8 +12,8 @@ class Trip(db.Model):
     image_url = db.Column(db.String(510), nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
-    created_at = db.Column(db.Date, nullable=False)
-    updated_at = db.Column(db.Date, nullable=False)
+    created_at = db.Column(db.Date, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.Date, nullable=False, default=datetime.utcnow)
 
     # events is a variable name that will be in the other models
     # events = db.relationship("Event", back_populates=("trip"))

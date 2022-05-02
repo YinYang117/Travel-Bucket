@@ -14,23 +14,24 @@ def trips():
         form['csrf_token'].data = request.cookies['csrf_token']
         print("FORM---------------", form)
         if form.validate_on_submit():
-            # data = request.get_json(force=True)
+            data = request.get_json(force=True)
             # Could be NewTrip() below
-            new_trip = Trip()
-            print("NEW TRIP ----------------", new_trip)
-            form.populate_obj(new_trip)
+            # new_trip = Trip()
+            # print("NEW TRIP ----------------", new_trip)
+            # form.populate_obj(new_trip)
             print("BACKEND FORM---------", form)
+            new_trip = Trip(
+                owner_id=data["ownerId"],
+                name=data["name"],
+                destination=data["destination"],
+                image_url=data["imageUrl"],
+                start_date=data["startDate"],
+                end_date=data["endDate"],
+            )
             db.session.add(new_trip)
             db.session.commit()
             return redirect('/trips')
-            # trip = Trip(
-            #     owner_id=data["owner_id"],
-            #     name=data["name"],
-            #     destination=data["destination"],
-            #     image_url=data["image_url"],
-            #     start_date=data["start_date"],
-            #     end_date=data["end_date"],
-            # )
+
         else:
             print(form.errors)
             # Make a better form bad data return
