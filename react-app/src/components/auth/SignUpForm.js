@@ -38,6 +38,15 @@ const SignUpForm = () => {
     setRepeatPassword(e.target.value);
   };
 
+
+  //demo user onclick function
+  const demo = () => {
+    setEmail("demo@aa.io")
+    setPassword("password")
+    return;
+  }
+
+  
   if (user) {
     return <Redirect to='/' />;
   }
@@ -86,6 +95,7 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
+      <button type='demo' onClick={demo}>Demo User</button>
       <button type='submit'>Sign Up</button>
     </form>
   );
