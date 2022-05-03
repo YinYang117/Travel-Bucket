@@ -6,15 +6,14 @@ class Note(db.Model):
     __tablename__ = 'notes'
 
     id = db.Column(db.Integer, primary_key=True)
-    owner_id = db.Column(db.Integer, nullable=False)
-    trip_id = db.Column(db.Integer, nullable=False)
-    trip_date = db.Column(db.Date, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    trip_id = db.Column(db.Integer, db.ForeignKey("trips.id"), nullable=False)
+    trip_date = db.Column(db.Date, nullable=True)
     note = db.Column(db.String(1000), nullable=False)
     created_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
 
-
-#relations?
+    trip = db.relationship("Trip", back_populates="notes")
 
     @property
     def to_dict(self):

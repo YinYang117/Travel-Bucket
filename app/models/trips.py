@@ -6,7 +6,7 @@ class Trip(db.Model):
     __tablename__ = 'trips'
 
     id = db.Column(db.Integer, primary_key=True)
-    owner_id = db.Column(db.Integer, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     destination = db.Column(db.String(255), nullable=False)
     image_url = db.Column(db.String(510), nullable=False)
@@ -15,10 +15,11 @@ class Trip(db.Model):
     created_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
 
-    # events is a variable name that will be in the other models
-    # events = db.relationship("Event", back_populates=("trip"))
+    user = db.relationship("User", back_populates="trips")
+    invited_users = db.relationship("User", secondary=trip_invites,back_populates="invited_trips")
+    events = db.relationship("Event", back_populates="trip")
+    notes = db.relationship("Note", back_populates="trip")
 
-    # notes = db.relationship("Note", back_populates=("trip"))
 
     @property
     def to_dict(self):
