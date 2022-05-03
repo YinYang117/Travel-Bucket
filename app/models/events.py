@@ -19,8 +19,8 @@ class Event(db.Model):
     updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
 
 
-    
-    trip = db.relationship("Event", back_populates=("events"))
+    owner = db.relationship("User", back_populates="owned_events")
+    trip = db.relationship("Trip", back_populates="events")
 
     @property
     def to_dict(self):
