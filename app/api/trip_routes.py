@@ -41,11 +41,6 @@ def trips():
             # Make a better form bad data return
             return "Bad Data"
 
-# this returns ALL trips 
-    # else:
-    #     trips = Trip.query.all()
-    #     return {'trips': [trip.to_dict() for trip in trips]}
-
 # Get route for a singular trip
 @trip_routes.route('/<int:id>')
 def trip(id):
@@ -63,30 +58,12 @@ def all_user_trips(id):
 
 @trip_routes.route("/<int:id>", methods=["PUT"])
 def edit_trip(id):
-    # print("BACK END EDITED TRIP", editedTrip)
-    # trip = Trip.query.filter(Trip.id == editedTrip.id).one()
-    # trip = Trip.query.filter(Trip.id == id).one()
-    # print("BACK END SINGLE TRIP", trip)
-    # trip.name = editedTrip.name
-    # trip.destination = editedTrip.destination
-    # trip.image_url = editedTrip.imageUrl
-    # trip.start_date = editedTrip.startDate
-    # trip.end_date = editedTrip.endDate
-    # trip.updated_at = datetime.utcnow
-
-    # db.session.commit()
 
     if request.method == 'PUT':
         form = EditTrip()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             data = request.get_json(force=True)
-            # Could be NewTrip() below
-            # new_trip = Trip()
-            # print("NEW TRIP ----------------", new_trip)
-            # form.populate_obj(new_trip)
-            # print("BACKEND FORM---------", form)
-            # print("THIS IS DATA---------------", data)
             trip = Trip.query.filter(Trip.id == id).one()
 
             trip.name= data["name"]
@@ -101,6 +78,14 @@ def edit_trip(id):
             db.session.add(trip)
             db.session.commit()
             return trip.to_dict
+
+@trip_routes.route("/<int:id>", methods=["DELETE"])
+def delete_trip(id):
+    trip = Trip.query.filter(Trip.id == id).one()
+    db.session.delete(trip)
+    db.session.commit()
+    return null
+
     
 
     

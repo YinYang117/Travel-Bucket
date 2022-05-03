@@ -2,6 +2,7 @@
 
 const LOAD_ALL_USER_RELATED_TRIPS = "trip/loadAllUserRelatedTrips"
 const LOAD_SINGLE_TRIP = "trip/loadSingleTrip"
+const DELETE_TRIP = "trip/deleteTrip"
 
 // CONSTANTS display text in actions log
 /////////////////////////////////////////
@@ -21,6 +22,13 @@ const loadTrips = (trips) => {
         payload: trips
     };
 };
+
+const deleteTripAction = (id) => {
+    return {
+        type: DELETE_TRIP,
+        payload: id
+    };
+}
 
 // end of actions
 /////////////////////////////////////////
@@ -75,6 +83,15 @@ export const editTrip = (editedTrip) => async (dispatch) => {
     }
 }
 
+export const deleteTrip = (idString) => async (dispatch) => {
+    const id = parseInt(idString, 10)
+    const res = await fetch(`/api/trips/${id}`)
+
+    if(res.ok) {
+        dispatch(deleteTripAction(id))
+    }
+}
+
 
 
 
@@ -95,6 +112,9 @@ const tripsReducer = (state = initialState, action) => {
             newState = action.payload
             return newState
             // assumes incoming trips are flattened
+        case DELETE_TRIP:
+            delete newState[action.payload]
+            return newState
         default:
             return state;
     }

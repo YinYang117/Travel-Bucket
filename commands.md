@@ -22,16 +22,12 @@ heroku run -a travel-bucket-app flask seed undo
 
 
 github cheats
-git fetch origin
-git checkout name_of_branch
-git pull
+git fetch origin branchName  -- should pull changes into the branch your on from branchName
 
 
-
-<<<<<<< HEAD
 Add a model
-Run   pipenv run flask db migrate     to autogenerate a migration
-Run   pipenv run flask db upgrade     to apply it to the database
+pipenv run flask db migrate     to autogenerate a migration
+pipenv run flask db upgrade     to apply table and model changes to the database
 
 
 pipenv run flask db migrate -m "create a table message"
@@ -40,12 +36,6 @@ pipenv run flask db upgrade
 
 <!-- possibly try
 created_at = db.Column(db.DateTime(), default=datetime.utcnow, nullable=False)
-psql -c "INSERT INTO trips(id, owner_id, name,blah blah blah) VALUES (your stuff)" -->
 
-<<<<<<< HEAD
 Dont run alembic directly:
 <!-- pipenv run alembic revision -m "the message about the revision" -->
-=======
-flask db migrate -m "edits"
-pipenv run alembic revision -m "the message about the revision"
->>>>>>> f8feb30025eed5aa0cc495cc7d495365b2cc777d

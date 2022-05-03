@@ -39,6 +39,16 @@ function TripCard ({trip}) {
 
     };
 
+    const deleteTrip = () => {
+        setErrors([]);
+
+        dispatch(tripActions.deleteTrip(trip.id))
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
+    }
+
 
 
 
@@ -47,10 +57,11 @@ function TripCard ({trip}) {
        <>
             <div>{trip.name}</div>
             <div>{trip.destination}</div>
-            <img src={trip.imageUrl} alt={`image for ${trip.name}`} className="image"/>
+            <img src={trip.imageUrl} alt={`${trip.name} alt`} className="image"/>
             <div>{trip.startDate}</div>
             <div>{trip.endDate}</div>
             <button onClick={e => setShowEditForm(!showEditForm)}>Edit</button>
+            <button onClick={e => deleteTrip()}>Delete</button>
             { showEditForm && <form 
                 className="new-trip-form"
                 onSubmit={e => {
