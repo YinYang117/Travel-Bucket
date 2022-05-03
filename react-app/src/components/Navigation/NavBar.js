@@ -47,10 +47,12 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LogoutButton from './auth/LogoutButton';
+import LogoutButton from '../auth/LogoutButton';
 import { useSelector } from "react-redux";
-import DemoButton from './auth/DemoButton';
-import LoginFormModal from './LoginFormModal';
+import DemoButton from '../auth/DemoButton';
+import LoginFormModal from '../LoginFormModal';
+import ProfileButton from './ProfileButton';
+import SignUpFormModal from '../SignUpModal';
 // import { login } from '../../store/session';
 
 const NavBar = () => {
@@ -60,13 +62,14 @@ const NavBar = () => {
   if (user) {
     sessionLinks = (
       <div className="loggedInNav">
-        <NavLink to={`/users/${user.id}`}>User Profile</NavLink>
+        {/* <NavLink to={`/users/${user.id}`}>User Profile</NavLink> */}
         <NavLink to="/Home" exact={true} activeClassName='active'>
           Trips
         </NavLink>
-        <li className="nav-list">
+        {/* <li className="nav-list">
           <LogoutButton />
-        </li>
+        </li> */}
+        <ProfileButton/>
       </div>
     );
   } else {
@@ -74,9 +77,10 @@ const NavBar = () => {
       <>
         <DemoButton />
         <LoginFormModal />
-        <NavLink to='/sign-up' exact={true} activeClassName='active'>
+        <SignUpFormModal/>
+        {/* <NavLink to='/sign-up' exact={true} activeClassName='active'>
           Sign Up
-        </NavLink>
+        </NavLink> */}
       </>
     );
   }
