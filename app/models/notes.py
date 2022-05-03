@@ -14,6 +14,7 @@ class Note(db.Model):
     updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
 
     trip = db.relationship("Trip", back_populates="notes")
+    owner = db.relationship("User", back_populates="owned_notes")
 
     @property
     def to_dict(self):
