@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import TripCard from "./TripCard";
 import * as tripActions from "../store/trip"
 
 function Home() {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
+    const tripsObj = useSelector(state => state.trips)
+    const trips = Object.values(tripsObj)
 
 
     const [ownerId, setOwnerId] = useState(sessionUser?.id);
@@ -17,10 +20,13 @@ function Home() {
     const [endDate, setEndDate] = useState("");
     const [errors, setErrors] = useState([]);
 
-
     useEffect(() => {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
+
+    useEffect(() => {
+       if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
+    },[sessionUser])
 
 
     const submitNewTrip = () => {
@@ -45,6 +51,11 @@ function Home() {
     return (
         <>
             <h1> testing home </h1>
+            {trips &&
+            trips.map(trip => 
+              <TripCard key={trip.id} trip={trip} />
+                )
+            }
             <form
                 className="new-trip-form"
                 onSubmit={e => {
