@@ -50,9 +50,9 @@ function Home() {
 
     return (
         <>
-            <h1> testing home </h1>
+            <h1> All Trips </h1>
             {trips &&
-            trips.map(trip => 
+            trips.map(trip =>
               <TripCard key={trip.id} trip={trip} />
                 )
             }
