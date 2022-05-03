@@ -30,7 +30,8 @@ def trips():
             )
             db.session.add(new_trip)
             db.session.commit()
-            return redirect('/trips')
+            return {"HEYYYY":"HELLO"}
+            # return redirect('/trips')
 
         else:
             print(form.errors)
