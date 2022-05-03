@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
-import * as tripActions from "../store/trip"
+import "./TripCard.css"
+
 
 function TripCard ({trip}) {
     // does this need curly brackets ???
     return (
        <>
-            <div></div>
+            <div>{trip.name}</div>
             <div>{trip.destination}</div>
+            <img src={trip.imageUrl} alt={`image for ${trip.name}`} className="image"/>
+            <div>{trip.startDate}</div>
+            <div>{trip.endDate}</div>
        </> 
     )
 }
+
+export default TripCard;
