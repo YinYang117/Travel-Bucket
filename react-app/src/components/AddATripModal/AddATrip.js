@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import TripCard from "./TripCard";
-import * as tripActions from "../store/trip"
+import * as tripActions from "../../store/trip"
+import { Redirect } from 'react-router-dom';
 
-function Home() {
+
+
+function AddATrip() {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
@@ -24,9 +26,9 @@ function Home() {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
 
-    useEffect(() => {
-       if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
-    },[sessionUser])
+    // useEffect(() => {
+    //    if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
+    // },[sessionUser])
 
 
     const submitNewTrip = () => {
@@ -41,22 +43,19 @@ function Home() {
         newTripData.endDate = endDate
 
         dispatch(tripActions.newTrip(newTripData))
-            // .then(() => history.push('/Home'))
-            // .catch(async (res) => {
-            //     const data = await res.json();
-            //     if (data && data.errors) setErrors(data.errors);
-            // });
+        return <redirect to='/Home' />;
+
+        // .then(() => history.push('/Home'))
+        // .catch(async (res) => {
+        //     const data = await res.json();
+        //     if (data && data.errors) setErrors(data.errors);
+        // });
     };
 
     return (
-        <>
-            <h1> All Trips </h1>
-            {trips &&
-            trips.map(trip =>
-              <TripCard key={trip.id} trip={trip} />
-                )
-            }
-            {/* <form
+        <div className="formContainer">
+            <h1> Add A Trip </h1>
+            <form
                 className="new-trip-form"
                 onSubmit={e => {
                     e.preventDefault();
@@ -86,8 +85,8 @@ function Home() {
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <button className="new-trip-submit" type='submit' >Submit New Trip</button>
-            </form> */}
-        </>
+            </form>
+        </div>
     );
 }
-export default Home;
+export default AddATrip;

@@ -53,6 +53,7 @@ import DemoButton from '../auth/DemoButton';
 import LoginFormModal from '../LoginFormModal';
 import ProfileButton from './ProfileButton';
 import SignUpFormModal from '../SignUpModal';
+import AddATripModal from '../AddATripModal';
 // import { login } from '../../store/session';
 
 const NavBar = () => {
@@ -62,6 +63,7 @@ const NavBar = () => {
   if (user) {
     sessionLinks = (
       <div className="loggedInNav">
+        <AddATripModal/>
         {/* <NavLink to={`/users/${user.id}`}>User Profile</NavLink> */}
         <NavLink to="/Home" exact={true} activeClassName='active'>
           Trips
