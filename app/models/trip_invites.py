@@ -1,5 +1,6 @@
 from .db import db
 
+
 trip_invites = db.Table(
     "trip_invites",
     db.Column(

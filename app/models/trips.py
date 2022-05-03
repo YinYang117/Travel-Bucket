@@ -1,6 +1,6 @@
 from .db import db
 from datetime import datetime
-
+from .trip_invites import trip_invites
 
 class Trip(db.Model):
     __tablename__ = 'trips'
