@@ -28,12 +28,12 @@ function LoginForm() {
         setPassword(e.target.value);
     };
 
-    //demo user onclick function
-    const demo = () => {
-        setEmail("demo@aa.io")
-        setPassword("password")
-        return;
-    }
+    // //demo user onclick function
+    // const demo = () => {
+    //     setEmail("demo@aa.io")
+    //     setPassword("password")
+    //     return;
+    // }
 
     if (user) {
         return <Redirect to='/Home' />;
@@ -67,7 +67,7 @@ function LoginForm() {
                         value={password}
                         onChange={updatePassword}
                     />
-                    <button type='demo' onClick={demo}>Demo User</button>
+                    {/* <button type='demo' onClick={demo}>Demo User</button> */}
                     <button type='submit'>Login</button>
                 </div>
             </form>

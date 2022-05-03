@@ -60,9 +60,7 @@ const NavBar = () => {
   if (user) {
     sessionLinks = (
       <div className="loggedInNav">
-        {/* <NavLink to='/users' exact={true} activeClassName='active'>
-          Users
-        </NavLink> */}
+        <NavLink to={`/users/${user.id}`}>User Profile</NavLink>
         <NavLink to="/Home" exact={true} activeClassName='active'>
           Trips
         </NavLink>
