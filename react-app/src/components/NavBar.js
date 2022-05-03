@@ -1,8 +1,9 @@
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import DemoButton from './auth/DemoButton';
+import LoginFormModal from './LoginFormModal';
+//import { login } from '../../store/session';
 
 const NavBar = () => {
   return (
