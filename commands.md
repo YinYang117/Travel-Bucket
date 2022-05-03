@@ -44,4 +44,3 @@ psql -c "INSERT INTO trips(id, owner_id, name,blah blah blah) VALUES (your stuff
 
 
 pipenv run alembic revision -m "the message about the revision"
-

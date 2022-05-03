@@ -27,29 +27,33 @@ const loadTrips = (trips) => {
 // thunks return a function that returns an action
 
 export const newTrip = (newTrip) => async (disptach) => {
-    console.log("NEWTRIP-----------", newTrip)
-    const { ownerId, name, destination, imageUrl, startDate, endDate } = newTrip
-    const response = await fetch('/api/trips/', {
+    const { ownerId, name, destination, imageUrl, startDate, endDate } = newTrip 
+    const response = await fetch('/api/trips/', { // thinking we dont need the trailing slashes
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-             ownerId, name, destination, imageUrl, startDate, endDate 
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ownerId, name, destination, imageUrl, startDate, endDate })
     });
 
     if (response.ok) {
         const data = await response.json();
         disptach(addTrip(data))
-        
-        return null;
     } else if (response.status < 500) {
         const data = await response.json();
-        
         if (data.errors) return data.errors;
     } else return ['An error occurred. Please try again.']
 }
+
+export const loadAllUserRelatedTrips = (userId) => async (dispatch) => {
+    const res = await fetch(`/api/trips/users/${userId}`)
+    // const res = await fetch(`/api/trips/users/${userId}/`) // thinking we dont need the trailing slashes
+    if (res.ok) {
+        const trips = await res.json();
+        dispatch(loadTrips(trips))
+    }
+}
+
+
+
 
 
 // end of thunks
