@@ -1,6 +1,7 @@
 //import { csrfFetch } from './csrf';
 
-const ADD_TRIP = "trip/loadTrip"
+const LOAD_ALL_USER_RELATED_TRIPS = "trip/loadAllUserRelatedTrips"
+const LOAD_SINGLE_TRIP = "trip/loadSingleTrip"
 
 // CONSTANTS display text in actions log
 /////////////////////////////////////////
@@ -9,11 +10,17 @@ const ADD_TRIP = "trip/loadTrip"
 
 const addTrip = (trip) => {
     return {
-        type: ADD_TRIP,
+        type: LOAD_SINGLE_TRIP,
         payload: trip
     };
-
 }
+
+const loadTrips = (trips) => {
+    return {
+        type: LOAD_ALL_USER_RELATED_TRIPS,
+        payload: trips
+    };
+};
 
 // end of actions
 /////////////////////////////////////////
@@ -27,28 +34,21 @@ export const newTrip = (newTrip) => async (disptach) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(
-            { ownerId, name, destination, imageUrl, startDate, endDate }
-        )
+        body: JSON.stringify({
+             ownerId, name, destination, imageUrl, startDate, endDate 
+        })
     });
-    console.log("BODY----------", response)
 
     if (response.ok) {
         const data = await response.json();
-        console.log("DATA---------", data)
-
         disptach(addTrip(data))
+        
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return data.errors;
-        }
-    } else {
-        return ['An error occurred. Please try again.']
-    }
-
-
+        
+        if (data.errors) return data.errors;
+    } else return ['An error occurred. Please try again.']
 }
 
 
@@ -61,16 +61,17 @@ const initialState = {};
 const tripsReducer = (state = initialState, action) => {
     let newState = Object.assign({}, state)
     switch (action.type) {
-        case ADD_TRIP:
+        case LOAD_SINGLE_TRIP:
             newState[action.payload.id] = action.payload
             return newState
+        case LOAD_ALL_USER_RELATED_TRIPS:
+            newState = action.payload
+            return newState
+            // assumes incoming trips are flattened
         default:
             return state;
     }
 }
 
-<<<<<<< HEAD
+
 export default tripsReducer;
-=======
-export default tripsReducer;
->>>>>>> 51aab908ef414fdc2765237e983d48d04e5904b5
