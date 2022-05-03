@@ -13,9 +13,22 @@ pipenv run flask run
 Front End -------------
 cd react-app
 npm i
-npm start 
+npm start
 
 
 Seeds are not automatically done
 heroku run -a travel-bucket-app flask seed all
 heroku run -a travel-bucket-app flask seed undo
+
+
+github cheats
+git fetch origin
+git checkout name_of_branch
+git pull
+
+
+
+
+
+
+pipenv run alembic revision -m "the message about the revision"
