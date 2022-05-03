@@ -52,6 +52,29 @@ export const loadAllUserRelatedTrips = (userId) => async (dispatch) => {
     }
 }
 
+export const editTrip = (editedTrip) => async (dispatch) => {
+    console.log("THIS IS EDITED TRIP STORE------", editedTrip)
+
+    const id = parseInt(editedTrip.id, 10)
+
+    console.log("THIS IS ID--------", id)
+
+    const res = await fetch(`/api/trips/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(editedTrip)
+    });
+
+    console.log("THIS IS RES", res)
+
+    if(res.ok) {
+        const trip = await res.json()
+        console.log("STORE TRIP--------", trip)
+        dispatch(addTrip(trip))
+
+    }
+}
+
 
 
 

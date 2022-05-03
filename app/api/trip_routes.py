@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip
 from ..models import db, Trip
+from datetime import datetime
 
 
 trip_routes = Blueprint('trips', __name__)
@@ -59,5 +60,22 @@ def all_user_trips(id):
     for trip in trips:
         all_trips[trip.id] = trip.to_dict
     return all_trips
+
+@trip_routes.route("/<int:id>", methods=["PUT"])
+def edit_trip(id):
+    # print("BACK END EDITED TRIP", editedTrip)
+    # trip = Trip.query.filter(Trip.id == editedTrip.id).first()
+    trip = Trip.query.filter(Trip.id == id).first()
+    print("BACK END SINGLE TRIP", trip)
+    # trip.name = editedTrip.name
+    # trip.destination = editedTrip.destination
+    # trip.image_url = editedTrip.imageUrl
+    # trip.start_date = editedTrip.startDate
+    # trip.end_date = editedTrip.endDate
+    # trip.updated_at = datetime.utcnow
+
+    # db.session.commit()
+    return trip.to_dict
+
     
 
