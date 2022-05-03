@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, redirect
-from ..forms import NewTrip
+from ..forms import NewTrip, EditTrip
 from ..models import db, Trip
+from datetime import datetime
 
 
 trip_routes = Blueprint('trips', __name__)
@@ -59,5 +60,48 @@ def all_user_trips(id):
     for trip in trips:
         all_trips[trip.id] = trip.to_dict
     return all_trips
+
+@trip_routes.route("/<int:id>", methods=["PUT"])
+def edit_trip(id):
+    # print("BACK END EDITED TRIP", editedTrip)
+    # trip = Trip.query.filter(Trip.id == editedTrip.id).one()
+    # trip = Trip.query.filter(Trip.id == id).one()
+    # print("BACK END SINGLE TRIP", trip)
+    # trip.name = editedTrip.name
+    # trip.destination = editedTrip.destination
+    # trip.image_url = editedTrip.imageUrl
+    # trip.start_date = editedTrip.startDate
+    # trip.end_date = editedTrip.endDate
+    # trip.updated_at = datetime.utcnow
+
+    # db.session.commit()
+
+    if request.method == 'PUT':
+        form = EditTrip()
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if form.validate_on_submit():
+            data = request.get_json(force=True)
+            # Could be NewTrip() below
+            # new_trip = Trip()
+            # print("NEW TRIP ----------------", new_trip)
+            # form.populate_obj(new_trip)
+            # print("BACKEND FORM---------", form)
+            # print("THIS IS DATA---------------", data)
+            trip = Trip.query.filter(Trip.id == id).one()
+
+            trip.name= data["name"]
+            trip.destination = data["destination"]
+            trip.image_url = data["imageUrl"]
+            trip.start_date = data["startDate"]
+            trip.end_date = data["endDate"]
+            current_time = datetime.utcnow()
+            print("CURRENT TIME -----------", current_time)
+            trip.updated_at = current_time
+
+            db.session.add(trip)
+            db.session.commit()
+            return trip.to_dict
+    
+
     
 
