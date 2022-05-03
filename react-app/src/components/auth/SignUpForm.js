@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import DemoButton from "./DemoButton";
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -39,14 +40,14 @@ const SignUpForm = () => {
   };
 
 
-  //demo user onclick function
-  const demo = () => {
-    setEmail("demo@aa.io")
-    setPassword("password")
-    return;
-  }
+  // //demo user onclick function
+  // const demo = () => {
+  //   setEmail("demo@aa.io")
+  //   setPassword("password")
+  //   return;
+  // }
 
-  
+
   if (user) {
     return <Redirect to='/' />;
   }
@@ -95,7 +96,7 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
-      <button type='demo' onClick={demo}>Demo User</button>
+      {/* <DemoButton /> */}
       <button type='submit'>Sign Up</button>
     </form>
   );
