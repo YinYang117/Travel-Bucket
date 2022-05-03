@@ -1,1 +1,52 @@
 /* TODO Add site wide styles */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing:border-box; 
+}
+
+/* Nav bar styling -> to be inherited across site */
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #A3EBB1;
+}
+
+.nav-bar-left {
+    padding-left: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.nav-bar-right {
+    padding-left: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.nav-list {
+    padding: 5px;
+    margin: 5px;
+    text-decoration: none;
+    background-color: #18A558; 
+    border-radius: 7px;
+}
+
+a,
+a:link, 
+a:hover,
+a:active { 
+    text-decoration: none; 
+    color: black;
+}
+
+a:visited { 
+    text-decoration: none; 
+    color: black;
+}
+
+button {
+    border-radius: 3px;
+    padding: 2px;
+}
