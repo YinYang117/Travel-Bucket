@@ -2,6 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import DemoButton from './auth/DemoButton';
 
 const NavBar = () => {
   return (
@@ -31,6 +32,9 @@ const NavBar = () => {
         </li>
         <li className="nav-list">
           <LogoutButton />
+        </li>
+        <li>
+          <DemoButton />
         </li>
       </ul>
     </nav>
