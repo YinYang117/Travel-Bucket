@@ -25,3 +25,18 @@ github cheats
 git fetch origin
 git checkout name_of_branch
 git pull
+
+
+
+Add a model
+Run   pipenv run flask db migrate     to autogenerate a migration
+Run   pipenv run flask db upgrade     to apply it to the database
+
+
+pipenv run flask db migrate -m "create a table message"
+pipenv run flask db upgrade
+
+
+<!-- possibly try
+created_at = db.Column(db.DateTime(), default=datetime.utcnow, nullable=False)
+psql -c "INSERT INTO trips(id, owner_id, name,blah blah blah) VALUES (your stuff)" -->
