@@ -24,14 +24,14 @@ class Trip(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "owner_id": self.owner_id,
+            "ownerId": self.owner_id,
             "name": self.name,
             "destination": self.destination,
-            "image_url": self.image_url,
-            "start_date": self.start_date,
-            "end_date": self.end_date,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at,
+            "imageUrl": self.image_url,
+            "startDate": self.start_date,
+            "endDate": self.end_date,
+            "createdAt": self.created_at,
+            "updatedAt": self.updated_at,
         }
 
     # We could have a helper funciton to return a limited scope trip aka. a trip with no notes or events for displaying on a sers profile

@@ -20,6 +20,7 @@ def trips():
             # print("NEW TRIP ----------------", new_trip)
             # form.populate_obj(new_trip)
             print("BACKEND FORM---------", form)
+            print("THIS IS DATA---------------", data)
             new_trip = Trip(
                 owner_id=data["ownerId"],
                 name=data["name"],
@@ -30,7 +31,7 @@ def trips():
             )
             db.session.add(new_trip)
             db.session.commit()
-            return {"HEYYYY":"HELLO"}
+            return new_trip.to_dict
             # return redirect('/trips')
 
         else:
