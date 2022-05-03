@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-// import * as tripActions from '../../store/trips'
+import * as tripActions from "../store/trip"
 
 function Home() {
     const dispatch = useDispatch();
@@ -34,12 +34,12 @@ function Home() {
         newTripData.startDate = startDate
         newTripData.endDate = endDate
 
-        // dispatch(tripActions.newTrip(newTripData))
-        //     // .then(() => history.push('/Home'))
-        //     .catch(async (res) => {
-        //         const data = await res.json();
-        //         if (data && data.errors) setErrors(data.errors);
-        //     });
+        dispatch(tripActions.newTrip(newTripData))
+            // .then(() => history.push('/Home'))
+            // .catch(async (res) => {
+            //     const data = await res.json();
+            //     if (data && data.errors) setErrors(data.errors);
+            // });
     };
 
     return (

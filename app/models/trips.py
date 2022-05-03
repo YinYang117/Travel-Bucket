@@ -1,4 +1,5 @@
 from .db import db
+from datetime import datetime
 
 
 class Trip(db.Model):
@@ -11,15 +12,15 @@ class Trip(db.Model):
     image_url = db.Column(db.String(510), nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
-    created_at = db.Column(db.Date, nullable=False)
-    updated_at = db.Column(db.Date, nullable=False)
+    created_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
 
     # events is a variable name that will be in the other models
     # events = db.relationship("Event", back_populates=("trip"))
 
     # notes = db.relationship("Note", back_populates=("trip"))
 
-    @property 
+    @property
     def to_dict(self):
         return {
             "id": self.id,
@@ -32,6 +33,5 @@ class Trip(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
-    
-    # We could have a helper funciton to return a limited scope trip aka. a trip with no notes or events for displaying on a sers profile
 
+    # We could have a helper funciton to return a limited scope trip aka. a trip with no notes or events for displaying on a sers profile

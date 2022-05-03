@@ -13,7 +13,7 @@ pipenv run flask run
 Front End -------------
 cd react-app
 npm i
-npm start 
+npm start
 
 
 Seeds are not automatically done
@@ -28,6 +28,7 @@ git pull
 
 
 
+<<<<<<< HEAD
 Add a model
 Run   pipenv run flask db migrate     to autogenerate a migration
 Run   pipenv run flask db upgrade     to apply it to the database
@@ -40,3 +41,7 @@ pipenv run flask db upgrade
 <!-- possibly try
 created_at = db.Column(db.DateTime(), default=datetime.utcnow, nullable=False)
 psql -c "INSERT INTO trips(id, owner_id, name,blah blah blah) VALUES (your stuff)" -->
+
+
+pipenv run alembic revision -m "the message about the revision"
+

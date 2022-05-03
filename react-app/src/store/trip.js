@@ -69,4 +69,8 @@ const tripsReducer = (state = initialState, action) => {
     }
 }
 
+<<<<<<< HEAD
 export default tripsReducer;
+=======
+export default tripsReducer;
+>>>>>>> 51aab908ef414fdc2765237e983d48d04e5904b5
