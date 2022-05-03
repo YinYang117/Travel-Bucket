@@ -42,5 +42,10 @@ pipenv run flask db upgrade
 created_at = db.Column(db.DateTime(), default=datetime.utcnow, nullable=False)
 psql -c "INSERT INTO trips(id, owner_id, name,blah blah blah) VALUES (your stuff)" -->
 
+<<<<<<< HEAD
 Dont run alembic directly:
 <!-- pipenv run alembic revision -m "the message about the revision" -->
+=======
+flask db migrate -m "edits"
+pipenv run alembic revision -m "the message about the revision"
+>>>>>>> f8feb30025eed5aa0cc495cc7d495365b2cc777d

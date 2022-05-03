@@ -6,7 +6,8 @@ from ..models import db, Trip
 trip_routes = Blueprint('trips', __name__)
 
 # Get route for all trips
-@trip_routes.route('/', methods=['GET', 'POST'])
+# this can have a get if want
+@trip_routes.route('/', methods=['POST'])
 def trips():
 
     if request.method == 'POST':
@@ -39,12 +40,24 @@ def trips():
             # Make a better form bad data return
             return "Bad Data"
 
-    else:
-        trips = Trip.query.all()
-        return {'trips': [trip.to_dict() for trip in trips]}
+# this returns ALL trips 
+    # else:
+    #     trips = Trip.query.all()
+    #     return {'trips': [trip.to_dict() for trip in trips]}
 
 # Get route for a singular trip
 @trip_routes.route('/<int:id>')
 def trip(id):
     trip = Trip.query.get(id)
     return trip.to_dict()
+
+@trip_routes.route("/users/<int:id>")
+def all_user_trips(id):
+    trips = Trip.query.filter(Trip.owner_id == id).all()
+    # return {"trip_id": [trip.to_dict() for trip in trips]}
+    all_trips = {}
+    for trip in trips:
+        all_trips[trip.id] = trip.to_dict
+    return all_trips
+    
+
