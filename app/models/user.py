@@ -1,6 +1,7 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from .trip_invites import trip_invites
 
 
 class User(db.Model, UserMixin):
@@ -10,6 +11,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    trips = db.relationship('Trip', back_populates="user")
+    invited_trips = db.relationship("Trip", secondary=trip_invites,back_populates="invited_users")
+
 
     @property
     def password(self):
