@@ -5,7 +5,6 @@ import * as tripActions from "../../store/trip"
 import { Redirect } from 'react-router-dom';
 
 
-
 function AddATrip() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -44,6 +43,8 @@ function AddATrip() {
 
         dispatch(tripActions.newTrip(newTripData))
         return <redirect to='/Home' />;
+
+        
 
         // .then(() => history.push('/Home'))
         // .catch(async (res) => {

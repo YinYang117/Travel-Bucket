@@ -5,18 +5,16 @@ import "./TripCard.css"
 
 
 function TripCard ({trip}) {
-    // does this need curly brackets ???
+    // trip ^ needs {} 
     const dispatch = useDispatch()
 
     const [showEditForm, setShowEditForm] = useState(false)
-
     const [name, setName] = useState(trip?.name);
     const [destination, setDestination] = useState(trip?.destination);
     const [imageUrl, setImageUrl] = useState(trip?.imageUrl);
     const [startDate, setStartDate] = useState(trip?.startDate);
     const [endDate, setEndDate] = useState(trip?.endDate);
     const [errors, setErrors] = useState([]);
-
 
 
     const submitTripEdits = () => {
@@ -28,15 +26,11 @@ function TripCard ({trip}) {
         editedTripData.startDate = startDate
         editedTripData.endDate = endDate
         
-        console.log("THIS IS EDITED TRIP DATA", editedTripData)
-        
-
         dispatch(tripActions.editTrip(editedTripData))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             });
-
     };
 
     const deleteTrip = () => {
@@ -48,9 +42,6 @@ function TripCard ({trip}) {
             if (data && data.errors) setErrors(data.errors);
         });
     }
-
-
-
 
 
     return (

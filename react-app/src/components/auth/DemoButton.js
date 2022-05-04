@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
-//import { onLogin } from "./LoginForm";
 
 function DemoButton(){
   const dispatch = useDispatch();
@@ -12,6 +11,7 @@ function DemoButton(){
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
+
     if (data) {
       setErrors(data);
     }
@@ -19,12 +19,17 @@ function DemoButton(){
 
   return (
     <form onSubmit={onLogin}>
-    <div>
-      <button onClick={e => {
-       setEmail("demo@aa.io")
-       setPassword("password")
-      }} type="demo">Demo User</button>
-    </div>
+      <div>
+        <button onClick={e => {
+        setEmail("demo@aa.io")
+        setPassword("password")
+        }} type="demo">Demo User</button>
+      </div>
+      <div>
+          {errors.map((error) => (
+            <div key={error}>{error}</div>
+          ))}
+      </div>
     </form>
   );
 }

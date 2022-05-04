@@ -23,22 +23,6 @@ const SignUpForm = () => {
         } else setErrors(["Password did not match. Please try again."]);
     };
 
-    const updateUsername = (e) => {
-        setUsername(e.target.value);
-    };
-
-    const updateEmail = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const updatePassword = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const updateRepeatPassword = (e) => {
-        setRepeatPassword(e.target.value);
-    };
-
 
     // //demo user onclick function
     // const demo = () => {
@@ -52,9 +36,7 @@ const SignUpForm = () => {
     //     return <Redirect to='/' />;
     //   }
 
-    if (user) {
-        return <Redirect to='/Home' />;
-    }
+    if (user) return <Redirect to="/Home" />;
 
     return (
         <div className="formContainer">
@@ -70,7 +52,7 @@ const SignUpForm = () => {
                         type='text'
                         name='username'
                         placeholder='username'
-                        onChange={updateUsername}
+                        onChange={e => setUsername(e.target.value)}
                         value={username}
                     ></input>
                 </div>
@@ -80,7 +62,7 @@ const SignUpForm = () => {
                         type='text'
                         name='email'
                         placeholder='email'
-                        onChange={updateEmail}
+                        onChange={e => setEmail(e.target.value)}
                         value={email}
                     ></input>
                 </div>
@@ -90,7 +72,7 @@ const SignUpForm = () => {
                         type='password'
                         name='password'
                         placeholder='password'
-                        onChange={updatePassword}
+                        onChange={e => setPassword(e.target.value)}
                         value={password}
                     ></input>
                 </div>
@@ -100,7 +82,7 @@ const SignUpForm = () => {
                         type='password'
                         name='repeat_password'
                         placeholder='repeat password'
-                        onChange={updateRepeatPassword}
+                        onChange={e => setRepeatPassword(e.target.value)}
                         value={repeatPassword}
                         required={true}
                     ></input>
