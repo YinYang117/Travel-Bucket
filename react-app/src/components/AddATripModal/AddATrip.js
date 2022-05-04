@@ -21,6 +21,7 @@ function AddATrip() {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [errors, setErrors] = useState([]);
+    const [hasSubmitted, setHasSubmitted] = useState(false)
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
@@ -29,11 +30,32 @@ function AddATrip() {
     // useEffect(() => {
     //    if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
     // },[sessionUser])
+    const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+
+    useEffect(() => {
+        let errors = [];
+
+        if(!(imageUrl.match(url))){
+            errors.push("Please enter a valid URL.")
+        } else if (!imageUrl.length) {
+            errors.push("Please enter a URl.")
+        }
+
+        if(!name.length) errors.push("Please enter a trip name.")
+        if(!destination.length) errors.push("Please enter a destination.")
+        if(!startDate.length) errors.push("Please enter a start date.")
+        if(!endDate.length) errors.push("Please enter a end date.")
+        setErrors(errors)
+
+    }, [imageUrl, name, destination, startDate, endDate])
 
 
     const submitNewTrip = () => {
+
+        setHasSubmitted(true)
+        if(errors.length > 0) return; 
+
         const newTripData = {};
-        setErrors([]);
         setOwnerId(sessionUser.id)
         newTripData.ownerId = ownerId
         newTripData.name = name
@@ -42,9 +64,12 @@ function AddATrip() {
         newTripData.startDate = startDate
         newTripData.endDate = endDate
 
-        dispatch(tripActions.newTrip(newTripData))
+       let trip =  dispatch(tripActions.newTrip(newTripData))
         
-        history.push("/Home")
+       if (trip) {
+
+           history.push("/Home")
+       }
 
         // .then(() => history.push('/Home'))
         // .catch(async (res) => {
@@ -83,7 +108,7 @@ function AddATrip() {
                 </label>
                 <input onChange={e => setEndDate(e.target.value)} type="date" className="new-trip-end-date" value={endDate} />
                 <ul className="new-trip-errors">
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <button className="new-trip-submit" type='submit' >Submit New Trip</button>
             </form>
