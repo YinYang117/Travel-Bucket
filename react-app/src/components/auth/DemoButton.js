@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 function DemoButton(){
   const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState("")
@@ -15,6 +16,8 @@ function DemoButton(){
     if (data) {
       setErrors(data);
     }
+     
+    history.push("/Home")
   };
 
   return (

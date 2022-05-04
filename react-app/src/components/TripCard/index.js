@@ -1,25 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as tripActions from "../../store/trip"
+import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./TripCard.css"
 
 
 function TripCard ({trip}) {
     // trip ^ needs {} 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const [showEditForm, setShowEditForm] = useState(false)
+    const sessionUser = useSelector(state => state.session.user);
+
     const [name, setName] = useState(trip?.name);
     const [destination, setDestination] = useState(trip?.destination);
     const [imageUrl, setImageUrl] = useState(trip?.imageUrl);
     const [startDate, setStartDate] = useState(trip?.startDate);
     const [endDate, setEndDate] = useState(trip?.endDate);
     const [errors, setErrors] = useState([]);
+    const [hasSubmitted, setHasSubmitted] = useState(false)
 
+    useEffect(() => {
+        if (!sessionUser) history.push('/')
+    }, [sessionUser])
+
+
+    const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+
+    useEffect(() => {
+        let errors = [];
+
+        if(!(imageUrl.match(url))){
+            errors.push("Please enter a valid URL.")
+        } else if (!imageUrl.length) {
+            errors.push("Please enter a URl.")
+        }
+
+        if(!name.length) errors.push("Please enter a trip name.")
+        if(!destination.length) errors.push("Please enter a destination.")
+        if(!startDate.length) errors.push("Please enter a start date.")
+        if(!endDate.length) errors.push("Please enter a end date.")
+        setErrors(errors)
+
+    }, [imageUrl, name, destination, startDate, endDate])
 
     const submitTripEdits = () => {
+        setHasSubmitted(true)
+        if(errors.length > 0) return; 
+
         const editedTripData = trip
-        setErrors([]);
         editedTripData.name = name
         editedTripData.destination = destination
         editedTripData.imageUrl = imageUrl
@@ -48,7 +79,9 @@ function TripCard ({trip}) {
        <>
             <div>{trip.name}</div>
             <div>{trip.destination}</div>
-            <img src={trip.imageUrl} alt={`${trip.name} alt`} className="image"/>
+            <NavLink to={`/trips/${trip.id}`}>
+                <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
+            </NavLink>
             <div>{trip.startDate}</div>
             <div>{trip.endDate}</div>
             <button onClick={e => setShowEditForm(!showEditForm)}>Edit</button>
@@ -80,7 +113,7 @@ function TripCard ({trip}) {
                 </label>
                 <input onChange={e => setEndDate(e.target.value)} type="date" className="new-trip-end-date" placeholder={trip?.endDate} value={endDate} />
                 <ul className="new-trip-errors">
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <button className="new-trip-submit" type='submit' >Submit Trip Edits</button>
             </form>

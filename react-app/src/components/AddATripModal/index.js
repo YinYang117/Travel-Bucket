@@ -106,7 +106,7 @@ function AddATripModal() {
 
 
         </Modal>
-      )}
+      }
     </>
   );
 }
