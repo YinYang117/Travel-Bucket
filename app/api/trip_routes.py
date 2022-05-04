@@ -84,7 +84,7 @@ def delete_trip(id):
     trip = Trip.query.filter(Trip.id == id).one()
     db.session.delete(trip)
     db.session.commit()
-    return null
+    return {}
 
     
 

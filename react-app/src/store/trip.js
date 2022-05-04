@@ -85,7 +85,9 @@ export const editTrip = (editedTrip) => async (dispatch) => {
 
 export const deleteTrip = (idString) => async (dispatch) => {
     const id = parseInt(idString, 10)
-    const res = await fetch(`/api/trips/${id}`)
+    const res = await fetch(`/api/trips/${id}`, {
+        method: 'DELETE',
+    })
 
     if(res.ok) {
         dispatch(deleteTripAction(id))
