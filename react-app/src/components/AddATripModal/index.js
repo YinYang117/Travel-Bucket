@@ -4,6 +4,7 @@ import AddATrip from "./AddATrip"
 
 function AddATripModal() {
   const [showModal, setShowModal] = useState(false);
+ 
 
   return (
     <>
@@ -12,7 +13,9 @@ function AddATripModal() {
         Add A Trip
       </button>
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+        <Modal onClose={() =>{ 
+          setShowModal(false)
+        }}>
           <AddATrip />
         </Modal>
       )}

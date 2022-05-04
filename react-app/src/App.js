@@ -8,7 +8,9 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Home from './components/Home';
+import IndividualTrip from './components/IndividualTrip';
 import { authenticate } from './store/session';
+import SplashPage from './components/SplashPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -41,11 +43,14 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/Home' exact={true} >
+        <ProtectedRoute path='/Home' >
           <Home/>
         </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <h1>Splash Page</h1>
+        <ProtectedRoute path="/trips/:tripId">
+          <IndividualTrip />
+        </ProtectedRoute>
+        <Route path='/' >
+          <SplashPage />
         </Route>
       </Switch>
     </BrowserRouter>
