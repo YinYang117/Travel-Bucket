@@ -8,7 +8,11 @@
 /* Nav bar styling -> to be inherited across site */
 
 .nav-container {
+    width: 100%;
+    top: 0;
+    position: fixed;
     display: flex;
+    overflow: hidden;
     justify-content: space-between;
     background-color: #A3EBB1;
 }
@@ -18,10 +22,22 @@
     display: flex;
     list-style-type: none;
 }
-
+ 
 .nav-bar-right {
     padding-left: 0;
     display: flex;
+    list-style-type: none;
+}
+
+.logged-in-nav {
+    display: flex;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.logged-out-nav {
+    display: flex;
+    text-decoration: none;
     list-style-type: none;
 }
 
@@ -34,11 +50,27 @@
 }
 
 a,
-a:link, 
-a:hover,
-a:active { 
+a:link { 
     text-decoration: none; 
     color: black;
+}
+
+a:hover,
+button:hover {
+    border-radius: 7px;
+    background-color: #26b566;
+}
+
+a:focus,
+button:focus {
+    border-radius: 7px;
+    background-color: #26b566;
+}
+
+a:active,
+button:active {
+    border-radius: 7px;
+    background-color: #ffffff;
 }
 
 a:visited { 
@@ -49,4 +81,18 @@ a:visited {
 button {
     border-radius: 3px;
     padding: 2px;
+    text-decoration: none;
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
 }
