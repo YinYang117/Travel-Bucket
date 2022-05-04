@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Home from './components/Home';
+import EventFormModal from './components/EventsModal';
 import { authenticate } from './store/session';
 
 function App() {
@@ -44,6 +45,9 @@ function App() {
         <ProtectedRoute path='/Home' exact={true} >
           <Home/>
         </ProtectedRoute>
+        <Route path='/events' exact={true}>
+          <EventFormModal />
+        </Route>
         <Route path='/' exact={true} >
           <h1>Splash Page</h1>
         </Route>
