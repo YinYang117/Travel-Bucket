@@ -3,13 +3,14 @@ import thunk from 'redux-thunk';
 import session from './session'
 import tripsReducer from './trip';
 import notesReducer from './note';
+import eventsReducer from './event';
 
 const rootReducer = combineReducers({
   session,
   trips:tripsReducer,
   notes:notesReducer,
+  events:eventsReducer,
 });
-
 
 let enhancer;
 

@@ -10,6 +10,7 @@ import Home from './components/Home';
 import IndividualTrip from './components/IndividualTrip';
 import { authenticate } from './store/session';
 import SplashPage from './components/SplashPage';
+import EventModal from './components/EventModal';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,6 +45,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/trips/:tripId">
           <IndividualTrip />
+        </ProtectedRoute>
+        <ProtectedRoute path='/events' >
+          <EventModal/>
         </ProtectedRoute>
         <Route path='/' >
           <SplashPage />
