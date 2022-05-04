@@ -54,14 +54,19 @@ function IndividualTrip () {
 
     }, [note])
 
+
+    // ------------------------THIS IS FOR THE USER -----------------------------------
+
     useEffect(() => {
         let errorsAddedUser = [];
 
-        if(!user.length) errors.push("Please enter a user.")
+        if(!user.length) errorsAddedUser.push("Please enter a user.")
         //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
-        setErrors(errorsAddedUser)
+        setErrorsAddedUser(errorsAddedUser)
 
-    }, [note])
+    }, [user])
+
+
 
     const submitNote = () => {
         setHasSubmitted(true)
@@ -83,6 +88,8 @@ function IndividualTrip () {
             // });
 
     };
+
+// ------------------------THIS IS FOR THE USER -----------------------------------
     
     const submitUser = () => {
         setHasSubmitted(true)
@@ -140,7 +147,7 @@ function IndividualTrip () {
                 <ul className="new-note-errors">
                     {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
-                <button className="add-user-submit" type='submit' >Submit Note</button>
+                <button className="add-user-submit" type='submit' >Submit User</button>
             </form>
         }
         {notes &&

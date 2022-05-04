@@ -86,4 +86,7 @@ def delete_trip(id):
     db.session.commit()
     return {}
 
+# @trip_routes.route("/<int:id>", methods=["DELETE"])
+# def
+
 
