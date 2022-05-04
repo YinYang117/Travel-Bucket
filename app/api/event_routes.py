@@ -7,12 +7,14 @@ event_routes = Blueprint('events', __name__)
 #Post routes for all events
 @event_routes.route('/', methods=['POST'])
 def events():
-
+    #print("WE ARE IN POST ROUTE BACK END ---------------")
 
     form = NewEvent()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        #print("FORM HAS VALIDATED -----------------")
         data = request.get_json(force=True)
+        #print("DATA IN API ROUTE -----------------", data)
         # no need this line data = request.get_json(force=True)
         # just need to change data[] into form.data[]
         new_event = Event(

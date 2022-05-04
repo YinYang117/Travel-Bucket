@@ -36,14 +36,14 @@ function Event() {
         setErrors([]);
         setOwnerId(sessionUser.id)
         newEventData.ownerId = ownerId
-        newEventData.tripId = tripId
+        newEventData.tripId = 1
         newEventData.name = name
         newEventData.description = description
         newEventData.imageUrl = imageUrl
         newEventData.location = location
         newEventData.startDate = startDate
         newEventData.endDate = endDate
-       
+
         console.log("NEW EVENT DATA FROM MODAL --------------------", newEventData)
         dispatch(eventActions.newEvent(newEventData))
 

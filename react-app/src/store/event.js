@@ -33,11 +33,11 @@ const deleteEventAction = (id) => {
 // thunks return a function that returns an action
 
 export const newEvent = (newEvent) => async (disptach) => {
-    const { ownerId, tripId, name, description, imageUrl, locaiton, startDate, endDate } = newEvent
+    const { ownerId, tripId, name, description, imageUrl, location, startDate, endDate } = newEvent
     const response = await fetch('/api/events/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ownerId, tripId, name, description, imageUrl, locaiton, startDate, endDate })
+        body: JSON.stringify({ ownerId, tripId, name, description, imageUrl, location, startDate, endDate })
     });
 
     if (response.ok) {
