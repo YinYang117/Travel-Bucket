@@ -3,7 +3,7 @@ import { Modal } from "../../context/Modal";
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from "react-router-dom";
 import * as tripActions from "../../store/trip"
-import {Redirect} from 'react-router-dom';
+
 
 function AddATripModal() {
   const [showModal, setShowModal] = useState(false);
@@ -35,6 +35,16 @@ function AddATripModal() {
         newTripData.endDate = endDate
 
         dispatch(tripActions.newTrip(newTripData))
+        .then(() => {
+          setShowModal(false)
+          history.push('/Home')
+          // need a .then and redirect IF you add a new trip while on another trip details page
+        })
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+
         return <redirect to='/Home' />;
   }
 
@@ -46,18 +56,6 @@ function AddATripModal() {
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-
-
-
-
-
-
-
-
-
-
-
-
           <div className="formContainer">
             <h1> Add A Trip </h1>
             <form
@@ -92,21 +90,8 @@ function AddATripModal() {
               <button className="new-trip-submit" type='submit' >Submit New Trip</button>
             </form>
           </div>
-          );
-
-
-
-
-
-
-
-
-
-
-
-
         </Modal>
-      }
+      )}
     </>
   );
 }
