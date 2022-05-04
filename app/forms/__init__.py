@@ -4,4 +4,4 @@ from .trip_form import NewTrip
 from .event_form import NewEvent
 from .note_form import NewNote
 from .edit_trip_form import EditTrip
-
+from .edit_event_form import EditEvent

@@ -4,7 +4,7 @@ from ..forms import NewEvent
 
 event_routes = Blueprint('events', __name__)
 
-#Get routes for all events
+#Post routes for all events
 @event_routes.route('/', methods=['POST'])
 def events():
 
@@ -13,7 +13,10 @@ def events():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = request.get_json(force=True)
+        # no need this line data = request.get_json(force=True)
+        # just need to change data[] into form.data[]
         new_event = Event(
+
             owner_id = data["ownerId"],
             trip_id = data["tripId"],
             name = data["name"],
@@ -31,39 +34,51 @@ def events():
         print(form.errors)
         return "Bad Data"
 
+#Get routes for all events in a single trip
+@event_routes.route('/trips/<int:id>/events', methods=['GET'])
+def events(id):
+    events = Event.query.filter(event.trip_id == id).all()
+    return events.to_dict()
+
+
     #events should be inside single trip
-   @event_routes.route('/<int:id>')
-   def event(id):
-       event = Event.query.get(id)
-       return event.to_dict()
+@event_routes.route('/<int:id>')
+def event(id):
+    events = Event.query.get(id)
+    all_trip_events = {}
+    for event in events:
+        all_trip_events[event.id] = event.to_dict
+    return all_trip_events
 
 
-
-    @event_routes.route("/<int:id>", methods=["PUT"])
-    def edit_event(id):
-
-        if request.method == 'PUT':
-            form = NewEvent()
-            form['csrf_token'].data = request.cookies['csrf_token']
-            if form.validate_on_submit():
-                data = request.get_json(force=True)
-                event = Event.query.filter(Event.id == id).one()
+#edit the single event
+@event_routes.route("/<int:id>", methods=["PUT"])
+def edit_event(id):
 
 
-                event.name = data["name"],
-                event.description = data["description"],
-                event.image_url = data["imageUrl"],
-                event.location = data["location"],
-                event.start_date = data["startDate"],
-                event.end_date = data["endDate"],
-
-                db.session.add(event)
-                db.session.commit()
-                return event.to_dict
-
-    @event_routes.route("/<int:id>", methods=["DELETE"])
-    def delete_event(id):
+    form = EditEvent()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        #same as above if we want another way
+        data = request.get_json(force=True)
         event = Event.query.filter(Event.id == id).one()
-        db.session.delete(event)
+
+
+        event.name = data["name"],
+        event.description = data["description"],
+        event.image_url = data["imageUrl"],
+        event.location = data["location"],
+        event.start_date = data["startDate"],
+        event.end_date = data["endDate"],
+
+        db.session.add(event)
         db.session.commit()
-        return {}
+        return event.to_dict
+
+#delete the single event 
+@event_routes.route("/<int:id>", methods=["DELETE"])
+def delete_event(id):
+    event = Event.query.filter(Event.id == id).one()
+    db.session.delete(event)
+    db.session.commit()
+    return {}
