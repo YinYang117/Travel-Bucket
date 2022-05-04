@@ -20,13 +20,7 @@ function LoginForm() {
         if (data) {
             setErrors(data);
         }
-
-      
-
-        history.push("/Home")
-        
-
-        
+        history.push("/Home")   
     };
 
     const updateEmail = (e) => {
