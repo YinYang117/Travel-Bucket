@@ -23,6 +23,10 @@ function IndividualTrip () {
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
+    const [errorsAddedUser, setErrorsAddedUser] = useState([]);
+    const [showAddedUserForm, setAddedUserForm] = useState(false)
+    const [user, setUser] = useState("");
+
     useEffect(() => {
         if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
     },[sessionUser])
@@ -36,6 +40,15 @@ function IndividualTrip () {
 
         if(!note.length) errors.push("Please enter Note text.")
         setErrors(errors)
+
+    }, [note])
+
+    useEffect(() => {
+        let errorsAddedUser = [];
+
+        if(!user.length) errors.push("Please enter a user.")
+        //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
+        setErrors(errorsAddedUser)
 
     }, [note])
 
@@ -59,6 +72,27 @@ function IndividualTrip () {
             // });
 
     };
+    
+    const submitUser = () => {
+        setHasSubmitted(true)
+        if(errors.length > 0) return; 
+  
+        const addingUser = {}
+        addingUser.note = note
+        addingUser.tripId = tripId
+        // noteData.tripDate = tripDate
+        addingUser.ownerId = trip.ownerId
+        
+        console.log("THIS IS NOTE DATA", noteData)
+        
+
+        // dispatch(noteActions.postNote(noteData))
+            // .catch(async (res) => {
+            //     const data = await res.json();
+            //     if (data && data.errors) setErrors(data.errors);
+            // });
+
+    };
 
     const deleteNote = (note) => {
         setErrors([]);
@@ -74,6 +108,23 @@ function IndividualTrip () {
         <>
         <h1>INDIVIDUAL PAGE</h1>
         <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
+        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add Note</button>
+        { showAddedUserForm && <form 
+                className="new-note-form"
+                onSubmit={e => {
+                    e.preventDefault();
+                    submitUser();
+                }}>
+                <label className='label'>
+                    Add a User:
+                </label>
+                <input onChange={e => setUser(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={user} />
+                <ul className="new-note-errors">
+                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <button className="add-user-submit" type='submit' >Submit Note</button>
+            </form>
+        }
         {notes &&
             notes.map(note => (
                 <li key={note.id}>
