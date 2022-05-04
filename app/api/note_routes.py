@@ -5,7 +5,7 @@ from ..forms import NewNote
 note_routes = Blueprint('notes', __name__)
 
 #Get routes for all notes
-@note_routes.route('/new', methods=['POST'])
+@note_routes.route('/', methods=['POST'])
 def notes():
 
 
