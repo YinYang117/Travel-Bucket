@@ -52,14 +52,13 @@ def event(id):
 @event_routes.route("/<int:id>", methods=["PUT"])
 def edit_event(id):
 
-
     form = EditEvent()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        print("backend event api route edited event form validated")
         #same as above if we want another way
         data = request.get_json(force=True)
         event = Event.query.filter(Event.id == id).one()
-
 
         event.name = data["name"],
         event.description = data["description"],
@@ -71,6 +70,7 @@ def edit_event(id):
         db.session.add(event)
         db.session.commit()
         return event.to_dict
+
 
 #delete the single event
 @event_routes.route("/<int:id>", methods=["DELETE"])

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import EventForm from "./EventForm";
+import EditEvent from "./EditEventForm";
 import { useSelector } from "react-redux";
 
 function EventFormModal() {
     const [showModal, setShowModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const eventsObj = useSelector(state => state.events)
     const events = Object.values(eventsObj)
 
@@ -22,18 +24,21 @@ function EventFormModal() {
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <EventForm closeModal={() => setShowModal(false)} />
-
                 </Modal>
             )}
-
             {events &&
                 events.map(event =>
-                    <div key={event.id}> {event.name}  </div>
+                    <>
+                        <div key={event.id}>{event.name}</div>
+                        <button onClick={e => setShowEditModal(!showEditModal)}>Edit</button>
+                        {showEditModal && (
+                        <Modal onClose={() => setShowEditModal(false)}>
+                            <EditEvent  closeModal={() => setShowEditModal(false)} event={event} />
+                        </Modal>
+                        )}
+                    </>
                 )
             }
-
-
-
         </>
     );
 }

@@ -62,7 +62,6 @@ def edit_trip(id):
             trip.start_date = data["startDate"]
             trip.end_date = data["endDate"]
             current_time = datetime.utcnow()
-            print("CURRENT TIME -----------", current_time)
             trip.updated_at = current_time
 
             db.session.add(trip)

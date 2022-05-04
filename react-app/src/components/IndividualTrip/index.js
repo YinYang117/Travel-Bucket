@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
-import "./individualPage.css";
+
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
@@ -56,8 +56,7 @@ function IndividualTrip () {
             // .catch(async (res) => {
             //     const data = await res.json();
             //     if (data && data.errors) setErrors(data.errors);
-            // });
-
+            // })
     };
 
     const deleteNote = (note) => {

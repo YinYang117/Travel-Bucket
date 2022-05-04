@@ -58,7 +58,6 @@ export const loadAllEvents = (tripId) => async (dispatch) => {
 }
 
 export const editEvent = (newEvent) => async (dispatch) => {
-
     const id = parseInt(newEvent.id, 10)
     const res = await fetch(`/api/events/${id}`, {
     method: 'PUT',
@@ -66,11 +65,9 @@ export const editEvent = (newEvent) => async (dispatch) => {
     body: JSON.stringify(newEvent)
     });
 
-
     if(res.ok) {
         const data = await res.json()
         dispatch(addEvent(data))
-
     }
 }
 

@@ -33,7 +33,9 @@ function Event({closeModal}) {
         setErrors([]);
         setOwnerId(sessionUser.id)
         newEventData.ownerId = ownerId
-        newEventData.tripId = 1
+        // Hardcoded for testing ONLY!!!
+        newEventData.tripId = 31
+        // Hardcoded for testing ONLY!!!
         newEventData.name = name
         newEventData.description = description
         newEventData.imageUrl = imageUrl
@@ -41,13 +43,12 @@ function Event({closeModal}) {
         newEventData.startDate = startDate
         newEventData.endDate = endDate
 
-        //console.log("NEW EVENT DATA FROM MODAL --------------------", newEventData)
         dispatch(eventActions.newEvent(newEventData))
-            .then(() => closeModal())
-            .catch(async (res) => {
-                const data = await res.json()
-                if (data && data.errors) setErrors(data.errors)
-            })
+        .then(() => closeModal())
+        .catch(async (res) => {
+            const data = await res.json()
+            if (data && data.errors) setErrors(data.errors)
+        })
 
     };
 
