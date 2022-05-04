@@ -12,7 +12,6 @@ import "./TripCard.css"
 function TripCard ({trip}) {
     // trip ^ needs {} 
     const history = useHistory()
-
     const sessionUser = useSelector(state => state.session.user);
 
     const [showDeleteModal, setShowDeleteModal] = useState(false)

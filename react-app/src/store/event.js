@@ -1,6 +1,6 @@
 const LOAD_ALL_EVENTS = "event/loadAllEvents"
 const LOAD_SINGLE_EVENT = "event/loadSingleEvent"
-const DELETE_EVENT = "trip/deleteEvent"
+const DELETE_EVENT = "event/deleteEvent"
 
 // CONSTANTS display text in actions log
 /////////////////////////////////////////
@@ -77,7 +77,7 @@ export const deleteEvent = (id) => async (dispatch) => {
     })
 
     if(res.ok) {
-        dispatch(deleteEventAction(newEvent))
+        dispatch(deleteEventAction(id))
     }
 }
 
