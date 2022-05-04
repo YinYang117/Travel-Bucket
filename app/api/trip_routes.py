@@ -85,3 +85,5 @@ def delete_trip(id):
     db.session.delete(trip)
     db.session.commit()
     return {}
+
+

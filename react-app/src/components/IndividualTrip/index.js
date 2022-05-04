@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
 // import "./individualPage.css";
@@ -25,7 +25,8 @@ function IndividualTrip () {
 
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState("")
+    const [showingUsers, setShowingUsers] = useState([]);
 
     useEffect(() => {
         if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
@@ -34,6 +35,16 @@ function IndividualTrip () {
     useEffect(() => {
         if (sessionUser) dispatch(noteActions.getNotes(tripId))
     },[sessionUser])
+
+
+    useEffect(() => {
+      async function fetchData() {
+        const response = await fetch('/api/users/');
+        const responseData = await response.json();
+        setShowingUsers(responseData.users);
+      }
+      fetchData();
+    }, []);
 
     useEffect(() => {
         let errors = [];
@@ -75,15 +86,15 @@ function IndividualTrip () {
     
     const submitUser = () => {
         setHasSubmitted(true)
-        if(errors.length > 0) return; 
+        if(errorsAddedUser.length > 0) return; 
   
-        const addingUser = {}
-        addingUser.note = note
-        addingUser.tripId = tripId
-        // noteData.tripDate = tripDate
-        addingUser.ownerId = trip.ownerId
+        // const addingUser = {}
+        // addingUser.note = note
+        // addingUser.tripId = tripId
+        // // noteData.tripDate = tripDate
+        // addingUser.ownerId = trip.ownerId
         
-        console.log("THIS IS NOTE DATA", noteData)
+        // console.log("THIS IS NOTE DATA", noteData)
         
 
         // dispatch(noteActions.postNote(noteData))
@@ -108,7 +119,14 @@ function IndividualTrip () {
         <>
         <h1>INDIVIDUAL PAGE</h1>
         <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
-        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add Note</button>
+        {showingUsers &&
+            showingUsers.map(user =>
+              <li key={user.id}>
+                {user.username}
+              </li>
+        )
+        }
+        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
         { showAddedUserForm && <form 
                 className="new-note-form"
                 onSubmit={e => {
@@ -120,7 +138,7 @@ function IndividualTrip () {
                 </label>
                 <input onChange={e => setUser(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={user} />
                 <ul className="new-note-errors">
-                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <button className="add-user-submit" type='submit' >Submit Note</button>
             </form>
