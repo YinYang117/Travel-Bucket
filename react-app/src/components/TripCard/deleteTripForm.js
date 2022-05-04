@@ -16,9 +16,7 @@ function DeleteTripForm ({ hideModal, trip }) {
 
   return (
     <form id="delete_trip_form" onSubmit={handleSubmit}>
-      <h3>Are you sure you want to delete this Trip?
-        <p id="delete_trip_name">{trip.name} ?</p>
-      </h3>
+      <h3>Are you sure you want to delete your <span id="delete_trip_name">{trip.name}</span> Trip?</h3>
       <div id="delete_trip_buttons">
         <button id="delete" className="deleteButton" type="submit">Confirm Delete</button>
         <button id="cancel" className="cancelDelete" onClick={handleCancelClick}>Cancel</button>
