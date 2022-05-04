@@ -59,6 +59,16 @@ function IndividualTrip () {
             // });
 
     };
+
+    const deleteNote = (note) => {
+        setErrors([]);
+        console.log("THIS IS NOTE-------->", note)
+        dispatch(noteActions.removeNote(note.id))
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
+    }
     
     return (
         <>
@@ -68,6 +78,7 @@ function IndividualTrip () {
             notes.map(note => (
                 <li key={note.id}>
                     {note.note}
+                    <button onClick={e => deleteNote(note)}>Delete</button>
                 </li>
             ))
         }

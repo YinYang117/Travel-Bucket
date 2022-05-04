@@ -40,3 +40,10 @@ def get_notes(id):
     for note in notes:
         all_notes[note.id] = note.to_dict
     return all_notes
+
+@note_routes.route("/<int:id>", methods=["DELETE"])
+def delete_note(id):
+    note = Note.query.filter(Note.id == id).one()
+    db.session.delete(note)
+    db.session.commit()
+    return {}
