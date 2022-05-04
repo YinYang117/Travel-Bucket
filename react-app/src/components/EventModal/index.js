@@ -4,6 +4,8 @@ import EventForm from "./EventForm";
 
 function EventFormModal() {
     const [showModal, setShowModal] = useState(false);
+    const eventsObj = useSelector(state => state.events)
+    const events = Object.values(eventsObj)
 
     return (
         <>
@@ -12,15 +14,25 @@ function EventFormModal() {
             <h1> All Events </h1>
             <h1> All Events </h1>
             <h1> All Events </h1>
-            <button className="EventButton" onClick={() => setShowModal(true)}>
+            <button className="EventButton" onClick={() => setShowModal(!showModal)}>
                 {/* <i class="fa-solid fa-right-to-bracket"></i> */}
                 Add a Event
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <EventForm />
+                    <EventForm closeModal={() => setShowModal(false)} />
+
                 </Modal>
             )}
+
+            {events &&
+                events.map(event =>
+                    <div key={event.id}> {event.name}  </div>
+                )
+            }
+
+
+
         </>
     );
 }
