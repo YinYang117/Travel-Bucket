@@ -30,3 +30,13 @@ def notes():
         return "Bad Data"
 
     #GET for all notes, all notes should be inside single trip page
+
+@note_routes.route('/trips/<int:id>')
+def get_notes(id):
+
+    notes = Note.query.filter(Note.trip_id == id).all()
+    # return {"trip_id": [trip.to_dict() for trip in trips]}
+    all_notes = {}
+    for note in notes:
+        all_notes[note.id] = note.to_dict
+    return all_notes

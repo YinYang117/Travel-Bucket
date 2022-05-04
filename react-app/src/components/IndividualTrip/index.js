@@ -13,6 +13,8 @@ function IndividualTrip () {
     const trip = useSelector(state => state.trips[tripId])
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
+    const notesObj = useSelector(state => state.notes)
+    const notes = Object.values(notesObj)
 
     const [showNoteForm, setShowNoteForm] = useState(false)
     const [note, setNote] = useState("");
@@ -23,6 +25,10 @@ function IndividualTrip () {
 
     useEffect(() => {
         if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
+    },[sessionUser])
+
+    useEffect(() => {
+        if (sessionUser) dispatch(noteActions.getNotes(tripId))
     },[sessionUser])
 
     useEffect(() => {
@@ -58,6 +64,13 @@ function IndividualTrip () {
         <>
         <h1>INDIVIDUAL PAGE</h1>
         <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
+        {notes &&
+            notes.map(note => (
+                <li key={note.id}>
+                    {note.note}
+                </li>
+            ))
+        }
         <button onClick={e => setShowNoteForm(!showNoteForm)}>Add Note</button>
         { showNoteForm && <form 
                 className="new-note-form"

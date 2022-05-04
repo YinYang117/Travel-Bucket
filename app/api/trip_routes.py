@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip, EditTrip
-from ..models import db, Trip
+from ..models import db, Trip, Note
 from datetime import datetime
 
 
