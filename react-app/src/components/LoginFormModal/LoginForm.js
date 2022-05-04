@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 //import * as sessionActions from "../../store/session";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+// import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 
 function LoginForm() {
     const dispatch = useDispatch();
+    const history = useHistory();
     //const [credential, setCredential] = useState("");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState("");
@@ -18,6 +20,13 @@ function LoginForm() {
         if (data) {
             setErrors(data);
         }
+
+      
+
+        history.push("/Home")
+        
+
+        
     };
 
     const updateEmail = (e) => {
@@ -35,9 +44,9 @@ function LoginForm() {
     //     return;
     // }
 
-    if (user) {
-        return <Redirect to='/Home' />;
-    }
+    // if (user) {
+    //     return <Redirect to='/Home' />;
+    // }
 
 
     return (
