@@ -43,17 +43,18 @@ function ProfileButton() {
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">
-
-                    <li>
+                    <li className="dropdown-list">
                         <strong>User Id</strong> {user.id}
                     </li>
-                    <li>
+                    <li className="dropdown-list">
                         <strong>Username</strong> {user.username}
                     </li>
-                    <li>
+                    <li className="dropdown-list">
                         <strong>Email</strong> {user.email}
                     </li>
-                    <LogoutButton />
+                    <li className="dropdown-list">
+                        <LogoutButton />
+                    </li>
                 </ul>
             )}
         </>

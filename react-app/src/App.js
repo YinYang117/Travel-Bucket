@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/Navigation/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Home from './components/Home';
-import EventFormModal from './components/EventsModal';
+import IndividualTrip from './components/IndividualTrip';
 import { authenticate } from './store/session';
+import SplashPage from './components/SplashPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -33,23 +33,20 @@ function App() {
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/Home' exact={true} >
+        <ProtectedRoute path='/Home' >
           <Home/>
         </ProtectedRoute>
-        <Route path='/events' exact={true}>
-          <EventFormModal />
-        </Route>
-        <Route path='/' exact={true} >
-          <h1>Splash Page</h1>
+        <ProtectedRoute path="/trips/:tripId">
+          <IndividualTrip />
+        </ProtectedRoute>
+        <Route path='/' >
+          <SplashPage />
         </Route>
       </Switch>
     </BrowserRouter>
