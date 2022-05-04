@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as eventActions from "../../store/events";
+import { useHistory } from "react-router-dom";
 
 
 function Event() {
@@ -21,10 +22,6 @@ function Event() {
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
-    }, [sessionUser])
-
-    useEffect(() => {
-        if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
     }, [sessionUser])
 
 

@@ -76,3 +76,11 @@ def delete_trip(id):
     db.session.delete(trip)
     db.session.commit()
     return {}
+
+
+
+#Get routes for all events in a single trip
+@trip_routes.route('/<int:id>/events', methods=['GET'])
+def events(id):
+    events = Event.query.filter(event.trip_id == id).all()
+    return events.to_dict()

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect
 from ..models import db, Event
-from ..forms import NewEvent
+from ..forms import NewEvent, EditEvent
 
 event_routes = Blueprint('events', __name__)
 
@@ -34,11 +34,6 @@ def events():
         print(form.errors)
         return "Bad Data"
 
-#Get routes for all events in a single trip
-@event_routes.route('/trips/<int:id>/events', methods=['GET'])
-def events(id):
-    events = Event.query.filter(event.trip_id == id).all()
-    return events.to_dict()
 
 
     #events should be inside single trip
@@ -75,7 +70,7 @@ def edit_event(id):
         db.session.commit()
         return event.to_dict
 
-#delete the single event 
+#delete the single event
 @event_routes.route("/<int:id>", methods=["DELETE"])
 def delete_event(id):
     event = Event.query.filter(Event.id == id).one()
