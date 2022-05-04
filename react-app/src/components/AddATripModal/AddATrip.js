@@ -43,7 +43,8 @@ function AddATrip() {
         newTripData.endDate = endDate
 
         dispatch(tripActions.newTrip(newTripData))
-        return <redirect to='/Home' />;
+        
+        history.push("/Home")
 
         // .then(() => history.push('/Home'))
         // .catch(async (res) => {

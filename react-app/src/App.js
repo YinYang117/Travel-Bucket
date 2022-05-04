@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Home from './components/Home';
+import IndividualTrip from './components/IndividualTrip';
 import { authenticate } from './store/session';
 import SplashPage from './components/SplashPage';
 
@@ -44,6 +45,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/Home' >
           <Home/>
+        </ProtectedRoute>
+        <ProtectedRoute path="/trips/:tripId">
+          <IndividualTrip />
         </ProtectedRoute>
         <Route path='/' >
           <SplashPage />

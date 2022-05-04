@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as tripActions from "../../store/trip"
+import { NavLink } from "react-router-dom";
 import "./TripCard.css"
 
 
@@ -57,7 +58,9 @@ function TripCard ({trip}) {
        <>
             <div>{trip.name}</div>
             <div>{trip.destination}</div>
-            <img src={trip.imageUrl} alt={`${trip.name} alt`} className="image"/>
+            <NavLink to={`/trips/${trip.id}`}>
+                <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
+            </NavLink>
             <div>{trip.startDate}</div>
             <div>{trip.endDate}</div>
             <button onClick={e => setShowEditForm(!showEditForm)}>Edit</button>
