@@ -36,6 +36,13 @@ function AddATripModal() {
 
         dispatch(tripActions.newTrip(newTripData))
         .then(() => {
+          setName("");
+          setDestination("");
+          setImageUrl("");
+          setStartDate("");
+          setEndDate("");
+          setErrors
+          ([]);
           setShowModal(false)
           history.push('/Home')
           // need a .then and redirect IF you add a new trip while on another trip details page
