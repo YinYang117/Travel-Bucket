@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
-import "./individualPage.css";
+// import "./individualPage.css";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
