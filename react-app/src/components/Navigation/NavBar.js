@@ -103,7 +103,7 @@ const NavBar = () => {
     <nav className="nav-container">
       <ul className="nav-bar-left">
         <li className="nav-list">
-          <NavLink to='/' exact={true} activeClassName='active'>
+          <NavLink to='/Home' exact={true} activeClassName='active'>
             Home
           </NavLink>
         </li>
