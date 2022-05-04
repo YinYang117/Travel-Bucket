@@ -8,6 +8,7 @@ import EditTripForm from "./editTripForm"
 import "./TripCard.css"
 
 
+
 function TripCard ({trip}) {
     // trip ^ needs {} 
     const history = useHistory()
