@@ -9,7 +9,7 @@ import "./TripCard.css"
 
 
 function TripCard ({trip}) {
-    // trip ^ needs {} 
+    // trip ^ needs {}
     const history = useHistory()
 
     const sessionUser = useSelector(state => state.session.user);
@@ -30,19 +30,21 @@ function TripCard ({trip}) {
             </NavLink>
             <div>{trip.startDate}</div>
             <div>{trip.endDate}</div>
+
             <button onClick={e => setShowEditModal(!showEditModal)}>Edit</button>
             {showEditModal && (
                 <Modal onClose={() => setShowEditModal(false)}>
                     <EditTripForm  hideModal={() => setShowEditModal(false)} trip={trip} />
                 </Modal>
             )}
+            
             <button onClick={e => setShowDeleteModal(true)}>Delete Trip</button>
             {showDeleteModal && (
                 <Modal onClose={() => setShowDeleteModal(false)}>
                     <DeleteTripForm  hideModal={() => setShowDeleteModal(false)} trip={trip} />
                 </Modal>
             )}
-       </> 
+       </>
     )
 }
 
