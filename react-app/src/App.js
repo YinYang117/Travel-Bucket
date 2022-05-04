@@ -46,6 +46,7 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <h1>Splash Page</h1>
+          <h1>Extended Splash Page</h1>
         </Route>
       </Switch>
     </BrowserRouter>

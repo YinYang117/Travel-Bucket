@@ -10,7 +10,7 @@ function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
-    const user = useSelector(state => state.session.user);
+    const sessionUser = useSelector(state => state.session.user);
 
     const onLogin = async (e) => {
         e.preventDefault();
@@ -35,10 +35,7 @@ function LoginForm() {
     //     return;
     // }
 
-    if (user) {
-        return <Redirect to='/Home' />;
-    }
-
+    if (sessionUser) return ( <Redirect to="/Home" /> );
 
     return (
         <div className="formContainer">

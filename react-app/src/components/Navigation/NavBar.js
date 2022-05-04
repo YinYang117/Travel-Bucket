@@ -47,7 +47,7 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LogoutButton from '../auth/LogoutButton';
+// import LogoutButton from '../auth/LogoutButton';
 import { useSelector } from "react-redux";
 import DemoButton from '../auth/DemoButton';
 import LoginFormModal from '../LoginFormModal';
@@ -62,28 +62,40 @@ const NavBar = () => {
   let sessionLinks;
   if (user) {
     sessionLinks = (
-      <div className="loggedInNav">
-        <AddATripModal/>
+      <ul className="logged-in-nav">
+        <li className="nav-list">
+          <AddATripModal/>
+        </li>
         {/* <NavLink to={`/users/${user.id}`}>User Profile</NavLink> */}
-        <NavLink to="/Home" exact={true} activeClassName='active'>
-          Trips
-        </NavLink>
+        <li className="nav-list">
+          <NavLink to="/Home" exact={true} activeClassName='active'>
+            Trips
+          </NavLink>
+        </li>
         {/* <li className="nav-list">
           <LogoutButton />
         </li> */}
-        <ProfileButton/>
-      </div>
+        <li className="nav-list">
+          <ProfileButton/>
+        </li>
+      </ul>
     );
   } else {
     sessionLinks = (
-      <>
-        <DemoButton />
-        <LoginFormModal />
-        <SignUpFormModal/>
+      <ul className="logged-out-nav">
+        <li className="nav-list">
+          <DemoButton />
+        </li>
+        <li className="nav-list">
+          <LoginFormModal />
+        </li>
+        <li className="nav-list">
+          <SignUpFormModal/>
+        </li>
         {/* <NavLink to='/sign-up' exact={true} activeClassName='active'>
           Sign Up
         </NavLink> */}
-      </>
+      </ul>
     );
   }
 
