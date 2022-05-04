@@ -41,8 +41,7 @@ function AddATripModal() {
           setImageUrl("");
           setStartDate("");
           setEndDate("");
-          setErrors
-          ([]);
+          setErrors([]);
           setShowModal(false)
           history.push('/Home')
           // need a .then and redirect IF you add a new trip while on another trip details page

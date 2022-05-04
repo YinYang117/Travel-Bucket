@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as tripActions from "../../store/trip"
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { Modal } from "../../context/Modal"
+import DeleteTripForm from "./DeleteTripForm"
 import "./TripCard.css"
 
 
@@ -21,6 +23,7 @@ function TripCard ({trip}) {
     const [endDate, setEndDate] = useState(trip?.endDate);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
@@ -31,13 +34,8 @@ function TripCard ({trip}) {
 
     useEffect(() => {
         let errors = [];
-
-        if(!(imageUrl.match(url))){
-            errors.push("Please enter a valid URL.")
-        } else if (!imageUrl.length) {
-            errors.push("Please enter a URl.")
-        }
-
+        if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
+        else if (!imageUrl.length) errors.push("Please enter a URl.")
         if(!name.length) errors.push("Please enter a trip name.")
         if(!destination.length) errors.push("Please enter a destination.")
         if(!startDate.length) errors.push("Please enter a start date.")
@@ -58,10 +56,13 @@ function TripCard ({trip}) {
         editedTripData.endDate = endDate
         
         dispatch(tripActions.editTrip(editedTripData))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
-            });
+        .then(() => {
+            setShowEditForm(false)
+        })
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
     };
 
     const deleteTrip = () => {
@@ -85,7 +86,6 @@ function TripCard ({trip}) {
             <div>{trip.startDate}</div>
             <div>{trip.endDate}</div>
             <button onClick={e => setShowEditForm(!showEditForm)}>Edit</button>
-            <button onClick={e => deleteTrip()}>Delete</button>
             { showEditForm && <form 
                 className="new-trip-form"
                 onSubmit={e => {
@@ -118,6 +118,12 @@ function TripCard ({trip}) {
                 <button className="new-trip-submit" type='submit' >Submit Trip Edits</button>
             </form>
             }
+            <button onClick={e => setShowDeleteModal(true)}>Delete Trip</button>
+            {showDeleteModal && (
+                <Modal onClose={() => setShowDeleteModal(false)}>
+                    <DeleteTripForm  hideModal={() => setShowDeleteModal(false)} trip={trip} />
+                </Modal>
+            )}
        </> 
     )
 }
