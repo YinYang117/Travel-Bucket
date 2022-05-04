@@ -5,7 +5,7 @@ from ..forms import NewNote
 note_routes = Blueprint('notes', __name__)
 
 #Get routes for all notes
-@note_routes.route('/', methods=['POST'])
+@note_routes.route('/new', methods=['POST'])
 def notes():
 
 
@@ -13,10 +13,12 @@ def notes():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = request.get_json(force=True)
+        print("THIS IS BACKEND NOTE DATA------------------------->", data)
         new_note = Note(
             owner_id = data["ownerId"],
             trip_id = data["tripId"],
-            trip_date = date["tripDate"],
+            # Add trip date later
+            # trip_date = data["tripDate"],
             note = data["note"],
         )
         db.session.add(new_note)

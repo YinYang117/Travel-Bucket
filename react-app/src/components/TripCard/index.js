@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import * as tripActions from "../../store/trip"
+import * as tripActions from "../../store/trip";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import "./TripCard.css"
+import "./TripCard.css";
 
 
 function TripCard ({trip}) {
