@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect, useReducer } from "react";
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
+import * as invitedUsersActions from "../../store/invited_user"
 // import "./individualPage.css";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -105,7 +106,7 @@ function IndividualTrip () {
         // console.log("THIS IS NOTE DATA", noteData)
         
 
-        dispatch(noteActions.postNote(noteData))
+        dispatch(invitedUsersActions.postInvitedUsers(addingUser))
             // .catch(async (res) => {
             //     const data = await res.json();
             //     if (data && data.errors) setErrors(data.errors);

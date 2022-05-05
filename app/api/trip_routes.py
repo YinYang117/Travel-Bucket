@@ -97,9 +97,10 @@ def adding_user(id):
         return {
             "users":[user.to_dict() for user in users]
         }
+
     
-    # if request.method == "POST":
-    #     trip.
+    if request.method == "POST":
+        data = data.request
 
 
 

@@ -44,7 +44,7 @@ export const postInvitedUsers = (tripAndUser) => async (disptach) => {
 
     if (response.ok) {
         const data = await response.json();
-        disptach(addTrip(data))
+        disptach(addInvitedUser(data))
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) return data.errors;
@@ -61,7 +61,7 @@ export const postInvitedUsers = (tripAndUser) => async (disptach) => {
 // }
 
 
-export const deleteTrip = (idString) => async (dispatch) => {
+export const removeInvitedUsers = (idString) => async (dispatch) => {
     const id = parseInt(idString, 10)
     const res = await fetch(`/api/trips/${id}`, {
         method: 'DELETE',
@@ -77,14 +77,14 @@ const initialState = {};
 const invitedUsersReducer = (state = initialState, action) => {
     let newState = Object.assign({}, state)
     switch (action.type) {
-        case LOAD_SINGLE_TRIP:
+        case POST_INVITED_USERS:
             newState[action.payload.id] = action.payload
             return newState
-        case LOAD_ALL_USER_RELATED_TRIPS:
-            newState = action.payload
-            return newState
+        // case LOAD_INVITED_USERS:
+        //     newState = action.payload
+        //     return newState
             // assumes incoming trips are flattened
-        case DELETE_TRIP:
+        case DELETE_INVITED_USERS:
             delete newState[action.payload]
             return newState
         default:
@@ -93,4 +93,4 @@ const invitedUsersReducer = (state = initialState, action) => {
 }
 
 
-export default tripsReducer;
+export default invitedUsersReducer;
