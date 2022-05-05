@@ -23,6 +23,7 @@ function IndividualTrip () {
     const [tripDate, setTripDate] = useState("");
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [tripDates, setTripDates] = useState([]);
 
     useEffect(() => {
         dispatch(noteActions.getNotes(tripId))
@@ -40,6 +41,10 @@ function IndividualTrip () {
     useEffect(() => {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
+
+    useEffect(() => {
+        itineraryMaker(trip.startDate, trip.endDate);
+    },[trip])
 
     const submitNote = () => {
         setHasSubmitted(true)
@@ -69,34 +74,15 @@ function IndividualTrip () {
             if (data && data.errors) setErrors(data.errors);
         });
     }
-    
-    let testing = new Date(trip.startDate);  // converting string of date into a new date object
-    const testingEnd = new Date(trip.endDate);
-    // console.log(testing.getDate());  // getting and printing exact date in a single month 
-    // console.log(testingEnd.getDate());
-    // const testingTimeBetween = testingEnd - testing; // getting exact time between end and start dates in ms
-    // console.log(testingTimeBetween);
-    // const tripDays=(testingTimeBetween)/(1000*60*60*24) // converting the ms into days to days
-    // console.log(tripDays);
-    testing -= 86400000;
-    console.log(testing);
-    let startDateX = new Date(testing);
-    console.log(startDateX.getDate());
 
     const itineraryMaker = (tripStart, tripEnd) => {
         let endDate = new Date(tripEnd);
-        let currentDate = new Date(tripStart);
         let itinerary = [];
-        itinerary.push(currentDate);
-        while (currentDate <= endDate) {
-            currentDate += 86400000
-            let nextDate = new Date(currentDate);
-            itinerary.push(nextDate);
+        for (let currentDate = new Date(tripStart); currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+            itinerary.push(new Date(currentDate));
         }
-        console.log(itinerary);
+        setTripDates(itinerary);
     } 
-
-    itineraryMaker(trip.startDate, trip.endDate);
 
     return (
         <>
@@ -127,6 +113,9 @@ function IndividualTrip () {
                 <button className="new-note-submit" type='submit' >Submit Note</button>
             </form>
             }
+        { tripDates && tripDates.map(tripDate => (
+            <TripDateCard key={tripDate} tripDate={tripDate}/>
+        )) }
         </>
     )
 }
