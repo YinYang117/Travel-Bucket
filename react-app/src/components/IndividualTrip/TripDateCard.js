@@ -20,6 +20,14 @@ function TripDateCard ({events, notes, tripDate}) {
             <div>
                 <h1>This is a Trip date Card</h1>
                 <div>{ tripDate?.getUTCMonth()+1 }, {tripDate?.getUTCDate()}</div>
+                {notes &&
+                    notes.map(note => (
+                        <li key={note.id}>
+                            {note.note}
+                            {/* <button onClick={e => deleteNote(note)}>Delete</button> */}
+                        </li>
+                    ))
+                }
                 {events &&
                     events.map(event =>
                         <div key={event.id}>

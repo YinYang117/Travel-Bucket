@@ -121,7 +121,7 @@ function IndividualTrip () {
                 </ul>
                 <button className="new-note-submit" type='submit' >Submit Note</button>
             </form>
-            }
+        }
         { tripDates && tripDates.map(tripDate => (
             <TripDateCard key={tripDate} events={events} notes={notes} tripDate={tripDate}/>
         )) }
