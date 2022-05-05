@@ -8,7 +8,7 @@ function DemoButton(){
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("")
+  const [errors, setErrors] = useState([])
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ function DemoButton(){
         }} type="demo">Demo User</button>
       </div>
       <div>
-          {errors.map((error) => (
+          {errors?.map((error) => (
             <div key={error}>{error}</div>
           ))}
       </div>
