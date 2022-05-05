@@ -1,23 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
 import * as eventActions from "../../store/event";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import TripDateCard from "./TripDateCard";
+import { TripContext } from '../../context/Trip';
 
 function IndividualTrip () {
     const dispatch = useDispatch()
     const {tripId}= useParams()
-    const trip = useSelector(state => state.trips[tripId])
+    const trip = useSelector(state => state.trips[tripId]);
+    const { currentTrip, setCurrentTrip } = useContext(TripContext);
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
     const notesObj = useSelector(state => state.notes)
     const notes = Object.values(notesObj)
     const eventsObj = useSelector(state => state.events)
-    const events = Object.values(eventsObj)
 
     const [showNoteForm, setShowNoteForm] = useState(false)
     const [note, setNote] = useState("");
@@ -26,7 +27,11 @@ function IndividualTrip () {
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [tripDates, setTripDates] = useState([]);
+    const [events, setEvents] = useState([]);
     
+    useEffect(() => {
+        setEvents(Object.values(eventsObj))
+    },[eventsObj])
 
     useEffect(() => {
         dispatch(noteActions.getNotes(tripId))
@@ -47,6 +52,7 @@ function IndividualTrip () {
 
     useEffect(() => {
         itineraryMaker(trip.startDate, trip.endDate);
+        setCurrentTrip(trip);
     },[trip])
 
     const submitNote = () => {

@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as eventActions from "../../store/event";
 import { useHistory } from "react-router-dom";
-import { Modal } from "../../context/Modal"
+import { Modal } from "../../context/Modal";
+import { TripContext } from '../../context/Trip';
 
 
 function Event({closeModal}) {
+    const { currentTrip, setCurrentTrip } = useContext(TripContext);
 
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
-
 
     const [ownerId, setOwnerId] = useState(sessionUser?.id);
     const [name, setName] = useState("");
@@ -33,9 +34,7 @@ function Event({closeModal}) {
         setErrors([]);
         setOwnerId(sessionUser.id)
         newEventData.ownerId = ownerId
-        // Hardcoded for testing ONLY!!!
-        newEventData.tripId = 31
-        // Hardcoded for testing ONLY!!!
+        newEventData.tripId = currentTrip.id
         newEventData.name = name
         newEventData.description = description
         newEventData.imageUrl = imageUrl
