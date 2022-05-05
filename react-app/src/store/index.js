@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import tripsReducer from './trip';
 import notesReducer from './note';
+import invitedUsersReducer from './invited_user';
 
 const rootReducer = combineReducers({
   session,
   trips:tripsReducer,
   notes:notesReducer,
+  invited:invitedUsersReducer,
 });
 
 

@@ -34,16 +34,20 @@ const deleteInvitedUsers = (id) => {
 /////////////////////////////////////////
 // thunks return a function that returns an action
 
-export const postInvitedUsers = (tripAndUser) => async (disptach) => {
-    const {tripId, userId} = tripAndUser
-    const response = await fetch('/api/trips/', { 
+export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
+    const {tripId, userName} = tripAndUserName
+    const response = await fetch('/api/invited_users', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({tripId, userId})
+        body: JSON.stringify({tripId, userName})
     });
 
     if (response.ok) {
         const data = await response.json();
+        console.log("THIS IS DATA FOR USERNAME IN THE STORE-------------------", data)
+        // data gives us username
+        // query here for trip id and user id 
+        // const response2 = await fetch(`/api/trips/${tripId}/users`)
         disptach(addInvitedUser(data))
     } else if (response.status < 500) {
         const data = await response.json();

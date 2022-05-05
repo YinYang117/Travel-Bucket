@@ -3,3 +3,4 @@ from .trip_routes import trip_routes
 from .note_routes import note_routes
 from .auth_routes import auth_routes
 from .user_routes import user_routes
+from .invited_users_routes import invited_users_routes

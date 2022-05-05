@@ -17,6 +17,8 @@ function IndividualTrip () {
     const notesObj = useSelector(state => state.notes)
     const notes = Object.values(notesObj)
 
+
+
     const [showNoteForm, setShowNoteForm] = useState(false)
     const [note, setNote] = useState("");
     const [ownerId, setOwnerId] = useState("");
@@ -26,7 +28,7 @@ function IndividualTrip () {
 
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
-    const [user, setUser] = useState("")
+    const [username, setUserName] = useState("")
     const [showingUsers, setShowingUsers] = useState([]);
 
     useEffect(() => {
@@ -63,11 +65,11 @@ function IndividualTrip () {
     useEffect(() => {
         let errorsAddedUser = [];
 
-        if(!user.length) errorsAddedUser.push("Please enter a user.")
+        if(!username.length) errorsAddedUser.push("Please enter a user.")
         //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
         setErrorsAddedUser(errorsAddedUser)
 
-    }, [user])
+    }, [username])
 
 
 
@@ -93,17 +95,49 @@ function IndividualTrip () {
     };
 
 // ------------------------THIS IS FOR THE USER -----------------------------------
+
+
+// console.log("THIS IS USER ID FROM THE FUNCTION----------------", actualUserId)
+
+
+
+    // const gettingUserId = () => {
+
+    //     for(let i = 0; i < showingUsers.length; i++) {
+
+    //         let eachUser = showingUsers[i]
+
+    //         if (eachUser["username"] === user) {
+    //             console.log(eachUser["id"])
+    //             return eachUser["id"]
+    //         }
+
+    //     }
+    // }
+
+    // gettingUserId()
+    
     
     const submitUser = () => {
         setHasSubmitted(true)
         if(errorsAddedUser.length > 0) return; 
+
+        // console.log("THIS IS SHOWING USERS-----------------", showingUsers)
+
+        // [{}, {}]
+        // { "email": "demo@aa.io","id": 1,"username": "Demo"}
+        // user = username of the user that you want to add to your trip 
   
         const addingUser = {}
-        addingUser.userId = showingUsers.id
+        // addingUser.userId = username.actualUserId
         addingUser.tripId = tripId
+        addingUser.username = username
         // noteData.tripDate = tripDate
+
+        // console.log("THIS IS SUBMITTED USER-------------------------", user)
+        console.log("THIS IS TRIP ID-------------------------", tripId)
         
-        // console.log("THIS IS NOTE DATA", noteData)
+         console.log("THIS IS ADDING USER DATA------------------", addingUser)
         
 
         dispatch(invitedUsersActions.postInvitedUsers(addingUser))
@@ -147,7 +181,7 @@ function IndividualTrip () {
                 <label className='label'>
                     Add a User:
                 </label>
-                <input onChange={e => setUser(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={user} />
+                <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={username} />
                 <ul className="new-note-errors">
                     {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
