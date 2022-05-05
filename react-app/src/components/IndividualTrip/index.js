@@ -16,6 +16,8 @@ function IndividualTrip () {
     const history = useHistory()
     const notesObj = useSelector(state => state.notes)
     const notes = Object.values(notesObj)
+    const eventsObj = useSelector(state => state.events)
+    const events = Object.values(eventsObj)
 
     const [showNoteForm, setShowNoteForm] = useState(false)
     const [note, setNote] = useState("");
@@ -24,6 +26,7 @@ function IndividualTrip () {
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [tripDates, setTripDates] = useState([]);
+    
 
     useEffect(() => {
         dispatch(noteActions.getNotes(tripId))
@@ -114,7 +117,7 @@ function IndividualTrip () {
             </form>
             }
         { tripDates && tripDates.map(tripDate => (
-            <TripDateCard key={tripDate} tripDate={tripDate}/>
+            <TripDateCard key={tripDate} events={events} notes={notes} tripDate={tripDate}/>
         )) }
         </>
     )
