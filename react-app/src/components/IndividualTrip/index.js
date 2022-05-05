@@ -37,9 +37,11 @@ function IndividualTrip () {
     },[sessionUser])
 
 
+ // ------------------------THIS IS FOR THE USER -----------------------------------
+
     useEffect(() => {
       async function fetchData() {
-        const response = await fetch('/api/users/');
+        const response = await fetch(`/api/trips/${tripId}/users`);
         const responseData = await response.json();
         setShowingUsers(responseData.users);
       }
@@ -95,20 +97,21 @@ function IndividualTrip () {
         setHasSubmitted(true)
         if(errorsAddedUser.length > 0) return; 
   
-        // const addingUser = {}
-        // addingUser.note = note
-        // addingUser.tripId = tripId
-        // // noteData.tripDate = tripDate
-        // addingUser.ownerId = trip.ownerId
+        const addingUser = {}
+        addingUser.userId = showingUsers.id
+        addingUser.tripId = tripId
+        // noteData.tripDate = tripDate
         
         // console.log("THIS IS NOTE DATA", noteData)
         
 
-        // dispatch(noteActions.postNote(noteData))
+        dispatch(noteActions.postNote(noteData))
             // .catch(async (res) => {
             //     const data = await res.json();
             //     if (data && data.errors) setErrors(data.errors);
             // });
+
+
 
     };
 

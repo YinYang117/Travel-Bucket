@@ -86,7 +86,20 @@ def delete_trip(id):
     db.session.commit()
     return {}
 
-# @trip_routes.route("/<int:id>", methods=["DELETE"])
-# def
+@trip_routes.route("/<int:id>/users", methods=["GET", "POST", "DELETE"])
+def adding_user(id):
+
+    if request.method == "GET":
+        trip = Trip.query.get(id)
+        users = trip.invited_users
+        # print("THIS IS TRIP", trip.to_dict)
+        # print("THIS IS USERS", users)
+        return {
+            "users":[user.to_dict() for user in users]
+        }
+    
+    # if request.method == "POST":
+    #     trip.
+
 
 
