@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import EventForm from "./EventForm";
 import EditEvent from "./EditEventForm";
-import DeleteEvent from "./DeleteEventForm"
+import DeleteEvent from "./DeleteEventForm";
 import { useSelector } from "react-redux";
 
 function EventFormModal() {
@@ -15,10 +15,6 @@ function EventFormModal() {
 
     return (
         <>
-            <h1> All Events </h1>
-            <h1> All Events </h1>
-            <h1> All Events </h1>
-            <h1> All Events </h1>
             <h1> All Events </h1>
             <button className="EventButton" onClick={() => setShowModal(!showModal)}>
                 {/* <i class="fa-solid fa-right-to-bracket"></i> */}

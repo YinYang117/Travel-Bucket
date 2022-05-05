@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { deleteEvent } from '../../store/event'
+import { deleteEvent } from '../../store/event';
 
 function DeleteEvent ({ hideModal, event }) {
   const dispatch = useDispatch();
