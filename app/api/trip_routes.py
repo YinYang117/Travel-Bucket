@@ -1,7 +1,8 @@
 from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip, EditTrip
-from ..models import db, Trip
+from ..models import db, Trip, User
 from datetime import datetime
+# from flask_login import login_required, current_user
 
 
 trip_routes = Blueprint('trips', __name__)
@@ -14,15 +15,12 @@ def trips():
     if request.method == 'POST':
         form = NewTrip()
         form['csrf_token'].data = request.cookies['csrf_token']
-        print("FORM---------------", form)
         if form.validate_on_submit():
             data = request.get_json(force=True)
             # Could be NewTrip() below
             # new_trip = Trip()
             # print("NEW TRIP ----------------", new_trip)
             # form.populate_obj(new_trip)
-            print("BACKEND FORM---------", form)
-            print("THIS IS DATA---------------", data)
             new_trip = Trip(
                 owner_id=data["ownerId"],
                 name=data["name"],
@@ -87,6 +85,7 @@ def delete_trip(id):
     return {}
 
 @trip_routes.route("/<int:id>/users", methods=["GET", "POST", "DELETE"])
+# @login_required
 def adding_user(id):
 
     if request.method == "GET":
@@ -104,10 +103,13 @@ def adding_user(id):
         # so data should look like {"userId: 1, tripId: 1"} when hitting the backend with data
         print("THIS IS DATA FROM INVITED USERS BACKEND------------------------", data)
         # need to query for the selected user that wants to be added
-        user_id_from_data = data["userId"]
-        selected_user = User.query.filter(User.id == user_id_from_data)
+        user_id_from_data = data["invitedUserId"]
+        print("THIS IS ID--------------------------", user_id_from_data)
+        selected_user = User.query.filter(User.id == 1)
+        print("THIS IS SELECTED USER-------------------------------", selected_user)
         individual_trip = Trip.query.get(id)
         individual_trip.invited_users.append(selected_user)
+
         db.session.commit()
         return data
 

@@ -36,6 +36,7 @@ const deleteInvitedUsers = (id) => {
 
 export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
     const {tripId, userName} = tripAndUserName
+    console.log("THIS IS WHETHER OR NOT THIS IS A KEY VALUE PAIR OR NOT-----------------", tripId)
     const response = await fetch('/api/invited_users/', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -44,11 +45,28 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
 
     if (response.ok) {
         const data = await response.json();
+        // data = {invitedUser: {email: 'marnie@aa.io', id: 2, username: 'marnie'}, tripId: '1'}
+        let invitedUserId = data.invitedUser.id
+
         console.log("THIS IS DATA FOR USERNAME IN THE STORE-------------------", data)
-        // data gives us username
-        // query here for trip id and user id 
-        // const response2 = await fetch(`/api/trips/${tripId}/users`)
-        disptach(addInvitedUser(data))
+        console.log("ThIS IS INVITED USER ID FOR THE STORE------", invitedUserId)
+        
+        // let integerInvitedUserId = parseInt(invitedUserId, 10)
+        // // data gives us username
+        // // query here for trip id and user id 
+        const response2 = await fetch(`/api/trips/${tripId}/users`, {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({invitedUserId, tripId})
+        })
+        
+        // if (response2.ok) {
+            disptach(addInvitedUser(data))
+        // } else if (response2.status < 500) {
+        //     const data = await response.json();
+        //     if (data.errors) return data.errors;
+        // }
+
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) return data.errors;
