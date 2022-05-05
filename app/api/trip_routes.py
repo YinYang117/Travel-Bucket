@@ -101,16 +101,17 @@ def adding_user(id):
     if request.method == "POST":
         data = request.get_json(force=True)
         # so data should look like {"userId: 1, tripId: 1"} when hitting the backend with data
-        print("THIS IS DATA FROM INVITED USERS BACKEND------------------------", data)
+        # print("THIS IS DATA FROM INVITED USERS BACKEND------------------------", data)
         # need to query for the selected user that wants to be added
         user_id_from_data = data["invitedUserId"]
-        print("THIS IS ID--------------------------", user_id_from_data)
-        selected_user = User.query.filter(User.id == 1)
-        print("THIS IS SELECTED USER-------------------------------", selected_user)
+        # print("THIS IS ID--------------------------", user_id_from_data)
+        selected_user = User.query.filter(User.id == user_id_from_data).one()
+        # print("THIS IS SELECTED USER-------------------------------", selected_user)
         individual_trip = Trip.query.get(id)
         individual_trip.invited_users.append(selected_user)
 
         db.session.commit()
+        print("THIS IS USER TRIP-------------------------------", selected_user.invited_trips)
         return data
 
     # if request.method == "DELETE":
