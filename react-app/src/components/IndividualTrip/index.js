@@ -28,7 +28,7 @@ function IndividualTrip () {
 
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
-    const [username, setUserName] = useState("")
+    const [userName, setUserName] = useState("")
     const [showingUsers, setShowingUsers] = useState([]);
 
     useEffect(() => {
@@ -65,11 +65,11 @@ function IndividualTrip () {
     useEffect(() => {
         let errorsAddedUser = [];
 
-        if(!username.length) errorsAddedUser.push("Please enter a user.")
+        if(!userName.length) errorsAddedUser.push("Please enter a user.")
         //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
         setErrorsAddedUser(errorsAddedUser)
 
-    }, [username])
+    }, [userName])
 
 
 
@@ -131,7 +131,7 @@ function IndividualTrip () {
         const addingUser = {}
         // addingUser.userId = username.actualUserId
         addingUser.tripId = tripId
-        addingUser.username = username
+        addingUser.userName = userName
         // noteData.tripDate = tripDate
 
         // console.log("THIS IS SUBMITTED USER-------------------------", user)
@@ -181,7 +181,7 @@ function IndividualTrip () {
                 <label className='label'>
                     Add a User:
                 </label>
-                <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={username} />
+                <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
                 <ul className="new-note-errors">
                     {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>

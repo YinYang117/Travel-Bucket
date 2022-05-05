@@ -5,7 +5,7 @@ from ..models import db, User
 
 invited_users_routes = Blueprint('invited_users', __name__)
 
-@invited_users_routes.route('/')
+@invited_users_routes.route('/', methods=["POST"])
 @login_required
 def users():
     data = request.get_json(force=True)
@@ -14,5 +14,5 @@ def users():
     user = User.query.filter(User.username == data["userName"]).one()
     print("THIS IS USER FOR THE BACKEND ROUTES--------------", user)
     return {
-        user, tripId
+        "invitedUser": user.to_dict(), "tripId": tripId
     }
