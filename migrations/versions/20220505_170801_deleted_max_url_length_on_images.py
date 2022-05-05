@@ -1,8 +1,8 @@
-"""updated models
+"""deleted max url length on images
 
-Revision ID: 08de354d8b15
+Revision ID: 96e945249d58
 Revises: 
-Create Date: 2022-05-03 20:39:25.905100
+Create Date: 2022-05-05 17:08:01.909955
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '08de354d8b15'
+revision = '96e945249d58'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,7 +32,7 @@ def upgrade():
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('destination', sa.String(length=255), nullable=False),
-    sa.Column('image_url', sa.String(length=510), nullable=False),
+    sa.Column('image_url', sa.String(), nullable=False),
     sa.Column('start_date', sa.Date(), nullable=False),
     sa.Column('end_date', sa.Date(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
@@ -46,7 +46,7 @@ def upgrade():
     sa.Column('trip_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('description', sa.String(length=4000), nullable=False),
-    sa.Column('image_url', sa.String(length=510), nullable=False),
+    sa.Column('image_url', sa.String(), nullable=False),
     sa.Column('location', sa.String(length=255), nullable=False),
     sa.Column('start_date', sa.Date(), nullable=True),
     sa.Column('end_date', sa.Date(), nullable=True),

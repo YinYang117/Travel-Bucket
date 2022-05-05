@@ -11,7 +11,7 @@ class Event(db.Model):
     trip_id = db.Column(db.Integer, db.ForeignKey("trips.id"), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(4000), nullable=False)
-    image_url = db.Column(db.String(510), nullable=False)
+    image_url = db.Column(db.String, nullable=False)
     location = db.Column(db.String(255), nullable=False)
     start_date = db.Column(db.Date, nullable=True)
     end_date = db.Column(db.Date, nullable=True)

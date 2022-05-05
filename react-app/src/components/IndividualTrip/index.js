@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
-
+import * as eventActions from "../../store/event";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import TripDateCard from "./TripDateCard";
 
 function IndividualTrip () {
     const dispatch = useDispatch()
@@ -24,11 +25,8 @@ function IndividualTrip () {
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
     useEffect(() => {
-        if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
-    },[sessionUser])
-
-    useEffect(() => {
-        if (sessionUser) dispatch(noteActions.getNotes(tripId))
+        dispatch(noteActions.getNotes(tripId))
+        dispatch(eventActions.loadAllEvents(tripId))
     },[sessionUser])
 
     useEffect(() => {
@@ -38,6 +36,10 @@ function IndividualTrip () {
         setErrors(errors)
 
     }, [note])
+
+    useEffect(() => {
+        if (!sessionUser) history.push('/')
+    }, [sessionUser])
 
     const submitNote = () => {
         setHasSubmitted(true)
@@ -51,7 +53,6 @@ function IndividualTrip () {
         
         console.log("THIS IS NOTE DATA", noteData)
         
-
         dispatch(noteActions.postNote(noteData))
             // .catch(async (res) => {
             //     const data = await res.json();
@@ -69,6 +70,34 @@ function IndividualTrip () {
         });
     }
     
+    let testing = new Date(trip.startDate);  // converting string of date into a new date object
+    const testingEnd = new Date(trip.endDate);
+    // console.log(testing.getDate());  // getting and printing exact date in a single month 
+    // console.log(testingEnd.getDate());
+    // const testingTimeBetween = testingEnd - testing; // getting exact time between end and start dates in ms
+    // console.log(testingTimeBetween);
+    // const tripDays=(testingTimeBetween)/(1000*60*60*24) // converting the ms into days to days
+    // console.log(tripDays);
+    testing -= 86400000;
+    console.log(testing);
+    let startDateX = new Date(testing);
+    console.log(startDateX.getDate());
+
+    const itineraryMaker = (tripStart, tripEnd) => {
+        let endDate = new Date(tripEnd);
+        let currentDate = new Date(tripStart);
+        let itinerary = [];
+        itinerary.push(currentDate);
+        while (currentDate <= endDate) {
+            currentDate += 86400000
+            let nextDate = new Date(currentDate);
+            itinerary.push(nextDate);
+        }
+        console.log(itinerary);
+    } 
+
+    itineraryMaker(trip.startDate, trip.endDate);
+
     return (
         <>
         <h1>INDIVIDUAL PAGE</h1>

@@ -9,7 +9,7 @@ class Trip(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     destination = db.Column(db.String(255), nullable=False)
-    image_url = db.Column(db.String(510), nullable=False)
+    image_url = db.Column(db.String, nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     created_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
