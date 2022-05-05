@@ -100,7 +100,19 @@ def adding_user(id):
 
     
     if request.method == "POST":
-        data = data.request
+        data = request.get_json(force=True)
+        print("THIS IS DATA FROM INVITED USERS BACKEND------------------------", data)
+        individual_trip = Trip.query.get(id)
+        individual_trip.invited_users.append(data)
+        db.session.commit()
+        return data
+
+    # if request.method == "DELETE":
+    #     trip = Trip.query.filter(Trip.id == id).one()
+    #     db.session.delete(trip)
+    #     db.session.commit()
+    #     return {}
+
 
 
 
