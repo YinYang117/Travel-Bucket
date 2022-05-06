@@ -4,6 +4,7 @@ import * as noteActions from "../../store/note";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import { TripContext } from '../../context/Trip';
+import "./NoteModal.css";
 
 function NoteForm({ closeModal }) {
 
@@ -46,21 +47,23 @@ function NoteForm({ closeModal }) {
 
 
     return (
-        <form
-            className="new-note-form"
-            onSubmit={e => {
-                e.preventDefault();
-                submitNote();
-            }}>
-            <label className='label'>
-                Note:
-            </label>
-            <input onChange={e => setNote(e.target.value)} type="text" className="new-note-text" placeholder="Add note text here..." value={note} />
-            <ul className="new-note-errors">
-                {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
-            <button className="new-note-submit" type='submit' >Submit Note</button>
-        </form>
+        <div className="formContainer8">
+            <form
+                className="new-note-form"
+                onSubmit={e => {
+                    e.preventDefault();
+                    submitNote();
+                }}>
+                <label className='label'>
+                    Note:
+                </label>
+                <input onChange={e => setNote(e.target.value)} type="text" className="new-note-text" placeholder="Add note text here..." value={note} />
+                <ul className="new-note-errors">
+                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <button id="new-note-submit" type='submit' >Submit Note</button>
+            </form>
+        </div>
     );
 }
 export default NoteForm;

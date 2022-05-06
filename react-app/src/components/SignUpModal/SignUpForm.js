@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
-//import DemoButton from "./DemoButton";
+import './SignUpForm.css'
 
 const SignUpForm = () => {
     const [errors, setErrors] = useState([]);
@@ -23,23 +23,10 @@ const SignUpForm = () => {
         } else setErrors(["Password did not match. Please try again."]);
     };
 
-
-    // //demo user onclick function
-    // const demo = () => {
-    //   setEmail("demo@aa.io")
-    //   setPassword("password")
-    //   return;
-    // }
-
-
-    //   if (user) {
-    //     return <Redirect to='/' />;
-    //   }
-
     if (user) return <Redirect to="/Home" />;
 
     return (
-        <div className="formContainer">
+        <div className="formContainer2">
             <form onSubmit={onSignUp}>
                 <div>
                     {errors.map((error, ind) => (
@@ -88,7 +75,7 @@ const SignUpForm = () => {
                     ></input>
                 </div>
                 {/* <DemoButton /> */}
-                <button type='submit'>Sign Up</button>
+                <button id="loginButton" type='submit'>Sign Up</button>
             </form>
         </div>
     );

@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { removeNote, getTripNotes } from '../../store/note';
 import React, { useState, useEffect, useContext } from "react";
+import "./DeleteNoteModal.css";
 
 function DeleteNote({ hideModal, note }) {
     const dispatch = useDispatch();
@@ -22,16 +23,18 @@ function DeleteNote({ hideModal, note }) {
     };
 
     return (
-        <form id="delete_note_form" onSubmit={e => handleSubmit(e, note)}>
-            <h3>Are you sure you want to delete your <span id="delete_note_name">{note.name}</span> Note?</h3>
-            <div id="delete_note_buttons">
-                <button id="delete" className="deleteButton" type="submit">Confirm Delete</button>
-                <button id="cancel" className="cancelDelete" onClick={handleCancelClick}>Cancel</button>
-                <ul className="new-trip-errors">
-                    {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-            </div>
-        </form>
+        <div className="formContainer7">
+            <form id="delete_note_form" onSubmit={e => handleSubmit(e, note)}>
+                <h3>Are you sure you want to delete your <span id="delete_note_name">{note.name}</span> Note?</h3>
+                <div id="delete_note_buttons">
+                    <button id="delete" className="deleteButton" type="submit">Confirm Delete</button>
+                    <button id="delete" className="cancelDelete" onClick={handleCancelClick}>Cancel</button>
+                    <ul className="new-trip-errors">
+                        {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                </div>
+            </form>
+        </div>
     )
 }
 

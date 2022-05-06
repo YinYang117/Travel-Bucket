@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editEvent } from "../../store/event";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal"
+import './EditEventModal.css';
 
 
 function EditEvent({closeModal, event}) {
@@ -49,7 +50,7 @@ function EditEvent({closeModal, event}) {
 
     return (
         <>
-            <div className="formContainer">
+            <div className="formContainer5">
                 <h1> Edit An Event </h1>
                 <form
                     className="edit-event-form"
@@ -85,8 +86,8 @@ function EditEvent({closeModal, event}) {
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
                     <div id="edit_trip_buttons">
-                        <button className="edit-event-submit" type='submit' >Submit edit event</button>
-                        <button id="cancel" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>
+                        <button id="new-event-submit" type='submit' >Submit Edit Event</button>
+                        <button id="new-event-submit" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>
                     </div>
                 </form>
             </div>

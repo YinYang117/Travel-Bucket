@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import './LoginForm.css';
 
 function LoginForm() {
     const dispatch = useDispatch();
@@ -67,7 +68,7 @@ function LoginForm() {
                         onChange={updatePassword}
                     />
                     {/* <button type='demo' onClick={demo}>Demo User</button> */}
-                    <button type='submit'>Login</button>
+                    <button id="loginButton" type='submit'>Login</button>
                 </div>
             </form>
         </div>

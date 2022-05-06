@@ -1,5 +1,5 @@
-.formContainer2 {
-    height: 550px;
+.formContainer8 {
+    height: 250px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
@@ -13,7 +13,7 @@
     padding: 50px 35px;
 }
 
-.formContainer2  *{
+.formContainer8  *{
     font-family: 'Poppins',sans-serif;
     color: #ffffff;
     letter-spacing: 0.5px;
@@ -21,8 +21,8 @@
     border: none;
 }
 
-.formContainer2  h3{
-    font-size: 32px;
+.formContainer8  h3{
+    font-size: 26px;
     font-weight: 500;
     line-height: 42px;
     text-align: center;
@@ -30,7 +30,7 @@
 
 label {
     display: block;
-    margin-top: 30px;
+    margin-top: 14px;
     font-size: 16px;
     font-weight: 500;
 }
@@ -51,7 +51,7 @@ input {
     color: #e5e5e5;
 }
 
-#loginButton {
+#new-note-submit {
     margin-top: 50px;
     width: 100%;
     color: #ffffff;
@@ -62,8 +62,8 @@ input {
     cursor: pointer;
 }
 
-#loginButton:hover,
-#loginButton:active {
+#new-note-submit:hover,
+#new-note-submit:active {
     color: #080710;
     background-color: #ffffff;
 }
