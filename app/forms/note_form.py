@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired
 class NewNote(FlaskForm):
     ownerId = IntegerField("Owner", validators=[DataRequired()])
     tripId = IntegerField("Associated Trip", validators=[DataRequired()])
-    tripDate = DateField("Date", validators=[DataRequired()])
+    tripDate = DateField("Date")
     note = StringField("Note", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
