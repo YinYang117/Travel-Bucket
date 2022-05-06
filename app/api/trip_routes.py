@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip, EditTrip
-from ..models import db, Trip, User
+from ..models import db, Trip, User, Event
 from datetime import datetime
 # from flask_login import login_required, current_user
 
@@ -115,5 +115,8 @@ def adding_user(id):
 #Get routes for all events in a single trip
 @trip_routes.route('/<int:id>/events', methods=['GET'])
 def events(id):
-    events = Event.query.filter(event.trip_id == id).all()
-    return events.to_dict()
+    events = Event.query.filter(Event.trip_id == id).all()
+    all_events = {}
+    for event in events:
+        all_events[event.id] = event.to_dict
+    return all_events

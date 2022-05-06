@@ -1,6 +1,6 @@
 //import { csrfFetch } from './csrf';
 
-// const LOAD_INVITED_USERS = "invited_user/loadInvitedUsers"
+const LOAD_INVITED_USERS = "invited_user/loadInvitedUsers"
 const POST_INVITED_USERS = "invited_user/postInvitedUsers"
 const DELETE_INVITED_USERS = "invited_user/deleteInvitedUsers"
 
@@ -16,12 +16,12 @@ const addInvitedUser = (tripAndUser) => {
     };
 }
 
-// const loadInvitedUser = (trips) => {
-//     return {
-//         type: LOAD_INVITED_USERS,
-//         payload: trips
-//     };
-// };
+const getInvitedUsers = (trips) => {
+    return {
+        type: LOAD_INVITED_USERS,
+        payload: trips
+    };
+};
 
 const deleteInvitedUsers = (id) => {
     return {
@@ -73,14 +73,15 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
     } else return ['An error occurred. Please try again.']
 }
 
-// export const loadInvitedUsers = (userId) => async (dispatch) => {
-//     const res = await fetch(`/api/trips/users/${userId}`)
-//     // const res = await fetch(`/api/trips/users/${userId}/`) // thinking we dont need the trailing slashes
-//     if (res.ok) {
-//         const data = await res.json();
-//         dispatch(loadInvitedUsers(data))
-//     }
-// }
+export const loadInvitedUsers = (tripId) => async (dispatch) => {
+    const res = await fetch(`/api/trips/${tripId}/users`)
+    // const res = await fetch(`/api/trips/users/${userId}/`) // thinking we dont need the trailing slashes
+    if (res.ok) {
+        const data = await res.json();
+        console.log("THIS IS INVITED USERS FOR THE FRONTEND FOR GET---------------", data)
+        dispatch(getInvitedUsers(data))
+    }
+}
 
 
 export const removeInvitedUsers = (idString) => async (dispatch) => {
@@ -102,9 +103,9 @@ const invitedUsersReducer = (state = initialState, action) => {
         case POST_INVITED_USERS:
             newState[action.payload.id] = action.payload
             return newState
-        // case LOAD_INVITED_USERS:
-        //     newState = action.payload
-        //     return newState
+        case LOAD_INVITED_USERS:
+            newState = action.payload
+            return newState
             // assumes incoming trips are flattened
         case DELETE_INVITED_USERS:
             delete newState[action.payload]
