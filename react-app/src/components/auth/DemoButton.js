@@ -30,7 +30,7 @@ function DemoButton(){
         }} type="demo">Demo User</button>
       </div>
       <div>
-          {errors.map((error) => (
+          {errors?.map((error) => (
             <div key={error}>{error}</div>
           ))}
       </div>

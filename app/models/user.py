@@ -2,7 +2,6 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from .trip_invites import trip_invites
-# from .trips import Trip 
 
 
 class User(db.Model, UserMixin):
@@ -14,7 +13,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     trips = db.relationship('Trip', back_populates="user")
-    invited_trips = db.relationship("Trip", secondary=trip_invites,back_populates="invited_users")
+    invited_trips = db.relationship("Trip", secondary=trip_invites,back_populates="invited_users", cascade="all, delete")
     owned_events = db.relationship("Event", back_populates="owner")
     owned_notes = db.relationship("Note", back_populates="owner")
 
