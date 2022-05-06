@@ -50,14 +50,14 @@ def new_note():
 @note_routes.route("/<int:id>", methods=["PUT", "DELETE"])
 def note_changes(id):
     if request.method == "DELETE":
-        note = Note.get(id)
+        note = Note.query.get(id)
         db.session.delete(note)
         db.session.commit()
         return {}
     
     else:
         if form.validate_on_submit():
-            this_note = Note.get(id)
+            this_note = Note.query.get(id)
             this_note.note = form.data["note"],
             this_note.trip_date = form.data["tripDate"],
             current_time = date.today

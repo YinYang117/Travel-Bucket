@@ -74,7 +74,7 @@ def change_trip(id):
         form = EditTrip()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            trip = Trip.get(id)
+            trip = Trip.query.get(id)
             trip.name= data["name"]
             trip.destination = data["destination"]
             trip.image_url = data["imageUrl"]
@@ -89,7 +89,7 @@ def change_trip(id):
         else:
             return {'errors': validation_errors_to_error_messages(form.errors)}, 401
     else:
-        trip = Trip.get(id)
+        trip = Trip.query.get(id)
         db.session.delete(trip)
         db.session.commit()
         return {}   
