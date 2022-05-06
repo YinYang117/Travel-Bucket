@@ -1,8 +1,8 @@
-"""deleted max url length on images
+"""more database changes
 
-Revision ID: 96e945249d58
+Revision ID: 69c338ca1142
 Revises: 
-Create Date: 2022-05-05 17:08:01.909955
+Create Date: 2022-05-06 11:58:12.688337
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '96e945249d58'
+revision = '69c338ca1142'
 down_revision = None
 branch_labels = None
 depends_on = None
