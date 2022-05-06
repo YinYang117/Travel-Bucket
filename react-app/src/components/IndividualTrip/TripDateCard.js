@@ -8,45 +8,37 @@ import DeleteEvent from "../EventModal/DeleteEventForm";
 import { TripContext } from '../../context/Trip';
 
 
-function TripDateCard ({events, notes, tripDate}) {
+function TripDateCard({ events, notes, tripDate }) {
     const { currentTrip, setCurrentTrip } = useContext(TripContext);
-    
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
-    // console.log("TRIP CARD EVENTS ----->", events);
+
+  
     return (
         <>
             <div>
                 <h1>This is a Trip date Card</h1>
-                <div>{ tripDate?.getUTCMonth()+1 }, {tripDate?.getUTCDate()}</div>
-                {notes &&
-                    notes.map(note => (
-                        <li key={note.id}>
-                            {note.note}
-                            {/* <button onClick={e => deleteNote(note)}>Delete</button> */}
-                        </li>
-                    ))
-                }
+                <div>{tripDate?.getUTCMonth() + 1}, {tripDate?.getUTCDate()}</div>
                 {events &&
                     events.map(event =>
                         <div key={event.id}>
                             <div>{event.name}</div>
                             <button onClick={e => setShowEditModal(!showEditModal)}>Edit</button>
                             {showEditModal && (
-                            <Modal onClose={() => setShowEditModal(false)}>
-                                <EditEvent  closeModal={() => setShowEditModal(false)} event={event} />
-                            </Modal>
+                                <Modal onClose={() => setShowEditModal(false)}>
+                                    <EditEvent closeModal={() => setShowEditModal(false)} event={event} />
+                                </Modal>
                             )}
                             <button onClick={e => setShowDeleteModal(true)}>Delete Event</button>
                             {showDeleteModal && (
-                            <Modal onClose={() => setShowDeleteModal(false)}>
-                                <DeleteEvent hideModal={() => setShowDeleteModal(false)} event={event} />
-                            </Modal>
+                                <Modal onClose={() => setShowDeleteModal(false)}>
+                                    <DeleteEvent hideModal={() => setShowDeleteModal(false)} event={event} />
+                                </Modal>
                             )}
                         </div>
                     )
-                }  
+                }
                 <button className="EventButton" onClick={() => setShowModal(!showModal)}>
                     {/* <i class="fa-solid fa-right-to-bracket"></i> */}
                     Add a Event
@@ -56,7 +48,7 @@ function TripDateCard ({events, notes, tripDate}) {
                         <EventForm closeModal={() => setShowModal(false)} />
                     </Modal>
                 )}
-            </div> 
+            </div>
         </>
     )
 }

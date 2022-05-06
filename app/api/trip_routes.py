@@ -92,7 +92,7 @@ def change_trip(id):
         trip = Trip.query.get(id)
         db.session.delete(trip)
         db.session.commit()
-        return {}   
+        return {}
 
 
 @trip_routes.route("/<int:id>/users", methods=["GET", "POST", "DELETE"])
@@ -150,4 +150,3 @@ def trip_events(id):
         return all_events
     else:
         return {'error': ['No Events found for this Trip']}
-
