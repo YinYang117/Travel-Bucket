@@ -121,14 +121,19 @@ function IndividualTrip() {
             itinerary.push(new Date(currentDate));
         }
         setTripDates(itinerary);
+        console.log('trip dates----------', tripDates)
     }
 
     const eventFilter = (tripDate) => {
+        // console.log('are threr even evnts in here',events)
         let dailyEvents = []
         events.forEach(event => {
-            console.log('event', event)
-            console.log('tripDate', tripDate)
-            console.log(event.startDate === tripDate)
+            let testDate = new Date(event.startDate)
+            // console.log('tripDate', tripDate.getDate())
+            // console.log('type of event.startDate', event.startDate.getDate())
+            console.log(testDate)
+            console.log(tripDate)
+            console.log(testDate === tripDate)
             if (event.startDate === tripDate) dailyEvents.push(event)
             else if (event.endDate === tripDate) dailyEvents.push(event)
             else if (event.startDate < tripDate && event.endDate > tripDate) {
@@ -139,7 +144,7 @@ function IndividualTrip() {
                 }
             }
         })
-        console.log('this is daily events func', dailyEvents)
+        // console.log('this is daily events func', dailyEvents)
         return dailyEvents
     }
 
@@ -185,7 +190,7 @@ function IndividualTrip() {
                 </div>
             )}
             {tripDates && tripDates.map(tripDate => (
-                <TripDateCard key={tripDate} events={eventFilter(events)} notes={notes} tripDate={tripDate} />
+                <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
             ))}
         </>
     )
