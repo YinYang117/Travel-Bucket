@@ -3,6 +3,7 @@ import { Modal } from "../../context/Modal";
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from "react-router-dom";
 import * as tripActions from "../../store/trip"
+import "./AddATrip.css"
 
 
 function AddATripModal() {
@@ -62,7 +63,7 @@ function AddATripModal() {
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <div className="formContainer">
+          <div className="formContainer3">
             <h1> Add A Trip </h1>
             <form
               className="new-trip-form"
@@ -93,7 +94,7 @@ function AddATripModal() {
               <ul className="new-trip-errors">
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
               </ul>
-              <button className="new-trip-submit" type='submit' >Submit New Trip</button>
+              <button id="new-trip-submit" type='submit' >Submit New Trip</button>
             </form>
           </div>
         </Modal>

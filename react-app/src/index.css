@@ -189,6 +189,8 @@ h2{
 
 #all-trips {
     text-align: center;
+    text-shadow: 0 1px;
+    color: #444444;
 }
 
 .trip-gallery {
