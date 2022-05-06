@@ -1,7 +1,8 @@
 from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip, EditTrip
-from ..models import db, Trip, User
+from ..models import db, Trip, User, Event
 from datetime import date
+
 
 trip_routes = Blueprint('trips', __name__)
 
@@ -110,16 +111,18 @@ def trip_users(id):
 
     if request.method == "POST":
         data = request.get_json(force=True)
+        # data should look like {"userId: 1, tripId: 1"}
         user_id = data["invitedUserId"]
         user = User.get(user_id)
         trip = Trip.query.get(id)
-        if (user and trip):
+        if user and trip:
             trip.invited_users.append(user)
         else:
             return {'error': ['Either User or Trip was not found']}
 
         db.session.commit()
         # print(trip.invited_users)
+        # can return anything really
         return trip
 
     if request.method == "DELETE":
@@ -143,3 +146,4 @@ def trip_events(id):
         return all_events
     else:
         return {'error': ['No Events found for this Trip']}
+
