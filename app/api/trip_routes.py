@@ -1,7 +1,8 @@
 from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip, EditTrip
-from ..models import db, Trip
+from ..models import db, Trip, User
 from datetime import datetime
+# from flask_login import login_required, current_user
 
 trip_routes = Blueprint('trips', __name__)
 
@@ -22,7 +23,7 @@ def trips():
         db.session.add(new_trip)
         db.session.commit()
         return new_trip.to_dict
-
+      
     else:
         print(form.errors)
         # Make a better form bad data return
@@ -48,7 +49,6 @@ def all_user_trips(id):
 
 @trip_routes.route("/<int:id>", methods=["PUT"])
 def edit_trip(id):
-
     if request.method == 'PUT':
         form = EditTrip()
         form['csrf_token'].data = request.cookies['csrf_token']
@@ -75,6 +75,40 @@ def delete_trip(id):
     db.session.delete(trip)
     db.session.commit()
     return {}
+
+
+@trip_routes.route("/<int:id>/users", methods=["GET", "POST", "DELETE"])
+# @login_required
+def adding_user(id):
+
+    if request.method == "GET":
+        trip = Trip.query.get(id)
+        users = trip.invited_users
+        # print("THIS IS TRIP", trip.to_dict)
+        # print("THIS IS USERS", users)
+        return {"users":[user.to_dict() for user in users]}
+
+    
+    if request.method == "POST":
+        data = request.get_json(force=True)
+        # so data should look like {"userId: 1, tripId: 1"} when hitting the backend with data
+        print("THIS IS DATA FROM INVITED USERS BACKEND------------------------", data)
+        # need to query for the selected user that wants to be added
+        user_id_from_data = data["invitedUserId"]
+        print("THIS IS ID--------------------------", user_id_from_data)
+        selected_user = User.query.filter(User.id == 1)
+        print("THIS IS SELECTED USER-------------------------------", selected_user)
+        individual_trip = Trip.query.get(id)
+        individual_trip.invited_users.append(selected_user)
+
+        db.session.commit()
+        return data
+
+    # if request.method == "DELETE":
+    #     trip = Trip.query.filter(Trip.id == id).one()
+    #     db.session.delete(trip)
+    #     db.session.commit()
+    #     return {}
 
 
 #Get routes for all events in a single trip
