@@ -23,6 +23,4 @@ class EditEvent(FlaskForm):
     location = StringField("Location", validators=[DataRequired()])
     startDate = DateField("Start Date", validators=[DataRequired()])
     endDate = DateField("End Date", validators=[DataRequired()])
-    current_time = date.today
-    updatedAt = current_time
     submit = SubmitField("Submit")

@@ -14,16 +14,16 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# # example: if good return normal, else return errors
-# # so that we can catch those errors on the front end
-# # form.errors come from using a Form() to validate or run custom functions
-#     if current_user.is_authenticated:
-#         return current_user.to_dict()
-#     return {'errors': ['Unauthorized']}
+# example: if good return normal, else return errors
+# so that we can catch those errors on the front end
+# form.errors come from using a Form() to validate or run custom functions
+    if current_user.is_authenticated:
+        return current_user.to_dict()
+    return {'errors': ['Unauthorized']}
 
-#     if form.validate_on_submit():
-#         return
-#     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    if form.validate_on_submit():
+        return
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @event_routes.route('/', methods=['POST'])
@@ -45,51 +45,42 @@ def events():
         db.session.add(new_event)
         db.session.commit()
         return new_event.to_dict
-
     else:
-        print(form.errors)
-        return "Bad Data"
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-
-    #events should be inside single trip
-@event_routes.route('/<int:id>')
+@event_routes.route('/<int:id>', methods=["GET", "PUT", "DELETE"])
 def event(id):
-    events = Event.query.get(id)
-    all_trip_events = {}
-    for event in events:
-        all_trip_events[event.id] = event.to_dict
-    return all_trip_events
+    if request.method == "GET":
+        event = Event.query.get(id)
+        if event:
+            return event
+        else:
+            return {'error': ['Event not found']}
 
+    if request.method == "PUT":
+        form = EditEvent()
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if form.validate_on_submit():
+            # data = request.get_json(force=True) # not needed if using form.
+            event = Event.get(id)
+            event.name = form.data["name"],
+            event.description = form.data["description"],
+            event.image_url = form.data["imageUrl"],
+            event.location = form.data["location"],
+            event.start_date = form.data["startDate"],
+            event.end_date = form.data["endDate"],
+            current_time = date.today
+            event.updated_at = current_time
 
-#edit the single event
-@event_routes.route("/<int:id>", methods=["PUT"])
-def edit_event(id):
+            db.session.add(event)
+            db.session.commit()
+            return event.to_dict
+        else:
+            return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-    form = EditEvent()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        print("backend event api route edited event form validated")
-        #same as above if we want another way
-        data = request.get_json(force=True)
-        event = Event.query.filter(Event.id == id).one()
-
-        event.name = data["name"],
-        event.description = data["description"],
-        event.image_url = data["imageUrl"],
-        event.location = data["location"],
-        event.start_date = data["startDate"],
-        event.end_date = data["endDate"],
-
-        db.session.add(event)
+    if request.method == "DELETE":
+        event = Event.get(id)
+        db.session.delete(event)
         db.session.commit()
-        return event.to_dict
-
-
-#delete the single event
-@event_routes.route("/<int:id>", methods=["DELETE"])
-def delete_event(id):
-    event = Event.query.filter(Event.id == id).one()
-    db.session.delete(event)
-    db.session.commit()
-    return {}
+        return {}
