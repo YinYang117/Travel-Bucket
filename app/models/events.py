@@ -1,6 +1,5 @@
 from .db import db
-from datetime import datetime
-
+from datetime import date
 
 
 class Event(db.Model):
@@ -15,8 +14,8 @@ class Event(db.Model):
     location = db.Column(db.String(255), nullable=False)
     start_date = db.Column(db.Date, nullable=True)
     end_date = db.Column(db.Date, nullable=True)
-    created_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.Date, nullable=False, default=date.today)
+    updated_at = db.Column(db.Date, nullable=False, default=date.today)
 
 
     owner = db.relationship("User", back_populates="owned_events")

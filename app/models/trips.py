@@ -1,5 +1,5 @@
 from .db import db
-from datetime import datetime
+from datetime import date
 from .trip_invites import trip_invites
 
 class Trip(db.Model):
@@ -12,8 +12,8 @@ class Trip(db.Model):
     image_url = db.Column(db.String, nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
-    created_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.Date, nullable=False, default=date.today)
+    updated_at = db.Column(db.Date, nullable=False, default=date.today)
 
     user = db.relationship("User", back_populates="trips")
     invited_users = db.relationship("User", secondary=trip_invites, back_populates="invited_trips", cascade="all, delete")
@@ -35,4 +35,5 @@ class Trip(db.Model):
             "updatedAt": self.updated_at,
         }
 
-    # We could have a helper funciton to return a limited scope trip aka. a trip with no notes or events for displaying on a sers profile
+    # We could have a helper funciton to return a limited scope trip
+    # aka. a trip with no notes or events for displaying on a user profile page

@@ -35,8 +35,8 @@ def upgrade():
     sa.Column('image_url', sa.String(), nullable=False),
     sa.Column('start_date', sa.Date(), nullable=False),
     sa.Column('end_date', sa.Date(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.Date(), nullable=False),
+    sa.Column('updated_at', sa.Date(), nullable=False),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -50,8 +50,8 @@ def upgrade():
     sa.Column('location', sa.String(length=255), nullable=False),
     sa.Column('start_date', sa.Date(), nullable=True),
     sa.Column('end_date', sa.Date(), nullable=True),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.Date(), nullable=False),
+    sa.Column('updated_at', sa.Date(), nullable=False),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['trip_id'], ['trips.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -62,8 +62,8 @@ def upgrade():
     sa.Column('trip_id', sa.Integer(), nullable=False),
     sa.Column('trip_date', sa.Date(), nullable=True),
     sa.Column('note', sa.String(length=1000), nullable=False),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.Date(), nullable=False),
+    sa.Column('updated_at', sa.Date(), nullable=False),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['trip_id'], ['trips.id'], ),
     sa.PrimaryKeyConstraint('id')

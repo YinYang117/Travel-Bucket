@@ -38,7 +38,7 @@ function IndividualTrip () {
     },[eventsObj])
 
     useEffect(() => {
-        dispatch(noteActions.getNotes(tripId))
+        dispatch(noteActions.getTripNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
     },[sessionUser])
 
