@@ -14,33 +14,25 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# # example: if good return normal, else return errors
-# # so that we can catch those errors on the front end
-# # form.errors come from using a Form() to validate or run custom functions
-#     if current_user.is_authenticated:
-#         return current_user.to_dict()
-#     return {'errors': ['Unauthorized']}
+# example: if good return normal, else return errors
+# so that we can catch those errors on the front end
+# form.errors come from using a Form() to validate or run custom functions
+    if current_user.is_authenticated:
+        return current_user.to_dict()
+    return {'errors': ['Unauthorized']}
 
-#     if form.validate_on_submit():
-#         return
-#     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    if form.validate_on_submit():
+        return
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-#Post routes for all events
 @event_routes.route('/', methods=['POST'])
 def events():
-    #print("WE ARE IN POST ROUTE BACK END ---------------")
-
     form = NewEvent()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        #print("FORM HAS VALIDATED -----------------")
         data = request.get_json(force=True)
-        #print("DATA IN API ROUTE -----------------", data)
-        # no need this line data = request.get_json(force=True)
-        # just need to change data[] into form.data[]
         new_event = Event(
-
             owner_id = data["ownerId"],
             trip_id = data["tripId"],
             name = data["name"],

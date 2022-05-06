@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip, EditTrip
 from ..models import db, Trip, User
-from datetime import datetime
+from datetime import date
 
 trip_routes = Blueprint('trips', __name__)
 
@@ -82,7 +82,7 @@ def edit_trip(id):
             trip.image_url = data["imageUrl"]
             trip.start_date = data["startDate"]
             trip.end_date = data["endDate"]
-            current_time = datetime.utcnow()
+            current_time = date.today
             trip.updated_at = current_time
 
             db.session.add(trip)

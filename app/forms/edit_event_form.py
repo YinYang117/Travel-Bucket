@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, SelectField, BooleanField, DateField
 from wtforms.validators import DataRequired
-from datetime import datetime
+from datetime import date
 
 class EditEvent(FlaskForm):
     name = StringField("Event Name", validators=[DataRequired()])
@@ -10,6 +10,6 @@ class EditEvent(FlaskForm):
     location = StringField("Location", validators=[DataRequired()])
     startDate = DateField("Start Date", validators=[DataRequired()])
     endDate = DateField("End Date", validators=[DataRequired()])
-    current_time = datetime.utcnow()
+    current_time = date.today
     updatedAt = current_time
     submit = SubmitField("Submit")
