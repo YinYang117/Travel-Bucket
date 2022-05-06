@@ -10,35 +10,16 @@ import { TripContext } from '../../context/Trip';
 
 function TripDateCard({ events, notes, tripDate }) {
     const { currentTrip, setCurrentTrip } = useContext(TripContext);
-
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
-    // console.log("TRIP CARD EVENTS ----->", events);
 
-
-
-    // {
-    //     notes &&
-    //     notes.map(note => (
-    //         <li key={note.id}>
-    //             {note.note}
-    //             {/* <button onClick={e => deleteNote(note)}>Delete</button> */}
-    //         </li>
-    //     ))
-    // }
-
-
-
-    
+  
     return (
         <>
             <div>
                 <h1>This is a Trip date Card</h1>
                 <div>{tripDate?.getUTCMonth() + 1}, {tripDate?.getUTCDate()}</div>
-
-
-
                 {events &&
                     events.map(event =>
                         <div key={event.id}>
