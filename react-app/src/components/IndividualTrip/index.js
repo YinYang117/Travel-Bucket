@@ -27,12 +27,14 @@ function IndividualTrip () {
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
+     // ------------------------THIS IS FOR THE USER -----------------------------------
+
     const invitedUsers = useSelector(state => state.invited.users)
-    console.log("THIS IS INVITED USERS-------------", invitedUsers)
+    // console.log("THIS IS INVITED USERS-------------", invitedUsers)
+    // const invitedUsers = Object.values(invitedUsersObj)
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
     const [userName, setUserName] = useState("")
-    const [showingUsers, setShowingUsers] = useState([]);
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
     
@@ -40,11 +42,14 @@ function IndividualTrip () {
         setEvents(Object.values(eventsObj))
     },[eventsObj])
 
+
     useEffect(() => {
         dispatch(invitedUsersActions.loadInvitedUsers(tripId))
         dispatch(noteActions.getNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
     },[sessionUser])
+    
+
 
 
  // ------------------------THIS IS FOR THE USER -----------------------------------
@@ -107,8 +112,6 @@ function IndividualTrip () {
 
 // ------------------------THIS IS FOR THE USER -----------------------------------
 
-// console.log("THIS IS USER ID FROM THE FUNCTION----------------", actualUserId)
-
     // const gettingUserId = () => {
     //     for(let i = 0; i < showingUsers.length; i++) {
     //         let eachUser = showingUsers[i]
@@ -145,6 +148,15 @@ function IndividualTrip () {
             // });
     };
 
+    const deleteInvitedUser = (user) => {
+        setErrors([]);
+        dispatch(invitedUsersActions.removeInvitedUsers(user.id))
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
+    }
+
     const deleteNote = (note) => {
         setErrors([]);
         console.log("THIS IS NOTE-------->", note)
@@ -172,6 +184,7 @@ function IndividualTrip () {
             invitedUsers.map(user =>
               <li key={user.id}>
                 {user?.username}
+                <button onClick={e => deleteInvitedUser(user)}>Delete User</button>
               </li>
         )
         }

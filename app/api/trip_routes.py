@@ -87,6 +87,10 @@ def adding_user(id):
         # print("THIS IS TRIP", trip.to_dict)
         # print("THIS IS USERS", users)
         return {"users":[user.to_dict() for user in users]}
+        # all_users = {}
+        # for user in users:
+        #     all_users[user.id] = user.to_dict
+        # return all_users
 
     
     if request.method == "POST":
@@ -105,11 +109,14 @@ def adding_user(id):
         print("THIS IS USER TRIP-------------------------------", selected_user.invited_trips)
         return data
 
-    # if request.method == "DELETE":
-    #     trip = Trip.query.filter(Trip.id == id).one()
-    #     db.session.delete(trip)
-    #     db.session.commit()
-    #     return {}
+    if request.method == "DELETE":
+        data = request.get_json(force=True)
+        user_id_from_data = data["invitedUserId"]
+        selected_user = User.query.filter(User.id == user_id_from_data).one()
+        trip = Trip.query.get(id)
+        Trip.invited_users.remove(selected_user)
+        db.session.commit()
+        return {}
 
 
 #Get routes for all events in a single trip
