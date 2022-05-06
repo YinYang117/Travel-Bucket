@@ -144,7 +144,7 @@ def trip_events(id):
     trip_events = Event.query.filter(Event.trip_id == id).all()
     if trip_events:
         all_events = {}
-        for event in trips_events:
+        for event in trip_events:
             all_events[event.id] = event.to_dict
         return all_events
     else:

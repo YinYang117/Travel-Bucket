@@ -44,18 +44,21 @@ function IndividualTrip() {
 
     useEffect(() => {
         dispatch(tripActions.loadATrip(tripId))
-        console.log('Hey man, wtf. Thought this would run', tripId)
-    }, [tripId])
-
-    useEffect(() => {
-        setEvents(Object.values(eventsObj))
-    }, [eventsObj])
-
-    useEffect(() => {
-        console.log('oairesntoeiarnstiaernstioeanrsiotenariostnoiaernstieonarstei', currentTrip)
         dispatch(invitedUsersActions.loadInvitedUsers(tripId))
         dispatch(noteActions.getTripNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
+    }, [tripId])
+
+    useEffect(() => {
+        if (trip) setCurrentTrip(trip)
+    }, [trip])
+
+    useEffect(() => {
+        setEvents(Object.values(eventsObj))
+        console.log('events after setEvents from OBJ',events)
+    }, [eventsObj])
+
+    useEffect(() => {
         if (!sessionUser) history.push('/')
     },[sessionUser])
 
@@ -120,6 +123,26 @@ function IndividualTrip() {
         setTripDates(itinerary);
     }
 
+    const eventFilter = (tripDate) => {
+        let dailyEvents = []
+        events.forEach(event => {
+            console.log('event', event)
+            console.log('tripDate', tripDate)
+            console.log(event.startDate === tripDate)
+            if (event.startDate === tripDate) dailyEvents.push(event)
+            else if (event.endDate === tripDate) dailyEvents.push(event)
+            else if (event.startDate < tripDate && event.endDate > tripDate) {
+                let currentDay = event.startDate
+                while (currentDay <= event.endDate) {
+                    currentDay.setDate(currentDay.getDate() + 1)
+                    if (currentDay === tripDate) dailyEvents.push(event)
+                }
+            }
+        })
+        console.log('this is daily events func', dailyEvents)
+        return dailyEvents
+    }
+
     return (
         <>
             <h1>INDIVIDUAL PAGE</h1>
@@ -162,7 +185,7 @@ function IndividualTrip() {
                 </div>
             )}
             {tripDates && tripDates.map(tripDate => (
-                <TripDateCard key={tripDate} events={events} notes={notes} tripDate={tripDate} />
+                <TripDateCard key={tripDate} events={eventFilter(events)} notes={notes} tripDate={tripDate} />
             ))}
         </>
     )
