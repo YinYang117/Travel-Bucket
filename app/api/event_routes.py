@@ -64,7 +64,7 @@ def event(id):
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             # data = request.get_json(force=True) # not needed if using form.
-            event = Event.get(id)
+            event = Event.query.get(id)
             event.name = form.data["name"],
             event.description = form.data["description"],
             event.image_url = form.data["imageUrl"],
@@ -81,7 +81,7 @@ def event(id):
             return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
     if request.method == "DELETE":
-        event = Event.get(id)
+        event = Event.query.get(id)
         db.session.delete(event)
         db.session.commit()
         return {}
