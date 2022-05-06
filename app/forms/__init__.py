@@ -1,7 +1,5 @@
 from .login_form import LoginForm
 from .signup_form import SignUpForm
-from .trip_form import NewTrip
-from .event_form import NewEvent
-from .note_form import NewNote
-from .edit_trip_form import EditTrip
-from .edit_event_form import EditEvent
+from .trip_form import NewTrip, EditTrip
+from .event_form import NewEvent, EditEvent
+from .note_form import NewNote, EditNote

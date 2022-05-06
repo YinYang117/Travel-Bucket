@@ -14,16 +14,16 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# example: if good return normal, else return errors
-# so that we can catch those errors on the front end
-# form.errors come from using a Form() to validate or run custom functions
-    if current_user.is_authenticated:
-        return current_user.to_dict()
-    return {'errors': ['Unauthorized']}
+# # example: if good return normal, else return errors
+# # so that we can catch those errors on the front end
+# # form.errors come from using a Form() to validate or run custom functions
+#     if current_user.is_authenticated:
+#         return current_user.to_dict()
+#     return {'errors': ['Unauthorized']}
 
-    if form.validate_on_submit():
-        return
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+#     if form.validate_on_submit():
+#         return
+#     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @event_routes.route('/', methods=['POST'])
@@ -31,16 +31,16 @@ def events():
     form = NewEvent()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        data = request.get_json(force=True)
+        # data = request.get_json(force=True) # not needed if using form.
         new_event = Event(
-            owner_id = data["ownerId"],
-            trip_id = data["tripId"],
-            name = data["name"],
-            description = data["description"],
-            image_url = data["imageUrl"],
-            location = data["location"],
-            start_date = data["startDate"],
-            end_date = data["endDate"],
+            owner_id = form.data["ownerId"],
+            trip_id = form.data["tripId"],
+            name = form.data["name"],
+            description = form.data["description"],
+            image_url = form.data["imageUrl"],
+            location = form.data["location"],
+            start_date = form.data["startDate"],
+            end_date = form.data["endDate"],
         )
         db.session.add(new_event)
         db.session.commit()

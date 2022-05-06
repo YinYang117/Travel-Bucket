@@ -29,8 +29,6 @@ def validation_errors_to_error_messages(validation_errors):
 #Get routes for all notes
 @note_routes.route('/', methods=['POST'])
 def notes():
-
-
     form = NewNote()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
