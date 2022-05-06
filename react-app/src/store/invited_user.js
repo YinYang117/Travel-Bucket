@@ -9,10 +9,10 @@ const DELETE_INVITED_USERS = "invited_user/deleteInvitedUsers"
 // action creators
 // actions are just objects
 
-const addInvitedUser = (tripAndUser) => {
+const addInvitedUser = (user) => {
     return {
         type: POST_INVITED_USERS,
-        payload: tripAndUser
+        payload: user
     };
 }
 
@@ -61,7 +61,7 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
         })
         
         // if (response2.ok) {
-            disptach(addInvitedUser(data))
+            disptach(addInvitedUser(data.invitedUser))
         // } else if (response2.status < 500) {
         //     const data = await response.json();
         //     if (data.errors) return data.errors;
@@ -84,14 +84,16 @@ export const loadInvitedUsers = (tripId) => async (dispatch) => {
 }
 
 
-export const removeInvitedUsers = (idString) => async (dispatch) => {
-    const id = parseInt(idString, 10)
-    const res = await fetch(`/api/trips/${id}`, {
+export const removeInvitedUsers = (userId, tripId) => async (dispatch) => {
+    const invitedUserId = parseInt(userId, 10)
+    const res = await fetch(`/api/trips/${tripId}/users`, {
         method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({invitedUserId, tripId})
     })
 
     if(res.ok) {
-        dispatch(deleteInvitedUsers(id))
+        dispatch(deleteInvitedUsers(invitedUserId))
     }
 }
 

@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, redirect
 from ..models import db, Event
 from ..forms import NewEvent, EditEvent
+from datetime import date
 
 event_routes = Blueprint('events', __name__)
 
@@ -71,7 +72,7 @@ def event(id):
             event.location = form.data["location"],
             event.start_date = form.data["startDate"],
             event.end_date = form.data["endDate"],
-            current_time = date.today
+            current_time = date.today()
             event.updated_at = current_time
 
             db.session.add(event)

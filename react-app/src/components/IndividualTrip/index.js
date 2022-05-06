@@ -30,12 +30,14 @@ function IndividualTrip() {
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
-    const invitedUsers = useSelector(state => state.invited.users)
-    console.log("THIS IS INVITED USERS-------------", invitedUsers)
+     // ------------------------THIS IS FOR THE USER -----------------------------------
+
+    const invitedUsersObj = useSelector(state => state.invited)
+    // console.log("THIS IS INVITED USERS-------------", invitedUsers)
+    const invitedUsers = Object.values(invitedUsersObj)
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
     const [userName, setUserName] = useState("")
-    const [showingUsers, setShowingUsers] = useState([]);
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -44,11 +46,14 @@ function IndividualTrip() {
         setEvents(Object.values(eventsObj))
     }, [eventsObj])
 
+
     useEffect(() => {
         dispatch(invitedUsersActions.loadInvitedUsers(tripId))
         dispatch(noteActions.getTripNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
-    }, [sessionUser])
+    },[sessionUser])
+
+
 
 
     // ------------------------THIS IS FOR THE USER -----------------------------------
@@ -100,19 +105,6 @@ function IndividualTrip() {
     //     // noteData.tripDate = tripDate
     //     noteData.ownerId = trip.ownerId
 
-    //     console.log("THIS IS NOTE DATA", noteData)
-
-    //     dispatch(noteActions.postNote(noteData))
-    //         // .catch(async (res) => {
-    //         //     const data = await res.json();
-    //         //     if (data && data.errors) setErrors(data.errors);
-    //         // })
-    // };
-
-    // ------------------------THIS IS FOR THE USER -----------------------------------
-
-    // console.log("THIS IS USER ID FROM THE FUNCTION----------------", actualUserId)
-
     // const gettingUserId = () => {
     //     for(let i = 0; i < showingUsers.length; i++) {
     //         let eachUser = showingUsers[i]
@@ -149,15 +141,24 @@ function IndividualTrip() {
         // });
     };
 
-    // const deleteNote = (note) => {
-    //     setErrors([]);
-    //     console.log("THIS IS NOTE-------->", note)
-    //     dispatch(noteActions.removeNote(note.id))
-    //     .catch(async (res) => {
-    //         const data = await res.json();
-    //         if (data && data.errors) setErrors(data.errors);
-    //     });
-    // }
+    const deleteInvitedUser = (user) => {
+        setErrors([]);
+        dispatch(invitedUsersActions.removeInvitedUsers(user.id,tripId))
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
+    }
+
+    const deleteNote = (note) => {
+        setErrors([]);
+        console.log("THIS IS NOTE-------->", note)
+        dispatch(noteActions.removeNote(note.id))
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
+    }
 
     const itineraryMaker = (tripStart, tripEnd) => {
         let endDate = new Date(tripEnd);
@@ -170,17 +171,18 @@ function IndividualTrip() {
 
     return (
         <>
-            <h1>INDIVIDUAL PAGE</h1>
-            <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image" />
-            {invitedUsers &&
-                invitedUsers.map(user =>
-                    <li key={user.id}>
-                        {user?.username}
-                    </li>
-                )
-            }
-            <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
-            {showAddedUserForm && <form
+        <h1>INDIVIDUAL PAGE</h1>
+        <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
+        {invitedUsers &&
+            invitedUsers.map(user =>
+              <li key={user.id}>
+                {user?.username}
+                <button onClick={e => deleteInvitedUser(user)}>Delete User</button>
+              </li>
+        )
+        }
+        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
+        { showAddedUserForm && <form
                 className="new-note-form"
                 onSubmit={e => {
                     e.preventDefault();
