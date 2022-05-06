@@ -29,9 +29,9 @@ function IndividualTrip () {
 
      // ------------------------THIS IS FOR THE USER -----------------------------------
 
-    const invitedUsers = useSelector(state => state.invited.users)
+    const invitedUsersObj = useSelector(state => state.invited)
     // console.log("THIS IS INVITED USERS-------------", invitedUsers)
-    // const invitedUsers = Object.values(invitedUsersObj)
+    const invitedUsers = Object.values(invitedUsersObj)
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
     const [userName, setUserName] = useState("")
@@ -150,7 +150,7 @@ function IndividualTrip () {
 
     const deleteInvitedUser = (user) => {
         setErrors([]);
-        dispatch(invitedUsersActions.removeInvitedUsers(user.id))
+        dispatch(invitedUsersActions.removeInvitedUsers(user.id,tripId))
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
