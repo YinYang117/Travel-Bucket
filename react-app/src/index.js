@@ -6,7 +6,7 @@ import App from './App';
 import configureStore from './store';
 import { ModalProvider } from './context/Modal';
 import { TripProvider } from './context/Trip';
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
+// import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 const API_KEY = process.env.REACT_APP_MAPS_API_KEY;
 const store = configureStore();
@@ -18,13 +18,13 @@ const render = (Status) => {
 ReactDOM.render(
   <React.StrictMode>
     <TripProvider>
-      <Wrapper apiKey={API_KEY} render={render}>
+      {/* <Wrapper apiKey={API_KEY} render={render}> */}
         <Provider store={store}>
           <ModalProvider>
             <App />
           </ModalProvider>
         </Provider>
-      </Wrapper>
+      {/* </Wrapper> */}
     </TripProvider>
   </React.StrictMode>,
   document.getElementById('root')
