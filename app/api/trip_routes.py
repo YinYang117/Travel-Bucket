@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip, EditTrip
-from ..models import db, Trip, User, Event
+from ..models import db, Trip, User, Event, trip_invites
 from datetime import date
 
 
@@ -123,14 +123,18 @@ def trip_users(id):
         db.session.commit()
         # print(trip.invited_users)
         # can return anything really
-        return trip
+        return trip.to_dict
 
     if request.method == "DELETE":
         # I think we need relation.c.the_id == incoming ID to check
         # When interacting with a table instead of a model.
         # as is, id ^ is for trip.
-        results = trip_invites.query.filter(invited_users.c.user_id == UserId).filter(invited_trips.c.trip_id == id).all()
-        db.session.delete(results)
+        data = request.get_json(force=True)
+        # print("THIS IS DATA FROM THE BACKEND--------------------", data)
+        userId = data["invitedUserId"]
+        user = User.query.get(userId)
+        trip = Trip.query.get(id)
+        trip.invited_users.remove(user)
         db.session.commit()
         return {}
 
@@ -138,7 +142,7 @@ def trip_users(id):
 #Get routes for all events in a single trip
 @trip_routes.route('/<int:id>/events', methods=['GET'])
 def trip_events(id):
-    trip_events = Event.query.filter(event.trip_id == id).all()
+    trip_events = Event.query.filter(Event.trip_id == id).all()
     if trip_events:
         all_events = {}
         for event in trips_events:
