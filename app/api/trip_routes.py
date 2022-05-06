@@ -113,7 +113,7 @@ def trip_users(id):
         user_id = data["invitedUserId"]
         user = User.get(user_id)
         trip = Trip.query.get(id)
-        if user && trip:
+        if (user and trip):
             trip.invited_users.append(user)
         else:
             return {'error': ['Either User or Trip was not found']}

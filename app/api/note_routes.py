@@ -49,7 +49,7 @@ def new_note():
 
 @note_routes.route("/<int:id>", methods=["PUT", "DELETE"])
 def note_changes(id):
-    if request.method = "DELETE":
+    if request.method == "DELETE":
         note = Note.get(id)
         db.session.delete(note)
         db.session.commit()
