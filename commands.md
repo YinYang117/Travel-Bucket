@@ -20,6 +20,8 @@ Seeds are not automatically done
 heroku run -a travel-bucket-app flask seed all
 heroku run -a travel-bucket-app flask seed undo
 
+Local Seeds
+pipenv run flask seed all
 
 github cheats
 git fetch origin branchName  -- should pull changes into the branch your on from branchName
@@ -29,13 +31,8 @@ Add a model
 pipenv run flask db migrate     to autogenerate a migration
 pipenv run flask db upgrade     to apply table and model changes to the database
 
-
 pipenv run flask db migrate -m "create a table message"
-pipenv run flask db upgrade
 
-
-<!-- possibly try
-created_at = db.Column(db.DateTime(), default=datetime.utcnow, nullable=False)
 
 Dont run alembic directly:
 <!-- pipenv run alembic revision -m "the message about the revision" -->
