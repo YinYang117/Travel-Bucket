@@ -74,7 +74,7 @@ def change_trip(id):
         form = EditTrip()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            trip = Trip.get(id)
+            trip = Trip.query.get(id)
             trip.name= data["name"]
             trip.destination = data["destination"]
             trip.image_url = data["imageUrl"]
@@ -89,7 +89,7 @@ def change_trip(id):
         else:
             return {'errors': validation_errors_to_error_messages(form.errors)}, 401
     else:
-        trip = Trip.get(id)
+        trip = Trip.query.get(id)
         db.session.delete(trip)
         db.session.commit()
         return {}   
@@ -99,7 +99,7 @@ def change_trip(id):
 def trip_users(id):
 
     if request.method == "GET":
-        trip = Trip.get(id)
+        trip = Trip.query.get(id)
         all_users = trip.invited_users
         if all_users:
             users = {}
@@ -113,7 +113,7 @@ def trip_users(id):
         data = request.get_json(force=True)
         # data should look like {"userId: 1, tripId: 1"}
         user_id = data["invitedUserId"]
-        user = User.get(user_id)
+        user = User.query.get(user_id)
         trip = Trip.query.get(id)
         if user and trip:
             trip.invited_users.append(user)
