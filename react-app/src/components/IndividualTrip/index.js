@@ -26,6 +26,9 @@ function IndividualTrip () {
     const [tripDate, setTripDate] = useState("");
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
+
+    const invitedUsers = useSelector(state => state.invited.users)
+    console.log("THIS IS INVITED USERS-------------", invitedUsers)
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
     const [userName, setUserName] = useState("")
@@ -38,6 +41,7 @@ function IndividualTrip () {
     },[eventsObj])
 
     useEffect(() => {
+        dispatch(invitedUsersActions.loadInvitedUsers(tripId))
         dispatch(noteActions.getTripNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
     },[sessionUser])
@@ -45,14 +49,14 @@ function IndividualTrip () {
 
  // ------------------------THIS IS FOR THE USER -----------------------------------
 
-    useEffect(() => {
-      async function fetchData() {
-        const response = await fetch(`/api/trips/${tripId}/users`);
-        const responseData = await response.json();
-        setShowingUsers(responseData.users);
-      }
-      fetchData();
-    }, []);
+    // useEffect(() => {
+    //   async function fetchData() {
+    //     const response = await fetch(`/api/trips/${tripId}/users`);
+    //     const responseData = await response.json();
+    //     setShowingUsers(responseData.users);
+    //   }
+    //   fetchData();
+    // }, []);
 
     useEffect(() => {
         let errors = [];
@@ -78,7 +82,7 @@ function IndividualTrip () {
     }, [sessionUser])
 
     useEffect(() => {
-        itineraryMaker(trip.startDate, trip.endDate);
+        itineraryMaker(trip?.startDate, trip?.endDate);
         setCurrentTrip(trip);
     },[trip])
 
@@ -164,10 +168,10 @@ function IndividualTrip () {
         <>
         <h1>INDIVIDUAL PAGE</h1>
         <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
-        {showingUsers &&
-            showingUsers.map(user =>
+        {invitedUsers &&
+            invitedUsers.map(user =>
               <li key={user.id}>
-                {user.username}
+                {user?.username}
               </li>
         )
         }
