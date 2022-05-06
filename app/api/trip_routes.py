@@ -4,46 +4,38 @@ from ..models import db, Trip, User
 from datetime import datetime
 # from flask_login import login_required, current_user
 
-
 trip_routes = Blueprint('trips', __name__)
 
-# Get route for all trips
-# this can have a get if want
 @trip_routes.route('/', methods=['POST'])
 def trips():
+    form = NewTrip()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = request.get_json(force=True)
+        new_trip = Trip(
+            owner_id=data["ownerId"],
+            name=data["name"],
+            destination=data["destination"],
+            image_url=data["imageUrl"],
+            start_date=data["startDate"],
+            end_date=data["endDate"],
+        )
+        db.session.add(new_trip)
+        db.session.commit()
+        return new_trip.to_dict
+      
+    else:
+        print(form.errors)
+        # Make a better form bad data return
+        return "Bad Data"
 
-    if request.method == 'POST':
-        form = NewTrip()
-        form['csrf_token'].data = request.cookies['csrf_token']
-        if form.validate_on_submit():
-            data = request.get_json(force=True)
-            # Could be NewTrip() below
-            # new_trip = Trip()
-            # print("NEW TRIP ----------------", new_trip)
-            # form.populate_obj(new_trip)
-            new_trip = Trip(
-                owner_id=data["ownerId"],
-                name=data["name"],
-                destination=data["destination"],
-                image_url=data["imageUrl"],
-                start_date=data["startDate"],
-                end_date=data["endDate"],
-            )
-            db.session.add(new_trip)
-            db.session.commit()
-            return new_trip.to_dict
-            # return redirect('/trips')
-
-        else:
-            print(form.errors)
-            # Make a better form bad data return
-            return "Bad Data"
 
 # Get route for a singular trip
 @trip_routes.route('/<int:id>')
 def trip(id):
     trip = Trip.query.get(id)
     return trip.to_dict()
+
 
 @trip_routes.route("/users/<int:id>")
 def all_user_trips(id):
@@ -54,9 +46,9 @@ def all_user_trips(id):
         all_trips[trip.id] = trip.to_dict
     return all_trips
 
+
 @trip_routes.route("/<int:id>", methods=["PUT"])
 def edit_trip(id):
-
     if request.method == 'PUT':
         form = EditTrip()
         form['csrf_token'].data = request.cookies['csrf_token']
@@ -70,12 +62,12 @@ def edit_trip(id):
             trip.start_date = data["startDate"]
             trip.end_date = data["endDate"]
             current_time = datetime.utcnow()
-            print("CURRENT TIME -----------", current_time)
             trip.updated_at = current_time
 
             db.session.add(trip)
             db.session.commit()
             return trip.to_dict
+
 
 @trip_routes.route("/<int:id>", methods=["DELETE"])
 def delete_trip(id):
@@ -83,6 +75,7 @@ def delete_trip(id):
     db.session.delete(trip)
     db.session.commit()
     return {}
+
 
 @trip_routes.route("/<int:id>/users", methods=["GET", "POST", "DELETE"])
 # @login_required
@@ -93,9 +86,7 @@ def adding_user(id):
         users = trip.invited_users
         # print("THIS IS TRIP", trip.to_dict)
         # print("THIS IS USERS", users)
-        return {
-            "users":[user.to_dict() for user in users]
-        }
+        return {"users":[user.to_dict() for user in users]}
 
     
     if request.method == "POST":
@@ -120,5 +111,8 @@ def adding_user(id):
     #     return {}
 
 
-
-
+#Get routes for all events in a single trip
+@trip_routes.route('/<int:id>/events', methods=['GET'])
+def events(id):
+    events = Event.query.filter(event.trip_id == id).all()
+    return events.to_dict()

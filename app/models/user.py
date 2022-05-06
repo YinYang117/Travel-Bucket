@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     trips = db.relationship('Trip', back_populates="user")
-    invited_trips = db.relationship("Trip", secondary=trip_invites,back_populates="invited_users")
+    invited_trips = db.relationship("Trip", secondary=trip_invites,back_populates="invited_users", cascade="all, delete")
     owned_events = db.relationship("Event", back_populates="owner")
     owned_notes = db.relationship("Note", back_populates="owner")
 

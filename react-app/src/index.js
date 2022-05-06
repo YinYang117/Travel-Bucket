@@ -5,16 +5,19 @@ import './index.css';
 import App from './App';
 import configureStore from './store';
 import { ModalProvider } from './context/Modal';
+import { TripProvider } from './context/Trip';
 
 const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ModalProvider>
-        <App />
-      </ModalProvider>
-    </Provider>
+    <TripProvider>
+      <Provider store={store}>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </Provider>
+    </TripProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

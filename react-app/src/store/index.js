@@ -4,14 +4,15 @@ import session from './session'
 import tripsReducer from './trip';
 import notesReducer from './note';
 import invitedUsersReducer from './invited_user';
+import eventsReducer from './event';
 
 const rootReducer = combineReducers({
   session,
   trips:tripsReducer,
   notes:notesReducer,
   invited:invitedUsersReducer,
+  events:eventsReducer,
 });
-
 
 let enhancer;
 

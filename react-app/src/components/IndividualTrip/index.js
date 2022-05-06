@@ -1,42 +1,45 @@
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect, useReducer } from "react";
+import * as invitedUsersActions from "../../store/invited_user"
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
-import * as invitedUsersActions from "../../store/invited_user"
+import * as eventActions from "../../store/event";
+import { NavLink, useHistory } from "react-router-dom";
+import TripDateCard from "./TripDateCard";
+import { TripContext } from '../../context/Trip';
 // import "./individualPage.css";
-import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 function IndividualTrip () {
     const dispatch = useDispatch()
     const {tripId}= useParams()
-    const trip = useSelector(state => state.trips[tripId])
+    const trip = useSelector(state => state.trips[tripId]);
+    const { currentTrip, setCurrentTrip } = useContext(TripContext);
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
     const notesObj = useSelector(state => state.notes)
     const notes = Object.values(notesObj)
-
-
-
+    const eventsObj = useSelector(state => state.events)
     const [showNoteForm, setShowNoteForm] = useState(false)
     const [note, setNote] = useState("");
     const [ownerId, setOwnerId] = useState("");
     const [tripDate, setTripDate] = useState("");
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
-
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
     const [userName, setUserName] = useState("")
     const [showingUsers, setShowingUsers] = useState([]);
+    const [tripDates, setTripDates] = useState([]);
+    const [events, setEvents] = useState([]);
+    
+    useEffect(() => {
+        setEvents(Object.values(eventsObj))
+    },[eventsObj])
 
     useEffect(() => {
-        if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
-    },[sessionUser])
-
-    useEffect(() => {
-        if (sessionUser) dispatch(noteActions.getNotes(tripId))
+        dispatch(noteActions.getNotes(tripId))
+        dispatch(eventActions.loadAllEvents(tripId))
     },[sessionUser])
 
 
@@ -59,7 +62,6 @@ function IndividualTrip () {
 
     }, [note])
 
-
     // ------------------------THIS IS FOR THE USER -----------------------------------
 
     useEffect(() => {
@@ -71,7 +73,14 @@ function IndividualTrip () {
 
     }, [userName])
 
+    useEffect(() => {
+        if (!sessionUser) history.push('/')
+    }, [sessionUser])
 
+    useEffect(() => {
+        itineraryMaker(trip.startDate, trip.endDate);
+        setCurrentTrip(trip);
+    },[trip])
 
     const submitNote = () => {
         setHasSubmitted(true)
@@ -85,45 +94,33 @@ function IndividualTrip () {
         
         console.log("THIS IS NOTE DATA", noteData)
         
-
         dispatch(noteActions.postNote(noteData))
             // .catch(async (res) => {
             //     const data = await res.json();
             //     if (data && data.errors) setErrors(data.errors);
-            // });
-
+            // })
     };
 
 // ------------------------THIS IS FOR THE USER -----------------------------------
 
-
 // console.log("THIS IS USER ID FROM THE FUNCTION----------------", actualUserId)
 
-
-
     // const gettingUserId = () => {
-
     //     for(let i = 0; i < showingUsers.length; i++) {
-
     //         let eachUser = showingUsers[i]
-
     //         if (eachUser["username"] === user) {
     //             console.log(eachUser["id"])
     //             return eachUser["id"]
     //         }
-
     //     }
     // }
-
     // gettingUserId()
-    
     
     const submitUser = () => {
         setHasSubmitted(true)
         if(errorsAddedUser.length > 0) return; 
 
         // console.log("THIS IS SHOWING USERS-----------------", showingUsers)
-
         // [{}, {}]
         // { "email": "demo@aa.io","id": 1,"username": "Demo"}
         // user = username of the user that you want to add to your trip 
@@ -136,18 +133,12 @@ function IndividualTrip () {
 
         // console.log("THIS IS SUBMITTED USER-------------------------", user)
         console.log("THIS IS TRIP ID-------------------------", tripId)
-        
-         console.log("THIS IS ADDING USER DATA------------------", addingUser)
-        
-
+        console.log("THIS IS ADDING USER DATA------------------", addingUser)
         dispatch(invitedUsersActions.postInvitedUsers(addingUser))
             // .catch(async (res) => {
             //     const data = await res.json();
             //     if (data && data.errors) setErrors(data.errors);
             // });
-
-
-
     };
 
     const deleteNote = (note) => {
@@ -159,7 +150,16 @@ function IndividualTrip () {
             if (data && data.errors) setErrors(data.errors);
         });
     }
-    
+
+    const itineraryMaker = (tripStart, tripEnd) => {
+        let endDate = new Date(tripEnd);
+        let itinerary = [];
+        for (let currentDate = new Date(tripStart); currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+            itinerary.push(new Date(currentDate));
+        }
+        setTripDates(itinerary);
+    } 
+
     return (
         <>
         <h1>INDIVIDUAL PAGE</h1>
@@ -212,7 +212,10 @@ function IndividualTrip () {
                 </ul>
                 <button className="new-note-submit" type='submit' >Submit Note</button>
             </form>
-            }
+        }
+        { tripDates && tripDates.map(tripDate => (
+            <TripDateCard key={tripDate} events={events} notes={notes} tripDate={tripDate}/>
+        )) }
         </>
     )
 }
