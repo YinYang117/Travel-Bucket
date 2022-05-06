@@ -99,7 +99,7 @@ def change_trip(id):
 def trip_users(id):
 
     if request.method == "GET":
-        trip = Trip.get(id)
+        trip = Trip.query.get(id)
         all_users = trip.invited_users
         if all_users:
             users = {}
@@ -113,7 +113,7 @@ def trip_users(id):
         data = request.get_json(force=True)
         # data should look like {"userId: 1, tripId: 1"}
         user_id = data["invitedUserId"]
-        user = User.get(user_id)
+        user = User.query.get(user_id)
         trip = Trip.query.get(id)
         if user and trip:
             trip.invited_users.append(user)
@@ -129,6 +129,7 @@ def trip_users(id):
         # I think we need relation.c.the_id == incoming ID to check
         # When interacting with a table instead of a model.
         # as is, id ^ is for trip.
+
         results = trip_invites.query.filter(invited_users.c.user_id == UserId).filter(invited_trips.c.trip_id == id).all()
         db.session.delete(results)
         db.session.commit()
@@ -138,7 +139,7 @@ def trip_users(id):
 #Get routes for all events in a single trip
 @trip_routes.route('/<int:id>/events', methods=['GET'])
 def trip_events(id):
-    trip_events = Event.query.filter(event.trip_id == id).all()
+    trip_events = Event.query.filter(Event.trip_id == id).all()
     if trip_events:
         all_events = {}
         for event in trips_events:
