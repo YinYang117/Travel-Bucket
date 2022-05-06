@@ -1,7 +1,11 @@
 import { useSelector } from 'react-redux';
 import "./SplashPage.css"
 import travel from "./travel.jpg";
-import intro1 from "./intro1.webp"
+import intro1 from "./intro1.jpg";
+import intro2 from "./intro2.png";
+import intro3 from "./intro3.png";
+import intro4 from "./intro4.jpg";
+
 
 
 
@@ -36,7 +40,7 @@ function SplashPage() {
 
                 <div className="gallery_info">
                         <div>
-                            <figure><img src={intro1} className="gallery_img" alt=""></img></figure>
+                            <figure><img src={intro2} className="gallery_img" alt=""></img></figure>
                         </div>
                         <div className="gallery_name">Optimize your trip with events</div>
                     <div className="gallery_description">Don't know what to do? We’ll plan the best route to visit your must-dos to make the most of your day.</div>
@@ -46,7 +50,7 @@ function SplashPage() {
 
                 <div className="gallery_info">
                         <div>
-                            <figure><img src={intro1} className="gallery_img" alt=""></img></figure>
+                            <figure><img src={intro3} className="gallery_img" alt=""></img></figure>
                         </div>
                         <div className="gallery_name">Take personalized notes</div>
                     <div className="gallery_description">With smart notes based on your itinerary, never forget anything.</div>
@@ -56,7 +60,7 @@ function SplashPage() {
 
                 <div className="gallery_info">
                         <div>
-                            <figure><img src={intro1} className="gallery_img" alt=""></img></figure>
+                            <figure><img src={intro4} className="gallery_img" alt=""></img></figure>
                         </div>
                         <div className="gallery_name">Collaborate with friends in real time</div>
                     <div className="gallery_description">Plan along with your friends with live syncing.</div>

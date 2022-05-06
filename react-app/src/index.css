@@ -1,8 +1,8 @@
 /* TODO Add site wide styles */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing:border-box; 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
 }
 
 /* Nav bar styling -> to be inherited across site */
@@ -14,7 +14,8 @@
     display: flex;
     overflow: hidden;
     justify-content: space-between;
-    background-color: #A3EBB1;
+    background-color: white;
+    border-bottom: 5px solid rgb(99,174,170);
 }
 
 .nav-bar-left {
@@ -22,7 +23,7 @@
     display: flex;
     list-style-type: none;
 }
- 
+
 .nav-bar-right {
     padding-left: 0;
     display: flex;
@@ -41,58 +42,139 @@
     list-style-type: none;
 }
 
-.nav-list {
-    padding: 5px;
+
+.nav {
+    color: #666666;
+    border-bottom: 4px solid transparent;
+    font-size: 18px;
+}
+
+.button1.active,
+.button1:hover {
+    border-color: #33CCFF;
+}
+
+.button2.active,
+.button2:hover {
+    border-color: #FF6666;
+}
+
+.button3.active,
+.button3:hover {
+    border-color: #33CC66;
+}
+
+.addATripButton.active,
+.addATripButton:hover {
+    border-color: #CC66CC;
+}
+
+
+.button {
+    padding: 19px 56px 9px 18px;
     margin: 5px;
     text-decoration: none;
-    background-color: #18A558; 
+    background-color: #18A558;
     border-radius: 7px;
+    font-weight: bold;
 }
 
 a,
-a:link { 
-    text-decoration: none; 
-    color: black;
+a:link {
+    text-decoration: none;
+    /* color: #666; */
 }
 
-a:hover,
+/* a:hover,
 button:hover {
     border-radius: 7px;
     background-color: #26b566;
-}
+} */
 
-a:focus,
+/* a:focus,
 button:focus {
     border-radius: 7px;
-    background-color: #26b566;
-}
+    border-color: #33CCFF;
+} */
 
-a:active,
+/* a:active,
 button:active {
     border-radius: 7px;
     background-color: #ffffff;
-}
+} */
 
-a:visited { 
-    text-decoration: none; 
-    color: black;
-}
+/* a:visited {
+    text-decoration: none;
+     color: #666;
+} */
 
 button {
     border-radius: 3px;
-    padding: 2px;
+    padding: 15px;
     text-decoration: none;
     background: none;
 	color: inherit;
 	border: none;
-	padding: 0;
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+    color: rgb(99,174,170);
+    font-weight: bold;
+
 }
 
 .profile-dropdown {
     display: flex;
     flex-direction: column;
     list-style-type: none;
+}
+
+
+.AddATripButton{
+    border-radius: 3px;
+    padding: 15px;
+    text-decoration: none;
+    background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    color: rgb(99,174,170);
+    font-weight: bold;
+}
+
+.icon{
+    background-size: cover;
+  display: inline-block;
+  height:30px;
+  width:30px;
+  background-position: center center;
+background: url(https://i.ibb.co/NtrPmZn/favicon-32x32.png) no-repeat;
+
+margin: 15px;
+
+}
+
+a.trips{
+    border-radius: 3px;
+    padding: 5px;
+    text-decoration: none;
+    background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    color: rgb(99,174,170);
+    position:relative;
+    top:15px;
+    font-weight: bold;
+}
+
+h2{
+    color:rgb(99,174,170);
+    position:relative;
+    top:15px;
+
 }

@@ -9,7 +9,7 @@ import User from './components/User';
 import Home from './components/Home';
 import IndividualTrip from './components/IndividualTrip';
 import { authenticate } from './store/session';
-import SplashPage from './components/SplashPage';
+import SplashPage from './components/SplashPage/SplashPage';
 import EventModal from './components/EventModal';
 
 function App() {
