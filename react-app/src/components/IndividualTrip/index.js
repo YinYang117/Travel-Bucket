@@ -44,6 +44,7 @@ function IndividualTrip() {
 
     useEffect(() => {
         dispatch(tripActions.loadATrip(tripId))
+        console.log('Hey man, wtf. Thought this would run', tripId)
     }, [tripId])
 
     useEffect(() => {
