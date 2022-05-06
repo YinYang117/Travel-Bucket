@@ -12,7 +12,6 @@ import { authenticate } from './store/session';
 import SplashPage from './components/SplashPage/SplashPage';
 import EventModal from './components/EventModal';
 
-
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
