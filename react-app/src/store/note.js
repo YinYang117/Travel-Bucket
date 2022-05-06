@@ -52,7 +52,7 @@ export const postNote = (postNote) => async (disptach) => {
     } else return ['An error occurred. Please try again.']
 }
 
-export const getNotes = (tripId) => async (dispatch) => {
+export const getTripNotes = (tripId) => async (dispatch) => {
     const res = await fetch(`/api/notes/trips/${tripId}`)
     // const res = await fetch(`/api/trips/users/${userId}/`) // thinking we dont need the trailing slashes
     if (res.ok) {
