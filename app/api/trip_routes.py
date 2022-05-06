@@ -136,11 +136,6 @@ def trip_users(id):
         trip = Trip.query.get(id)
         trip.invited_users.remove(user)
         db.session.commit()
-
-        # results = trip_invites.query.filter(invited_users.c.user_id == UserId).filter(invited_trips.c.trip_id == id).all()
-        # query_trip_invites = User.query.join(trip_invites).join(Trip).filter((trip_invites.c.user_id == userId) and (trip_invites.c.trip_id == id)).one()
-        # db.session.delete(query_trip_invites)
-        # db.session.commit()
         return {}
 
 
