@@ -55,6 +55,7 @@ import ProfileButton from './ProfileButton';
 import SignUpFormModal from '../SignUpModal';
 import AddATripModal from '../AddATripModal';
 // import { login } from '../../store/session';
+//import Icon from "../../../public/icon.png";
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user);
@@ -63,19 +64,19 @@ const NavBar = () => {
   if (user) {
     sessionLinks = (
       <ul className="logged-in-nav">
-        <li className="nav-list">
+        <li className="nav button1">
           <AddATripModal/>
         </li>
         {/* <NavLink to={`/users/${user.id}`}>User Profile</NavLink> */}
-        <li className="nav-list">
-          <NavLink to="/Home" exact={true} activeClassName='active'>
+        <li className="nav button2">
+          <NavLink to="/Home" exact={true} className="trips">
             Trips
           </NavLink>
         </li>
         {/* <li className="nav-list">
           <LogoutButton />
         </li> */}
-        <li className="nav-list">
+        <li className="nav button3">
           <ProfileButton/>
         </li>
       </ul>
@@ -83,13 +84,13 @@ const NavBar = () => {
   } else {
     sessionLinks = (
       <ul className="logged-out-nav">
-        <li className="nav-list">
+        <li className="nav button1">
           <DemoButton />
         </li>
-        <li className="nav-list">
+        <li className="nav button2">
           <LoginFormModal />
         </li>
-        <li className="nav-list">
+        <li className="nav button3">
           <SignUpFormModal/>
         </li>
         {/* <NavLink to='/sign-up' exact={true} activeClassName='active'>
@@ -103,10 +104,11 @@ const NavBar = () => {
     <nav className="nav-container">
       <ul className="nav-bar-left">
         <li className="nav-list">
-          <NavLink to='/Home' exact={true} activeClassName='active'>
-            Home
+          <NavLink to='/Home' exact={true} className="icon">
+
           </NavLink>
         </li>
+        <h2>Travel Bucket</h2>
       </ul>
       <ul className="nav-bar-right">
         <li>{sessionLinks}</li>
