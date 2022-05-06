@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { removeNote, getNotes } from '../../store/note';
+import { removeNote, getTripNotes } from '../../store/note';
 import React, { useState, useEffect, useContext } from "react";
 
 function DeleteNote ({ hideModal, note }) {

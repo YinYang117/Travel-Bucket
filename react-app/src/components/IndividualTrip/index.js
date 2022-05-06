@@ -42,7 +42,7 @@ function IndividualTrip () {
 
     useEffect(() => {
         dispatch(invitedUsersActions.loadInvitedUsers(tripId))
-        dispatch(noteActions.getNotes(tripId))
+        dispatch(noteActions.getTripNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
     },[sessionUser])
 

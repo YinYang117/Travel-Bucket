@@ -1,5 +1,5 @@
 from .db import db
-from datetime import datetime
+from datetime import date
 
 
 class Note(db.Model):
@@ -10,8 +10,8 @@ class Note(db.Model):
     trip_id = db.Column(db.Integer, db.ForeignKey("trips.id"), nullable=False)
     trip_date = db.Column(db.Date, nullable=True)
     note = db.Column(db.String(1000), nullable=False)
-    created_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.Date, nullable=False, default=date.today())
+    updated_at = db.Column(db.Date, nullable=False, default=date.today())
 
     trip = db.relationship("Trip", back_populates="notes")
     owner = db.relationship("User", back_populates="owned_notes")
