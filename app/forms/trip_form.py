@@ -19,6 +19,4 @@ class EditTrip(FlaskForm):
     imageUrl = StringField("Image URL", validators=[DataRequired()])
     startDate = DateField("Start Date", validators=[DataRequired()])
     endDate = DateField("End Date", validators=[DataRequired()])
-    current_time = date.today
-    updatedAt = current_time
     submit = SubmitField("Submit")
