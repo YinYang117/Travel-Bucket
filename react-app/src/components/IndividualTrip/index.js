@@ -53,20 +53,6 @@ function IndividualTrip() {
         dispatch(eventActions.loadAllEvents(tripId))
     },[sessionUser])
 
-
-
-
-    // ------------------------THIS IS FOR THE USER -----------------------------------
-
-    // useEffect(() => {
-    //   async function fetchData() {
-    //     const response = await fetch(`/api/trips/${tripId}/users`);
-    //     const responseData = await response.json();
-    //     setShowingUsers(responseData.users);
-    //   }
-    //   fetchData();
-    // }, []);
-
     useEffect(() => {
         let errors = [];
 
@@ -74,8 +60,6 @@ function IndividualTrip() {
         setErrors(errors)
 
     }, [note])
-
-    // ------------------------THIS IS FOR THE USER -----------------------------------
 
     useEffect(() => {
         let errorsAddedUser = [];
@@ -95,36 +79,10 @@ function IndividualTrip() {
         setCurrentTrip(trip);
     }, [trip])
 
-    // const submitNote = () => {
-    //     setHasSubmitted(true)
-    //     if(errors.length > 0) return;
-
-    //     const noteData = {}
-    //     noteData.note = note
-    //     noteData.tripId = tripId
-    //     // noteData.tripDate = tripDate
-    //     noteData.ownerId = trip.ownerId
-
-    // const gettingUserId = () => {
-    //     for(let i = 0; i < showingUsers.length; i++) {
-    //         let eachUser = showingUsers[i]
-    //         if (eachUser["username"] === user) {
-    //             console.log(eachUser["id"])
-    //             return eachUser["id"]
-    //         }
-    //     }
-    // }
-    // gettingUserId()
-
     const submitUser = () => {
         setHasSubmitted(true)
         if (errorsAddedUser.length > 0) return;
-
-        // console.log("THIS IS SHOWING USERS-----------------", showingUsers)
-        // [{}, {}]
-        // { "email": "demo@aa.io","id": 1,"username": "Demo"}
-        // user = username of the user that you want to add to your trip
-
+        
         const addingUser = {}
         // addingUser.userId = username.actualUserId
         addingUser.tripId = tripId
