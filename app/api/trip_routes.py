@@ -80,7 +80,7 @@ def change_trip(id):
             trip.image_url = data["imageUrl"]
             trip.start_date = data["startDate"]
             trip.end_date = data["endDate"]
-            current_time = date.today
+            current_time = date.today()
             trip.updated_at = current_time
 
             db.session.add(trip)

@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, redirect
 from ..models import db, Note
 from ..forms import NewNote
+from datetime import date
 
 note_routes = Blueprint('notes', __name__)
 
@@ -60,7 +61,7 @@ def note_changes(id):
             this_note = Note.query.get(id)
             this_note.note = form.data["note"],
             this_note.trip_date = form.data["tripDate"],
-            current_time = date.today
+            current_time = date.today()
             this_note.updated_at = current_time
 
             db.session.add(this_note)
