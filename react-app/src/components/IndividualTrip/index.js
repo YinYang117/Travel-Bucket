@@ -8,6 +8,8 @@ import * as eventActions from "../../store/event";
 import { NavLink, useHistory } from "react-router-dom";
 import TripDateCard from "./TripDateCard";
 import { TripContext } from '../../context/Trip';
+import NoteFormModal from "../NoteModal";
+
 // import "./individualPage.css";
 
 function IndividualTrip () {
@@ -35,7 +37,7 @@ function IndividualTrip () {
     const [showingUsers, setShowingUsers] = useState([]);
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
-    
+
     useEffect(() => {
         setEvents(Object.values(eventsObj))
     },[eventsObj])
@@ -88,16 +90,16 @@ function IndividualTrip () {
 
     const submitNote = () => {
         setHasSubmitted(true)
-        if(errors.length > 0) return; 
-  
+        if(errors.length > 0) return;
+
         const noteData = {}
         noteData.note = note
         noteData.tripId = tripId
         // noteData.tripDate = tripDate
         noteData.ownerId = trip.ownerId
-        
+
         console.log("THIS IS NOTE DATA", noteData)
-        
+
         dispatch(noteActions.postNote(noteData))
             // .catch(async (res) => {
             //     const data = await res.json();
@@ -119,16 +121,16 @@ function IndividualTrip () {
     //     }
     // }
     // gettingUserId()
-    
+
     const submitUser = () => {
         setHasSubmitted(true)
-        if(errorsAddedUser.length > 0) return; 
+        if(errorsAddedUser.length > 0) return;
 
         // console.log("THIS IS SHOWING USERS-----------------", showingUsers)
         // [{}, {}]
         // { "email": "demo@aa.io","id": 1,"username": "Demo"}
-        // user = username of the user that you want to add to your trip 
-  
+        // user = username of the user that you want to add to your trip
+
         const addingUser = {}
         // addingUser.userId = username.actualUserId
         addingUser.tripId = tripId
@@ -162,7 +164,7 @@ function IndividualTrip () {
             itinerary.push(new Date(currentDate));
         }
         setTripDates(itinerary);
-    } 
+    }
 
     return (
         <>
@@ -176,7 +178,7 @@ function IndividualTrip () {
         )
         }
         <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
-        { showAddedUserForm && <form 
+        { showAddedUserForm && <form
                 className="new-note-form"
                 onSubmit={e => {
                     e.preventDefault();
@@ -200,8 +202,8 @@ function IndividualTrip () {
                 </li>
             ))
         }
-        <button onClick={e => setShowNoteForm(!showNoteForm)}>Add Note</button>
-        { showNoteForm && <form 
+        {/* <button onClick={e => setShowNoteForm(!showNoteForm)}>Add Note</button>
+        { showNoteForm && <form
                 className="new-note-form"
                 onSubmit={e => {
                     e.preventDefault();
@@ -216,7 +218,8 @@ function IndividualTrip () {
                 </ul>
                 <button className="new-note-submit" type='submit' >Submit Note</button>
             </form>
-        }
+        } */}
+        <NoteFormModal />
         { tripDates && tripDates.map(tripDate => (
             <TripDateCard key={tripDate} events={events} notes={notes} tripDate={tripDate}/>
         )) }

@@ -13,7 +13,7 @@ function NoteFormModal() {
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <NoteForm />
+          <NoteForm closeModal={() => setShowModal(false)}/>
         </Modal>
       )}
     </>
