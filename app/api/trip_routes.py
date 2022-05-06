@@ -2,7 +2,6 @@ from flask import Blueprint, request, render_template, redirect
 from ..forms import NewTrip, EditTrip
 from ..models import db, Trip, User, Event
 from datetime import date
-# from flask_login import login_required, current_user
 
 
 trip_routes = Blueprint('trips', __name__)
