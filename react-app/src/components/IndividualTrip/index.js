@@ -9,12 +9,13 @@ import { NavLink, useHistory } from "react-router-dom";
 import TripDateCard from "./TripDateCard";
 import { TripContext } from '../../context/Trip';
 import NoteFormModal from "../NoteModal";
-
+import DeleteNote from "../NoteModal/DeleteNoteForm";
+import { Modal } from "../../context/Modal";
 // import "./individualPage.css";
 
-function IndividualTrip () {
+function IndividualTrip() {
     const dispatch = useDispatch()
-    const {tripId}= useParams()
+    const { tripId } = useParams()
     const trip = useSelector(state => state.trips[tripId]);
     const { currentTrip, setCurrentTrip } = useContext(TripContext);
     const sessionUser = useSelector(state => state.session.user);
@@ -37,19 +38,20 @@ function IndividualTrip () {
     const [showingUsers, setShowingUsers] = useState([]);
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         setEvents(Object.values(eventsObj))
-    },[eventsObj])
+    }, [eventsObj])
 
     useEffect(() => {
         dispatch(invitedUsersActions.loadInvitedUsers(tripId))
         dispatch(noteActions.getTripNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
-    },[sessionUser])
+    }, [sessionUser])
 
 
- // ------------------------THIS IS FOR THE USER -----------------------------------
+    // ------------------------THIS IS FOR THE USER -----------------------------------
 
     // useEffect(() => {
     //   async function fetchData() {
@@ -63,7 +65,7 @@ function IndividualTrip () {
     useEffect(() => {
         let errors = [];
 
-        if(!note.length) errors.push("Please enter Note text.")
+        if (!note.length) errors.push("Please enter Note text.")
         setErrors(errors)
 
     }, [note])
@@ -73,7 +75,7 @@ function IndividualTrip () {
     useEffect(() => {
         let errorsAddedUser = [];
 
-        if(!userName.length) errorsAddedUser.push("Please enter a user.")
+        if (!userName.length) errorsAddedUser.push("Please enter a user.")
         //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
         setErrorsAddedUser(errorsAddedUser)
 
@@ -86,30 +88,30 @@ function IndividualTrip () {
     useEffect(() => {
         itineraryMaker(trip?.startDate, trip?.endDate);
         setCurrentTrip(trip);
-    },[trip])
+    }, [trip])
 
-    const submitNote = () => {
-        setHasSubmitted(true)
-        if(errors.length > 0) return;
+    // const submitNote = () => {
+    //     setHasSubmitted(true)
+    //     if(errors.length > 0) return;
 
-        const noteData = {}
-        noteData.note = note
-        noteData.tripId = tripId
-        // noteData.tripDate = tripDate
-        noteData.ownerId = trip.ownerId
+    //     const noteData = {}
+    //     noteData.note = note
+    //     noteData.tripId = tripId
+    //     // noteData.tripDate = tripDate
+    //     noteData.ownerId = trip.ownerId
 
-        console.log("THIS IS NOTE DATA", noteData)
+    //     console.log("THIS IS NOTE DATA", noteData)
 
-        dispatch(noteActions.postNote(noteData))
-            // .catch(async (res) => {
-            //     const data = await res.json();
-            //     if (data && data.errors) setErrors(data.errors);
-            // })
-    };
+    //     dispatch(noteActions.postNote(noteData))
+    //         // .catch(async (res) => {
+    //         //     const data = await res.json();
+    //         //     if (data && data.errors) setErrors(data.errors);
+    //         // })
+    // };
 
-// ------------------------THIS IS FOR THE USER -----------------------------------
+    // ------------------------THIS IS FOR THE USER -----------------------------------
 
-// console.log("THIS IS USER ID FROM THE FUNCTION----------------", actualUserId)
+    // console.log("THIS IS USER ID FROM THE FUNCTION----------------", actualUserId)
 
     // const gettingUserId = () => {
     //     for(let i = 0; i < showingUsers.length; i++) {
@@ -124,7 +126,7 @@ function IndividualTrip () {
 
     const submitUser = () => {
         setHasSubmitted(true)
-        if(errorsAddedUser.length > 0) return;
+        if (errorsAddedUser.length > 0) return;
 
         // console.log("THIS IS SHOWING USERS-----------------", showingUsers)
         // [{}, {}]
@@ -141,21 +143,21 @@ function IndividualTrip () {
         console.log("THIS IS TRIP ID-------------------------", tripId)
         console.log("THIS IS ADDING USER DATA------------------", addingUser)
         dispatch(invitedUsersActions.postInvitedUsers(addingUser))
-            // .catch(async (res) => {
-            //     const data = await res.json();
-            //     if (data && data.errors) setErrors(data.errors);
-            // });
+        // .catch(async (res) => {
+        //     const data = await res.json();
+        //     if (data && data.errors) setErrors(data.errors);
+        // });
     };
 
-    const deleteNote = (note) => {
-        setErrors([]);
-        console.log("THIS IS NOTE-------->", note)
-        dispatch(noteActions.removeNote(note.id))
-        .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-        });
-    }
+    // const deleteNote = (note) => {
+    //     setErrors([]);
+    //     console.log("THIS IS NOTE-------->", note)
+    //     dispatch(noteActions.removeNote(note.id))
+    //     .catch(async (res) => {
+    //         const data = await res.json();
+    //         if (data && data.errors) setErrors(data.errors);
+    //     });
+    // }
 
     const itineraryMaker = (tripStart, tripEnd) => {
         let endDate = new Date(tripEnd);
@@ -168,17 +170,17 @@ function IndividualTrip () {
 
     return (
         <>
-        <h1>INDIVIDUAL PAGE</h1>
-        <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
-        {invitedUsers &&
-            invitedUsers.map(user =>
-              <li key={user.id}>
-                {user?.username}
-              </li>
-        )
-        }
-        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
-        { showAddedUserForm && <form
+            <h1>INDIVIDUAL PAGE</h1>
+            <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image" />
+            {invitedUsers &&
+                invitedUsers.map(user =>
+                    <li key={user.id}>
+                        {user?.username}
+                    </li>
+                )
+            }
+            <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
+            {showAddedUserForm && <form
                 className="new-note-form"
                 onSubmit={e => {
                     e.preventDefault();
@@ -193,38 +195,29 @@ function IndividualTrip () {
                 </ul>
                 <button className="add-user-submit" type='submit' >Submit User</button>
             </form>
-        }
-        {notes &&
-            notes.map(note => (
-                <li key={note.id}>
-                    {note.note}
-                    <button onClick={e => deleteNote(note)}>Delete</button>
-                </li>
-            ))
-        }
-        {/* <button onClick={e => setShowNoteForm(!showNoteForm)}>Add Note</button>
-        { showNoteForm && <form
-                className="new-note-form"
-                onSubmit={e => {
-                    e.preventDefault();
-                    submitNote();
-                }}>
-                <label className='label'>
-                    Note:
-                </label>
-                <input onChange={e => setNote(e.target.value)} type="text" className="new-note-text" placeholder="Add note text here..." value={note} />
-                <ul className="new-note-errors">
-                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-                <button className="new-note-submit" type='submit' >Submit Note</button>
-            </form>
-        } */}
-        <NoteFormModal />
-        { tripDates && tripDates.map(tripDate => (
-            <TripDateCard key={tripDate} events={events} notes={notes} tripDate={tripDate}/>
-        )) }
+            }
+            {notes &&
+                notes.map(note =>
+                    <>
+
+                        <div key={note.id}>{note.note}</div>
+                        <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
+                        {showDeleteModal && (
+                            <Modal onClose={() => setShowDeleteModal(false)}>
+                                <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
+                            </Modal>
+                        )}
+
+                        < NoteFormModal />
+                        {tripDates && tripDates.map(tripDate => (
+                            <TripDateCard key={tripDate} events={events} notes={notes} tripDate={tripDate} />
+                        ))}
+                    </>
+                )
+            }
         </>
     )
 }
+
 
 export default IndividualTrip
