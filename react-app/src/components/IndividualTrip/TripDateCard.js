@@ -23,6 +23,7 @@ function TripDateCard({ events, notes, tripDate }) {
                     events.map(event =>
                         <div key={event.id}>
                             <div>{event.name}</div>
+                            <div>{event.description}</div>
                             <button onClick={e => setShowEditModal(!showEditModal)}>Edit</button>
                             {showEditModal && (
                                 <Modal onClose={() => setShowEditModal(false)}>
