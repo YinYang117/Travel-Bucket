@@ -163,13 +163,13 @@ function IndividualTrip() {
                         e.preventDefault();
                         submitUser();
                     }}>
+                    <ul className="new-note-errors">
+                    {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
                     <label className='label'>
                         Add a User:
                     </label>
                     <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
-                    <ul className="new-note-errors">
-                        {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
                     <button className="add-user-submit" type='submit' >Submit User</button>
                 </form>
             }
