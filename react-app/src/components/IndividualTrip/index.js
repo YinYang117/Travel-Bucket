@@ -45,6 +45,11 @@ function IndividualTrip() {
     useEffect(() => {
         dispatch(tripActions.loadATrip(tripId))
         dispatch(invitedUsersActions.loadInvitedUsers(tripId))
+           // .catch(async (res) => {
+        //     const data = await res.json();
+        //     if (data && data.errors) setErrors(data.errors);
+        // });
+
         dispatch(noteActions.getTripNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
     }, [tripId])
