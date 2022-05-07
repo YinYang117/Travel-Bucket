@@ -33,7 +33,6 @@ function IndividualTrip() {
      // ------------------------THIS IS FOR THE USER -----------------------------------
 
     const invitedUsersObj = useSelector(state => state.invited)
-    // console.log("THIS IS INVITED USERS-------------", invitedUsers)
     const invitedUsers = Object.values(invitedUsersObj)
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
@@ -41,7 +40,6 @@ function IndividualTrip() {
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
 
     useEffect(() => {
         if(tripId) {
@@ -57,7 +55,7 @@ function IndividualTrip() {
         setEvents(Object.values(eventsObj))
         console.log('events after setEvents from OBJ',events)
     }, [eventsObj])
-
+    
     useEffect(() => {
         if (!sessionUser) history.push('/')
     },[sessionUser])
@@ -74,7 +72,7 @@ function IndividualTrip() {
         //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
         setErrorsAddedUser(errorsAddedUser)
     }, [userName])
-
+    
     useEffect(() => {
         if (trip) {
             itineraryMaker(trip.startDate, trip.endDate);
@@ -94,7 +92,7 @@ function IndividualTrip() {
         //     if (data && data.errors) setErrors(data.errors);
         // });
     };
-
+    
     const deleteInvitedUser = (user) => {
         setErrors([]);
         dispatch(invitedUsersActions.removeInvitedUsers(user.id,tripId))
@@ -123,7 +121,7 @@ function IndividualTrip() {
         setTripDates(itinerary);
         console.log('trip dates----------', tripDates)
     }
-
+    
     const eventFilter = (tripDate) => {
         // console.log('are threr even evnts in here',events)
         let dailyEvents = []
@@ -144,7 +142,7 @@ function IndividualTrip() {
         return dailyEvents
     }
 
-
+    
     return (
         <>
         <div className="individual-trip">
@@ -153,8 +151,10 @@ function IndividualTrip() {
                     <div className="trip-box">
                         <h1>{trip?.name}</h1>
                         <h2 id="destination-name">{trip?.destination}</h2>
-                        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
                     </div>
+                </div>
+                <div>
+                    <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add A User to your Trip!</button>
                 </div>
                 {invitedUsers && invitedUsers.map(user =>
                     <li key={user.id}>

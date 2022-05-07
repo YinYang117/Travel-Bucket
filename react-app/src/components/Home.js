@@ -13,11 +13,8 @@ function Home() {
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
+        if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
     }, [sessionUser])
-
-    useEffect(() => {
-       if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
-    },[sessionUser])
 
     return (
         <div className="page-container">
