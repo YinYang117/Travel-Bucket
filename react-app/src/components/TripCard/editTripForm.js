@@ -10,8 +10,8 @@ function EditTripForm ({ hideModal, trip }) {
   const [name, setName] = useState(trip.name);
   const [destination, setDestination] = useState(trip.destination);
   const [imageUrl, setImageUrl] = useState(trip.imageUrl);
-  const [startDate, setStartDate] = useState(startHolder.toString());
-  const [endDate, setEndDate] = useState(endHolder.toString());
+  const [startDate, setStartDate] = useState(startHolder.getFullYear()+"-"+(startHolder.getMonth()+1)+"-"+(startHolder.getDate()+1));
+  const [endDate, setEndDate] = useState(endHolder.getFullYear()+"-"+(endHolder.getMonth()+1)+"-"+(endHolder.getDate()+1));
   const [errors, setErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
