@@ -2,7 +2,7 @@ from app.models import db, Trip
 from datetime import date
 
 
-# Adds a demo trip, you can add other trips here if you want
+# Adds some trips, you can add other trips here if you want
 def seed_trips():
     today = date.today()
     trip1 = Trip(
@@ -35,9 +35,96 @@ def seed_trips():
         created_at=today,
         updated_at=today )
 
+    trip4 = Trip(
+        owner_id=1,
+        name="On to Everest",
+        destination='Nepal', 
+        image_url="https://cdn.pixabay.com/photo/2019/12/13/08/21/gokyo-ri-4692458__340.jpg",
+        start_date=date(2022,7,10),
+        end_date=date(2022,7,25),
+        created_at=today,
+        updated_at=today )
+
+    trip5 = Trip(
+        owner_id=2,
+        name="Other side of the Pond",
+        destination='UK', 
+        image_url="https://cdn.pixabay.com/photo/2014/11/22/08/37/thames-541456_960_720.jpg",
+        start_date=date(2022,6,10),
+        end_date=date(2022,6,15),
+        created_at=today,
+        updated_at=today )
+
+    trip6 = Trip(
+        owner_id=3,
+        name="Trip through History",
+        destination='Egypt', 
+        image_url="https://cdn.pixabay.com/photo/2017/08/24/05/21/pyramid-2675466__340.jpg",
+        start_date=date(2022,8,8),
+        end_date=date(2022,8,14),
+        created_at=today,
+        updated_at=today )
+
+    trip6 = Trip(
+        owner_id=4,
+        name="Machu Picchu visit",
+        destination='Peru', 
+        image_url="https://cdn.pixabay.com/photo/2016/01/13/17/48/machupicchu-1138641__340.jpg",
+        start_date=date(2022,5,28),
+        end_date=date(2022,6,6),
+        created_at=today,
+        updated_at=today )
+
+    trip7 = Trip(
+        owner_id=1,
+        name="Ice Cold Serenity",
+        destination='Iceland', 
+        image_url="https://cdn.pixabay.com/photo/2016/10/18/21/28/seljalandsfoss-1751463__340.jpg",
+        start_date=date(2022,6,11),
+        end_date=date(2022,6,19),
+        created_at=today,
+        updated_at=today )
+
+    trip8 = Trip(
+        owner_id=2,
+        name="Out in the Outback",
+        destination='Australia', 
+        image_url="https://cdn.pixabay.com/photo/2018/05/07/22/08/opera-house-3381786__340.jpg",
+        start_date=date(2022,7,11),
+        end_date=date(2022,7,20),
+        created_at=today,
+        updated_at=today )
+
+    trip9 = Trip(
+        owner_id=3,
+        name="Trip to the South East",
+        destination='Singapore', 
+        image_url="https://cdn.pixabay.com/photo/2020/05/24/12/06/jewel-5213953__340.jpg",
+        start_date=date(2022,8,5),
+        end_date=date(2022,8,11),
+        created_at=today,
+        updated_at=today )
+
+    trip10 = Trip(
+        owner_id=4,
+        name="Athens and more...",
+        destination='Greece', 
+        image_url="https://cdn.pixabay.com/photo/2014/08/12/00/01/santorini-416135__340.jpg",
+        start_date=date(2022,9,5),
+        end_date=date(2022,9,15),
+        created_at=today,
+        updated_at=today )
+
     db.session.add(trip1)
     db.session.add(trip2)
     db.session.add(trip3)
+    db.session.add(trip4)
+    db.session.add(trip5)
+    db.session.add(trip6)
+    db.session.add(trip7)
+    db.session.add(trip8)
+    db.session.add(trip9)
+    db.session.add(trip10)
 
     db.session.commit()
 

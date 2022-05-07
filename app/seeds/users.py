@@ -5,14 +5,20 @@ from app.models import db, User
 def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+    ryan = User(
+        username='Ryan', email='ryan@aa.io', password='password')
+    huyen = User(
+        username='Huyen', email='huyen@aa.io', password='password')
+    kicky = User(
+        username='Kicky', email='kicky@aa.io', password='password')
+    suwan = User(
+        username='Suwan', email='suwan@aa.io', password='password')
 
     db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    db.session.add(ryan)
+    db.session.add(huyen)
+    db.session.add(kicky)
+    db.session.add(suwan)
 
     db.session.commit()
 
