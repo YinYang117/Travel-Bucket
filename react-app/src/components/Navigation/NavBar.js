@@ -55,7 +55,6 @@ import ProfileButton from './ProfileButton';
 import SignUpFormModal from '../SignUpModal';
 import AddATripModal from '../AddATripModal';
 // import { login } from '../../store/session';
-//import Icon from "../../../public/icon.png";
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user);
@@ -104,11 +103,11 @@ const NavBar = () => {
     <nav className="nav-container">
       <ul className="nav-bar-left">
         <li className="nav-list">
-          <NavLink to='/Home' exact={true} className="icon">
-
+          <NavLink to='/Home' exact={true} className="nav-link">
+            <img src="/icon.png" className="icon" alt="Travel Bucket Icon" />
+            <h2 id="travel">Travel Bucket</h2>
           </NavLink>
         </li>
-        <h2>Travel Bucket</h2>
       </ul>
       <ul className="nav-bar-right">
         <li>{sessionLinks}</li>

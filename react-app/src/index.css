@@ -9,14 +9,18 @@
 
 .nav-container {
     width: 100%;
+    /* height: 65px; */
     top: 0;
     position: fixed;
     display: flex;
     overflow: hidden;
     justify-content: space-between;
     background-color: white;
-    border-bottom: 5px solid rgb(99,174,170);
+    border-bottom: 3px solid rgb(99,174,170);
     z-index: 1;
+    -webkit-box-shadow: 0 4px 6px -6px #222;
+    -moz-box-shadow: 0 4px 6px -6px #222;
+    box-shadow: 0 4px 6px -6px #222;
 }
 
 .nav-bar-left {
@@ -83,31 +87,7 @@
 a,
 a:link {
     text-decoration: none;
-    /* color: #666; */
 }
-
-/* a:hover,
-button:hover {
-    border-radius: 7px;
-    background-color: #26b566;
-} */
-
-/* a:focus,
-button:focus {
-    border-radius: 7px;
-    border-color: #33CCFF;
-} */
-
-/* a:active,
-button:active {
-    border-radius: 7px;
-    background-color: #ffffff;
-} */
-
-/* a:visited {
-    text-decoration: none;
-     color: #666;
-} */
 
 button {
     border-radius: 3px;
@@ -145,16 +125,31 @@ button {
     font-weight: bold;
 }
 
+.nav-link {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-link:active{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .icon{
-    background-size: cover;
-  display: inline-block;
-  height:30px;
-  width:30px;
-  background-position: center center;
-background: url(https://i.ibb.co/NtrPmZn/favicon-32x32.png) no-repeat;
+    /* background-size: cover;
+    display: inline-block; */
+    height:40px;
+    width:40px;
+    /* background-position: center center;
+    background: url(https://i.ibb.co/NtrPmZn/favicon-32x32.png) no-repeat; */
+}
 
-margin: 15px;
-
+#travel {
+    margin-bottom: 25px;
 }
 
 a.trips{

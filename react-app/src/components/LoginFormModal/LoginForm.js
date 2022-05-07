@@ -49,8 +49,8 @@ function LoginForm() {
                     ))}
                 </div>
                 <div>
-                    <label htmlFor='email'>Email</label>
-                    <input
+                    <label className="label" htmlFor='email'>Email</label>
+                    <input className="input"
                         name='email'
                         type='text'
                         placeholder='Email'
@@ -59,8 +59,8 @@ function LoginForm() {
                     />
                 </div>
                 <div>
-                    <label htmlFor='password'>Password</label>
-                    <input
+                    <label className="label" htmlFor='password'>Password</label>
+                    <input className="input"
                         name='password'
                         type='password'
                         placeholder='Password'
