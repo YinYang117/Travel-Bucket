@@ -51,7 +51,6 @@ function Event({closeModal}) {
         if (errors.length > 0) return; 
 
         const newEventData = {};
-        setErrors([]);
         setOwnerId(sessionUser.id)
         newEventData.ownerId = ownerId
         newEventData.tripId = currentTrip.id

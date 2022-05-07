@@ -19,14 +19,33 @@ function AddATripModal() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
+  const [hasSubmitted, setHasSubmitted] = useState(false)
 
   useEffect(() => {
       if (!sessionUser) history.push('/')
   },[sessionUser])
 
+  const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+
+  useEffect(() => {
+      let errors = [];
+      if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
+      if (!imageUrl.length) errors.push("Please enter a URL.")
+
+      if (!name.length) errors.push("Please enter a name.")
+      if (!destination.length) errors.push("Please enter a destination.")
+      if (!startDate.length) errors.push("Please enter a startDate.")
+      if (!endDate.length) errors.push("Please enter a endDate.")
+      //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
+      setErrors(errors)
+  }, [name, destination, startDate, endDate, imageUrl])
+
   const submitNewTrip = () => {
+
+    setHasSubmitted(true)
+    if (errors.length > 0) return; 
+    
       const newTripData = { };
-        setErrors([]);
         setOwnerId(sessionUser.id)
         newTripData.ownerId = ownerId
         newTripData.name = name
@@ -71,6 +90,9 @@ function AddATripModal() {
                 e.preventDefault();
                 submitNewTrip();
               }}>
+              <ul className="new-trip-errors">
+              {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+              </ul>
               <label className='label'>
                 Trip Name:
               </label>
@@ -91,9 +113,6 @@ function AddATripModal() {
                 Trip End:
               </label>
               <input onChange={e => setEndDate(e.target.value)} type="date" className="new-trip-end-date" value={endDate} />
-              <ul className="new-trip-errors">
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-              </ul>
               <button id="new-trip-submit" type='submit' >Submit New Trip</button>
             </form>
           </div>
