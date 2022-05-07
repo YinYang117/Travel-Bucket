@@ -34,7 +34,7 @@ const deleteTripAction = (id) => {
 /////////////////////////////////////////
 // thunks return a function that returns an action
 
-export const newTrip = (newTrip) => async (disptach) => {
+export const newTrip = (newTrip) => async (dispatch) => {
     const { ownerId, name, destination, imageUrl, startDate, endDate } = newTrip 
     const response = await fetch('/api/trips/', { // thinking we dont need the trailing slashes
         method: 'POST',
@@ -44,7 +44,7 @@ export const newTrip = (newTrip) => async (disptach) => {
 
     if (response.ok) {
         const data = await response.json();
-        disptach(addTrip(data))
+        dispatch(addTrip(data))
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) return data.errors;
@@ -79,7 +79,6 @@ export const editTrip = (editedTrip) => async (dispatch) => {
         const trip = await res.json()
         console.log("STORE TRIP--------", trip)
         dispatch(addTrip(trip))
-
     }
 }
 
@@ -94,8 +93,16 @@ export const deleteTrip = (idString) => async (dispatch) => {
     }
 }
 
+export const loadATrip = (id) => async (dispatch) => {
+    const res = await fetch(`/api/trips/${id}`);
 
-
+    if (res.ok) {
+        const data = await res.json();
+        if (data.errors) return data.errors
+        dispatch(addTrip(data))
+    }
+    else return ['An error occurred. Please try again.']
+}
 
 
 // end of thunks

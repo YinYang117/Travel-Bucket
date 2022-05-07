@@ -5,7 +5,7 @@ import * as invitedUsersActions from "../../store/invited_user"
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
 import * as eventActions from "../../store/event";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import TripDateCard from "./TripDateCard";
 import { TripContext } from '../../context/Trip';
 import NoteFormModal from "../NoteModal";
@@ -43,55 +43,51 @@ function IndividualTrip() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
-        setEvents(Object.values(eventsObj))
-    }, [eventsObj])
-
-
-    useEffect(() => {
+        dispatch(tripActions.loadATrip(tripId))
         dispatch(invitedUsersActions.loadInvitedUsers(tripId))
         dispatch(noteActions.getTripNotes(tripId))
         dispatch(eventActions.loadAllEvents(tripId))
+    }, [tripId])
+
+    useEffect(() => {
+        if (trip) setCurrentTrip(trip)
+    }, [trip])
+
+    useEffect(() => {
+        setEvents(Object.values(eventsObj))
+        console.log('events after setEvents from OBJ',events)
+    }, [eventsObj])
+
+    useEffect(() => {
+        if (!sessionUser) history.push('/')
     },[sessionUser])
 
     useEffect(() => {
         let errors = [];
-
         if (!note.length) errors.push("Please enter Note text.")
         setErrors(errors)
-
     }, [note])
 
     useEffect(() => {
         let errorsAddedUser = [];
-
         if (!userName.length) errorsAddedUser.push("Please enter a user.")
         //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
         setErrorsAddedUser(errorsAddedUser)
-
     }, [userName])
 
     useEffect(() => {
-        if (!sessionUser) history.push('/')
-    }, [sessionUser])
-
-    useEffect(() => {
-        itineraryMaker(trip?.startDate, trip?.endDate);
-        setCurrentTrip(trip);
+        if (trip) {
+            itineraryMaker(trip.startDate, trip.endDate);
+            setCurrentTrip(trip);
+        }
     }, [trip])
 
     const submitUser = () => {
         setHasSubmitted(true)
         if (errorsAddedUser.length > 0) return;
-        
         const addingUser = {}
-        // addingUser.userId = username.actualUserId
         addingUser.tripId = tripId
         addingUser.userName = userName
-        // noteData.tripDate = tripDate
-
-        // console.log("THIS IS SUBMITTED USER-------------------------", user)
-        console.log("THIS IS TRIP ID-------------------------", tripId)
-        console.log("THIS IS ADDING USER DATA------------------", addingUser)
         dispatch(invitedUsersActions.postInvitedUsers(addingUser))
         // .catch(async (res) => {
         //     const data = await res.json();
@@ -125,56 +121,72 @@ function IndividualTrip() {
             itinerary.push(new Date(currentDate));
         }
         setTripDates(itinerary);
+        console.log('trip dates----------', tripDates)
+    }
+
+    const eventFilter = (tripDate) => {
+        // console.log('are threr even evnts in here',events)
+        let dailyEvents = []
+        events.forEach(event => {
+            let eventEndDate = new Date(event.endDate)
+            let eventStartDate = new Date(event.startDate)
+            if (eventStartDate.getMonth() === tripDate.getMonth() && eventStartDate.getDate() === tripDate.getDate()) {dailyEvents.push(event)}
+            else if (eventEndDate.getMonth() === tripDate.getMonth() && eventEndDate.getDate() === tripDate.getDate()) dailyEvents.push(event)
+            else if (eventStartDate < tripDate && eventEndDate > tripDate) {
+                let currentDay = new Date(eventStartDate)
+                while (currentDay <= eventEndDate) {
+                    currentDay.setDate(currentDay.getDate() + 1)
+                    if (currentDay.getMonth() === tripDate.getMonth() && currentDay.getDate() === tripDate.getDate()) dailyEvents.push(event)
+                }
+            }
+        })
+        // console.log('this is daily events func', dailyEvents)
+        return dailyEvents
     }
 
     return (
         <>
-        <h1>INDIVIDUAL PAGE</h1>
-        <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
-        {invitedUsers &&
-            invitedUsers.map(user =>
-              <li key={user.id}>
-                {user?.username}
-                <button onClick={e => deleteInvitedUser(user)}>Delete User</button>
-              </li>
-        )
-        }
-        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
-        { showAddedUserForm && <form
-                className="new-note-form"
-                onSubmit={e => {
-                    e.preventDefault();
-                    submitUser();
-                }}>
-                <label className='label'>
-                    Add a User:
-                </label>
-                <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
-                <ul className="new-note-errors">
-                    {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-                <button className="add-user-submit" type='submit' >Submit User</button>
-            </form>
+            <h1>INDIVIDUAL PAGE</h1>
+            <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
+            {invitedUsers && invitedUsers.map(user =>
+                <li key={user.id}>
+                    {user?.username}
+                    <button onClick={e => deleteInvitedUser(user)}>Delete User</button>
+                </li>
+            )
             }
-            {notes &&
-                notes.map(note =>
-                    <div key={note.id}>
-
-                        <div >{note.note}</div>
-                        <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
-                        {showDeleteModal && (
-                            <Modal onClose={() => setShowDeleteModal(false)}>
-                                <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
-                            </Modal>
-                        )}
-
-                        < NoteFormModal />
-
-                    </div>
-                )
+            <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
+            { showAddedUserForm && 
+                <form
+                    className="new-note-form"
+                    onSubmit={e => {
+                        e.preventDefault();
+                        submitUser();
+                    }}>
+                    <label className='label'>
+                        Add a User:
+                    </label>
+                    <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
+                    <ul className="new-note-errors">
+                        {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                    <button className="add-user-submit" type='submit' >Submit User</button>
+                </form>
             }
+            {notes && notes.map(note =>
+                <div key={note.id}>
+                    <div >{note.note}</div>
+                    <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
+                    {showDeleteModal && (
+                        <Modal onClose={() => setShowDeleteModal(false)}>
+                            <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
+                        </Modal>
+                    )}
+                    < NoteFormModal />
+                </div>
+            )}
             {tripDates && tripDates.map(tripDate => (
-                <TripDateCard key={tripDate} events={events} notes={notes} tripDate={tripDate} />
+                <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
             ))}
         </>
     )

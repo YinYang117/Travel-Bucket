@@ -13,7 +13,6 @@ function TripDateCard({ events, notes, tripDate }) {
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
-
   
     return (
         <>

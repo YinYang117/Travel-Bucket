@@ -16,17 +16,17 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# example: if good return normal, else return errors
-# so that we can catch those errors on the front end
-# form.errors come from using a Form() to validate or run custom functions
-    if current_user.is_authenticated:
-        return current_user.to_dict()
-    return {'errors': ['Unauthorized']}
+# # example: if good return normal, else return errors
+# # so that we can catch those errors on the front end
+# # form.errors come from using a Form() to validate or run custom functions
+#     if current_user.is_authenticated:
+#         return current_user.to_dict()
+#     return {'errors': ['Unauthorized']}
 
-    if form.validate_on_submit():
-        return stuff
-    else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+#     if form.validate_on_submit():
+#         return stuff
+#     else:
+#         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @trip_routes.route('/', methods=['POST'])
@@ -49,13 +49,6 @@ def trips():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-# Get route for a singular trip
-@trip_routes.route('/<int:id>')
-def trip(id):
-    trip = Trip.query.get(id)
-    return trip.to_dict()
-
-
 @trip_routes.route("/users/<int:id>")
 def users_owned_trips(id):
     trips = Trip.query.filter(Trip.owner_id == id).all()
@@ -68,8 +61,14 @@ def users_owned_trips(id):
         return {'error': ['No Trips found for this User']}
 
 
-@trip_routes.route("/<int:id>", methods=["PUT", "DELETE"])
+@trip_routes.route("/<int:id>", methods=["GET", "PUT", "DELETE"])
 def change_trip(id):
+    if request.method == 'GET':
+        trip = Trip.query.get(id)
+        if trip:
+            return trip.to_dict
+        else:
+            return {'error': ['No Trip Found']}
     if request.method == 'PUT':
         form = EditTrip()
         form['csrf_token'].data = request.cookies['csrf_token']
@@ -145,7 +144,7 @@ def trip_events(id):
     trip_events = Event.query.filter(Event.trip_id == id).all()
     if trip_events:
         all_events = {}
-        for event in trips_events:
+        for event in trip_events:
             all_events[event.id] = event.to_dict
         return all_events
     else:

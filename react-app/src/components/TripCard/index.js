@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal"
+import { TripContext } from '../../context/Trip';
 import DeleteTripForm from "./deleteTripForm"
 import EditTripForm from "./editTripForm"
 import "./TripCard.css"
@@ -12,6 +13,7 @@ function TripCard ({trip}) {
     const history = useHistory()
     const sessionUser = useSelector(state => state.session.user);
 
+    const { currentTrip, setCurrentTrip } = useContext(TripContext);
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
 
