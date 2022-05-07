@@ -24,6 +24,7 @@ function TripCard ({trip}) {
 
     let startDate;
     let endDate;
+    
     if (typeof(trip.startDate) === 'string') {
         startDate = trip.startDate.slice(0, 17);
         endDate = trip.endDate.slice(0, 17);
@@ -53,7 +54,7 @@ function TripCard ({trip}) {
                         </Modal>
                     )}
                 </div>
-        </div> 
+        </div>
         )
     } else {
         return (
@@ -61,7 +62,7 @@ function TripCard ({trip}) {
                 <h3 id="no-trip">Plan a Trip Now!</h3>
                 <img id="trip-image" src="/travel.png" alt="Where to?" className="image"/>
                 <AddATripModal/>
-            </div> 
+            </div>
         )
     }
 }

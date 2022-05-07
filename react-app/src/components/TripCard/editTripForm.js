@@ -15,9 +15,7 @@ function EditTripForm ({ hideModal, trip }) {
   const [errors, setErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
-
   const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
-
 
   useEffect(() => {
       let errors = [];
@@ -88,9 +86,7 @@ function EditTripForm ({ hideModal, trip }) {
                 <button id="edit" className="confirmEditsButton" type="submit">Confirm Edits</button>
                 <button id="edit" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>
         </div>
-        </form>
-    </div>
-  )
+    )
 }
 
 export default EditTripForm;
