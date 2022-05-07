@@ -18,9 +18,10 @@ function Event({closeModal}) {
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
     const [imageUrl, setImageUrl] = useState("");
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [errors, setErrors] = useState([]);
+    const [tripId, setTripId] = useState(currentTrip?.id);
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
 

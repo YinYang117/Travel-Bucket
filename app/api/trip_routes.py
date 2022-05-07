@@ -125,11 +125,7 @@ def trip_users(id):
         return trip.to_dict
 
     if request.method == "DELETE":
-        # I think we need relation.c.the_id == incoming ID to check
-        # When interacting with a table instead of a model.
-        # as is, id ^ is for trip.
         data = request.get_json(force=True)
-        # print("THIS IS DATA FROM THE BACKEND--------------------", data)
         userId = data["invitedUserId"]
         user = User.query.get(userId)
         trip = Trip.query.get(id)
