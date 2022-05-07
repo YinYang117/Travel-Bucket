@@ -35,6 +35,10 @@
     color: #666666;
 }
 
+#no-trip {
+    color: #666666;
+}
+
 #trip-image {
     transition: 2s ease;
     margin: 5px 0 5px 0;

@@ -1,6 +1,6 @@
 
 .formContainer {
-    height: 370px;
+    height: auto;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
@@ -29,14 +29,14 @@
     text-align: center;
 }
 
-label {
+.label {
     display: block;
     margin-top: 30px;
     font-size: 16px;
     font-weight: 500;
 }
 
-input {
+.input {
     display: block;
     height: 50px;
     width: 100%;
