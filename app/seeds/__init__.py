@@ -2,6 +2,8 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .trips import seed_trips, undo_trips
 from .invited_users import seed_invited_users, undo_invited_users
+from .events import seed_events, undo_events
+from .notes import seed_notes, undo_notes
 
 
 # Creates a seed group to hold our commands
@@ -15,6 +17,8 @@ def seed():
     seed_users()
     seed_trips()
     seed_invited_users()
+    seed_events()
+    seed_notes()
     # Add other seed functions here
 
 
@@ -25,4 +29,6 @@ def undo():
     undo_invited_users()
     undo_trips()
     undo_users()
+    undo_events()
+    undo_notes()
     # Add other undo functions here
