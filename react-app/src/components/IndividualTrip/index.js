@@ -35,7 +35,6 @@ function IndividualTrip() {
      // ------------------------THIS IS FOR THE USER -----------------------------------
 
     const invitedUsersObj = useSelector(state => state.invited)
-    // console.log("THIS IS INVITED USERS-------------", invitedUsers)
     const invitedUsers = Object.values(invitedUsersObj)
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
@@ -45,21 +44,19 @@ function IndividualTrip() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
-        dispatch(tripActions.loadATrip(tripId))
-        dispatch(invitedUsersActions.loadInvitedUsers(tripId))
-        dispatch(noteActions.getTripNotes(tripId))
-        dispatch(eventActions.loadAllEvents(tripId))
+        if(tripId) {
+            dispatch(tripActions.loadATrip(tripId))
+            dispatch(invitedUsersActions.loadInvitedUsers(tripId))
+            dispatch(noteActions.getTripNotes(tripId))
+            dispatch(eventActions.loadAllEvents(tripId))
+        }
     }, [tripId])
-
-    useEffect(() => {
-        if (trip) setCurrentTrip(trip)
-    }, [trip])
 
     useEffect(() => {
         setEvents(Object.values(eventsObj))
         console.log('events after setEvents from OBJ',events)
     }, [eventsObj])
-
+    
     useEffect(() => {
         if (!sessionUser) history.push('/')
     },[sessionUser])
@@ -76,7 +73,7 @@ function IndividualTrip() {
         //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
         setErrorsAddedUser(errorsAddedUser)
     }, [userName])
-
+    
     useEffect(() => {
         if (trip) {
             itineraryMaker(trip.startDate, trip.endDate);
@@ -104,20 +101,10 @@ function IndividualTrip() {
         //     if (data && data.errors) setErrors(data.errors);
         // });
     };
-
+    
     const deleteInvitedUser = (user) => {
         setErrors([]);
         dispatch(invitedUsersActions.removeInvitedUsers(user.id,tripId))
-        .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-        });
-    }
-
-    const deleteNote = (note) => {
-        setErrors([]);
-        console.log("THIS IS NOTE-------->", note)
-        dispatch(noteActions.removeNote(note.id))
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
@@ -133,7 +120,7 @@ function IndividualTrip() {
         setTripDates(itinerary);
         console.log('trip dates----------', tripDates)
     }
-
+    
     const eventFilter = (tripDate) => {
         // console.log('are threr even evnts in here',events)
         let dailyEvents = []
@@ -155,8 +142,6 @@ function IndividualTrip() {
     }
 
 
-
-
     return (
         <>
         <div className="individual-trip">
@@ -168,6 +153,9 @@ function IndividualTrip() {
                         <h3>{stringStartDate} to {stringEndDate}</h3>
                         <button className="addUser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
                     </div>
+                </div>
+                <div>
+                    <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add A User to your Trip!</button>
                 </div>
                 {invitedUsers && invitedUsers.map(user =>
                     <li key={user.id}>
@@ -200,16 +188,15 @@ function IndividualTrip() {
                                 <div className='message'>{note.note}</div>
                             </div>
                         </div>
-
                         <button className="deleteNoteButton" onClick={e => setShowDeleteModal(true)}>Delete Note</button>
                         {showDeleteModal && (
                             <Modal onClose={() => setShowDeleteModal(false)}>
                                 <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
                             </Modal>
                         )}
-                        < NoteFormModal />
                     </div>
                 )}
+                < NoteFormModal />
                 {tripDates && tripDates.map(tripDate => (
                     <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
                     ))}
@@ -218,6 +205,5 @@ function IndividualTrip() {
         </>
     )
 }
-
 
 export default IndividualTrip

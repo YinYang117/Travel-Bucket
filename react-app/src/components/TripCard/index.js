@@ -32,7 +32,7 @@ function TripCard ({trip}) {
         <div className="trip-container">
                 <h2 id="trip-name">{trip.name}</h2>
                 <h3 id="destination-name">{trip.destination}</h3>
-                <NavLink to={`/trips/${trip.id}`}>
+                <NavLink to={`/trips/${trip.id}`} onClick={setCurrentTrip(trip)}>
                     <img id="trip-image" src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
                 </NavLink>
                 <div className="date-container">

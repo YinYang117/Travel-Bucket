@@ -74,11 +74,7 @@ def note_changes(id):
 @note_routes.route('/trips/<int:id>')
 def get_trip_notes(id):
     notes = Note.query.filter(Note.trip_id == id).all()
-    if notes:
-        all_notes = {}
-        for note in notes:
-            all_notes[note.id] = note.to_dict
-        return all_notes
-    else:
-        return {'error': ['No Notes found']}
-
+    all_notes = {}
+    for note in notes:
+        all_notes[note.id] = note.to_dict
+    return all_notes
