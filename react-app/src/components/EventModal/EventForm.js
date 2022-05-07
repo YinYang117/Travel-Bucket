@@ -21,14 +21,35 @@ function Event({closeModal}) {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [errors, setErrors] = useState([]);
+    const [hasSubmitted, setHasSubmitted] = useState(false)
 
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
 
+    const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+
+    useEffect(() => {
+        let errors = [];
+        if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
+        if (!imageUrl.length) errors.push("Please enter a URL.")
+
+        if (!name.length) errors.push("Please enter a name.")
+        if (!description.length) errors.push("Please enter a description.")
+        if (!location.length) errors.push("Please enter a location.")
+        if (!startDate.length) errors.push("Please enter a startDate.")
+        if (!endDate.length) errors.push("Please enter a endDate.")
+        //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
+        setErrors(errors)
+    }, [name, description, location, startDate, endDate, imageUrl])
+
 
     const submitNewEvent = () => {
+
+        setHasSubmitted(true)
+        if (errors.length > 0) return; 
+
         const newEventData = {};
         setErrors([]);
         setOwnerId(sessionUser.id)
@@ -62,6 +83,9 @@ function Event({closeModal}) {
                         e.preventDefault();
                         submitNewEvent();
                     }}>
+                    <ul className="new-event-errors">
+                        {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
                     <label className='label'>
                         Event Name:
                     </label>
@@ -86,9 +110,6 @@ function Event({closeModal}) {
                         Event End:
                     </label>
                     <input onChange={e => setEndDate(e.target.value)} type="date" className="new-event-end-date" value={endDate} />
-                    <ul className="new-event-errors">
-                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
                     <button id="new-event-submit" type='submit' >Submit New event</button>
                 </form>
             </div>
