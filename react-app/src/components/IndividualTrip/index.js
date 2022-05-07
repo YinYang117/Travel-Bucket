@@ -101,16 +101,6 @@ function IndividualTrip() {
         });
     }
 
-    // const deleteNote = (note) => {
-    //     setErrors([]);
-    //     console.log("THIS IS NOTE-------->", note)
-    //     dispatch(noteActions.removeNote(note.id))
-    //     .catch(async (res) => {
-    //         const data = await res.json();
-    //         if (data && data.errors) setErrors(data.errors);
-    //     });
-    // }
-
     const itineraryMaker = (tripStart, tripEnd) => {
         let endDate = new Date(tripEnd);
         let itinerary = [];
