@@ -128,19 +128,15 @@ function IndividualTrip() {
         // console.log('are threr even evnts in here',events)
         let dailyEvents = []
         events.forEach(event => {
-            let testDate = new Date(event.startDate)
-            // console.log('tripDate', tripDate.getDate())
-            // console.log('type of event.startDate', event.startDate.getDate())
-            console.log(testDate)
-            console.log(tripDate)
-            console.log(testDate === tripDate)
-            if (event.startDate === tripDate) dailyEvents.push(event)
-            else if (event.endDate === tripDate) dailyEvents.push(event)
-            else if (event.startDate < tripDate && event.endDate > tripDate) {
-                let currentDay = event.startDate
-                while (currentDay <= event.endDate) {
+            let eventEndDate = new Date(event.endDate)
+            let eventStartDate = new Date(event.startDate)
+            if (eventStartDate.getMonth() === tripDate.getMonth() && eventStartDate.getDate() === tripDate.getDate()) {dailyEvents.push(event)}
+            else if (eventEndDate.getMonth() === tripDate.getMonth() && eventEndDate.getDate() === tripDate.getDate()) dailyEvents.push(event)
+            else if (eventStartDate < tripDate && eventEndDate > tripDate) {
+                let currentDay = new Date(eventStartDate)
+                while (currentDay <= eventEndDate) {
                     currentDay.setDate(currentDay.getDate() + 1)
-                    if (currentDay === tripDate) dailyEvents.push(event)
+                    if (currentDay.getMonth() === tripDate.getMonth() && currentDay.getDate() === tripDate.getDate()) dailyEvents.push(event)
                 }
             }
         })
