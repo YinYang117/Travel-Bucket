@@ -21,8 +21,13 @@ function TripCard ({trip}) {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
 
-    const startDate = trip.startDate.slice(0, 17);
-    const endDate = trip.endDate.slice(0, 17);
+    let startDate;
+    let endDate;
+    if(trip) {
+        startDate = trip.startDate.slice(0, 17);
+        endDate = trip.endDate.slice(0, 17);
+    }
+
 
     return (
        <div className="trip-container">
