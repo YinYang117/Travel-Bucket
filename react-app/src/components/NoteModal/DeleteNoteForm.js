@@ -9,14 +9,15 @@ function DeleteNote({ hideModal, note }) {
 
     const handleSubmit = async (e, note) => {
         e.preventDefault();
-        setErrors([]);
+        // setErrors([]);
         console.log("THIS IS NOTE-------->", note)
         dispatch(removeNote(note.id))
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
+                // if (data && data.errors) setErrors(data.errors);
             });
     }
+
     const handleCancelClick = (e) => {
         e.preventDefault()
         hideModal();

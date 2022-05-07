@@ -47,10 +47,10 @@ function NoteForm({ closeModal }) {
 
         dispatch(noteActions.postNote(noteData))
             .then(() => closeModal())
-            .catch(async (res) => {
-                const data = await res.json()
-                if (data && data.errors) setErrors(data.errors)
-            })
+            // .catch(async (res) => {
+            //     const data = await res.json()
+            //     if (data && data.errors) setErrors(data.errors)
+            // })
     };
 
 

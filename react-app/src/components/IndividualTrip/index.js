@@ -182,16 +182,16 @@ function IndividualTrip() {
                 }
                 {notes && notes.map(note =>
                     <div key={note.id}>
-                        <div>{note.note}</div>
+                        <div>{note?.note}</div>
                         <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
                         {showDeleteModal && (
                             <Modal onClose={() => setShowDeleteModal(false)}>
                                 <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
                             </Modal>
                         )}
-                        < NoteFormModal />
                     </div>
                 )}
+                < NoteFormModal />
                 {tripDates && tripDates.map(tripDate => (
                     <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
                     ))}
