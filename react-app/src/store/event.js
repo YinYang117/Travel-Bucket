@@ -58,6 +58,7 @@ export const loadAllEvents = (tripId) => async (dispatch) => {
 }
 
 export const editEvent = (newEvent) => async (dispatch) => {
+    console.log("edit event in the store", newEvent)
     const id = parseInt(newEvent.id, 10)
     const res = await fetch(`/api/events/${id}`, {
     method: 'PUT',
@@ -68,7 +69,10 @@ export const editEvent = (newEvent) => async (dispatch) => {
     if(res.ok) {
         const data = await res.json()
         dispatch(addEvent(data))
-    }
+    } else if (res.status < 500) {
+        const data = await res.json();
+        if (data.errors) return data.errors;
+    } else return ['An error occurred. Please try again.']
 }
 
 export const deleteEvent = (id) => async (dispatch) => {
@@ -79,6 +83,10 @@ export const deleteEvent = (id) => async (dispatch) => {
     if(res.ok) {
         dispatch(deleteEventAction(id))
     }
+    //  else if (res.status < 500) {
+    //     const data = await res.json();
+    //     if (data.errors) return data.errors}
+    else return ['An error occurred. Please try again.']
 }
 
 
