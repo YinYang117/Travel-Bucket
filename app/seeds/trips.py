@@ -65,7 +65,7 @@ def seed_trips():
         created_at=today,
         updated_at=today )
 
-    trip6 = Trip(
+    trip7 = Trip(
         owner_id=4,
         name="Machu Picchu visit",
         destination='Peru', 
@@ -75,7 +75,7 @@ def seed_trips():
         created_at=today,
         updated_at=today )
 
-    trip7 = Trip(
+    trip8 = Trip(
         owner_id=1,
         name="Ice Cold Serenity",
         destination='Iceland', 
@@ -85,7 +85,7 @@ def seed_trips():
         created_at=today,
         updated_at=today )
 
-    trip8 = Trip(
+    trip9 = Trip(
         owner_id=2,
         name="Out in the Outback",
         destination='Australia', 
@@ -95,7 +95,7 @@ def seed_trips():
         created_at=today,
         updated_at=today )
 
-    trip9 = Trip(
+    trip10 = Trip(
         owner_id=3,
         name="Trip to the South East",
         destination='Singapore', 
@@ -105,7 +105,7 @@ def seed_trips():
         created_at=today,
         updated_at=today )
 
-    trip10 = Trip(
+    trip11 = Trip(
         owner_id=4,
         name="Athens and more...",
         destination='Greece', 
@@ -125,6 +125,7 @@ def seed_trips():
     db.session.add(trip8)
     db.session.add(trip9)
     db.session.add(trip10)
+    db.session.add(trip11)
 
     db.session.commit()
 
