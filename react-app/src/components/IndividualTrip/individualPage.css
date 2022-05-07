@@ -2,3 +2,45 @@
      height: 300px;
      width: 400px;
  }
+
+ .center-trip {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .image {
+     display: flex;
+     justify-content: center;
+ }
+
+ .individual-trip{
+     margin-top: 69px;
+ }
+
+ .background-image-trip {
+     height: 300px;
+     width: 100vw;
+ }
+
+ .trip-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    margin: 60px auto 20px auto;
+    padding: 2em;
+    border-radius: 10px;
+    border: 1px solid transparentize(white, 0.5);
+    text-shadow: 0 0 1em transparentize(black, 0.5);
+    background-color: white;
+    backdrop-filter: blur(20px);
+    transform: perspective(500px);
+    transform-style: preserve-3d;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+ }
+
+
+
