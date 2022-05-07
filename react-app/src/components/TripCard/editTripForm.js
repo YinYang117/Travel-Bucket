@@ -85,7 +85,9 @@ function EditTripForm ({ hideModal, trip }) {
             <div id="edit_trip_buttons">
                 <button id="edit" className="confirmEditsButton" type="submit">Confirm Edits</button>
                 <button id="edit" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>
-        </div>
+            </div>
+        </form>
+    </div>
     )
 }
 
