@@ -42,21 +42,16 @@ function IndividualTrip() {
     const [events, setEvents] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-    useEffect(() => {
-        dispatch(tripActions.loadATrip(tripId))
-        dispatch(invitedUsersActions.loadInvitedUsers(tripId))
-           // .catch(async (res) => {
-        //     const data = await res.json();
-        //     if (data && data.errors) setErrors(data.errors);
-        // });
 
-        dispatch(noteActions.getTripNotes(tripId))
-        dispatch(eventActions.loadAllEvents(tripId))
+    useEffect(() => {
+        if(tripId) {
+            dispatch(tripActions.loadATrip(tripId))
+            dispatch(invitedUsersActions.loadInvitedUsers(tripId))
+            dispatch(noteActions.getTripNotes(tripId))
+            dispatch(eventActions.loadAllEvents(tripId))
+
+        }
     }, [tripId])
-
-    useEffect(() => {
-        if (trip) setCurrentTrip(trip)
-    }, [trip])
 
     useEffect(() => {
         setEvents(Object.values(eventsObj))
@@ -109,15 +104,15 @@ function IndividualTrip() {
         });
     }
 
-    const deleteNote = (note) => {
-        setErrors([]);
-        console.log("THIS IS NOTE-------->", note)
-        dispatch(noteActions.removeNote(note.id))
-        .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-        });
-    }
+    // const deleteNote = (note) => {
+    //     setErrors([]);
+    //     console.log("THIS IS NOTE-------->", note)
+    //     dispatch(noteActions.removeNote(note.id))
+    //     .catch(async (res) => {
+    //         const data = await res.json();
+    //         if (data && data.errors) setErrors(data.errors);
+    //     });
+    // }
 
     const itineraryMaker = (tripStart, tripEnd) => {
         let endDate = new Date(tripEnd);
