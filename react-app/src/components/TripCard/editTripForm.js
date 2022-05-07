@@ -13,13 +13,14 @@ function EditTripForm ({ hideModal, trip }) {
   const [startDate, setStartDate] = useState(trip?.startDate);
   const [endDate, setEndDate] = useState(trip?.endDate);
   const [errors, setErrors] = useState([]);
+  const [hasSubmitted, setHasSubmitted] = useState(false)
 
   const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
 
   useEffect(() => {
       let errors = [];
       if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
-      else if (!imageUrl.length) errors.push("Please enter a URl.")
+      if(!imageUrl.length) errors.push("Please enter a URL.")
       if(!name.length) errors.push("Please enter a trip name.")
       if(!destination.length) errors.push("Please enter a destination.")
       if(!startDate.length) errors.push("Please enter a start date.")
@@ -28,6 +29,8 @@ function EditTripForm ({ hideModal, trip }) {
   }, [imageUrl, name, destination, startDate, endDate])
 
   const submitTripEdits = () => {
+
+      setHasSubmitted(true)
       if(errors.length > 0) return; 
 
       const editedTripData = trip
@@ -56,6 +59,9 @@ function EditTripForm ({ hideModal, trip }) {
         e.preventDefault();
         submitTripEdits();
     }}>
+        <ul className="new-trip-errors">
+        {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
         <label className='label'>
             Trip Name:
         </label>
@@ -76,9 +82,6 @@ function EditTripForm ({ hideModal, trip }) {
             Trip End:
         </label>
         <input onChange={e => setEndDate(e.target.value)} type="date" className="new-trip-end-date" placeholder={trip?.endDate} value={endDate} />
-        <ul className="new-trip-errors">
-            {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
         <div id="edit_trip_buttons">
             <button id="edit" className="confirmEditsButton" type="submit">Confirm Edits</button>
             <button id="cancel" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>

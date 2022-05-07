@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useSelector } from 'react-redux';
-import { NavLink } from "react-router-dom";
+import React, { useState, useContext } from "react";
 import { Modal } from "../../context/Modal";
 import EventForm from "../EventModal/EventForm";
 import EditEvent from "../EventModal/EditEventForm";
 import DeleteEvent from "../EventModal/DeleteEventForm";
 import { TripContext } from '../../context/Trip';
+import "./individualPage.css";
 
 
 function TripDateCard({ events, notes, tripDate }) {
@@ -13,6 +12,9 @@ function TripDateCard({ events, notes, tripDate }) {
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
+
+
+
   
     return (
         <>
@@ -22,7 +24,24 @@ function TripDateCard({ events, notes, tripDate }) {
                 {events &&
                     events.map(event =>
                         <div key={event.id}>
-                            <div>{event.name}</div>
+                            <div>
+                                <h2>{event?.name}</h2>
+                            </div>
+                            <div>
+                                <h3>{event?.location}</h3>
+                            </div>
+                            <div>
+                                <img src={event?.imageUrl} alt={`${event?.name} alt`} className="event"/>
+                            </div>
+                            <div>
+                                <h4>{event?.description}</h4>
+                            </div>
+                            <div>
+                                <h4>{event?.startDate.slice(0, 17)}</h4>
+                            </div>
+                            <div>
+                                <h4>{event?.endDate.slice(0, 17)}</h4>
+                            </div>
                             <button onClick={e => setShowEditModal(!showEditModal)}>Edit</button>
                             {showEditModal && (
                                 <Modal onClose={() => setShowEditModal(false)}>
