@@ -8,7 +8,7 @@ def seed_notes():
     note1 = Note(
         owner_id=1,
         trip_id=1,
-        note="Attend the Beach Party!",
+        note="Attend the Beach Party! You know who will be there ;) ",
         created_at=today,
         updated_at=today )
 
