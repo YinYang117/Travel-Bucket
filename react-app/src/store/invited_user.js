@@ -60,12 +60,12 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
             body: JSON.stringify({invitedUserId, tripId})
         })
         
-        // if (response2.ok) {
+        if (response2.ok) {
             disptach(addInvitedUser(data.invitedUser))
-        // } else if (response2.status < 500) {
-        //     const data = await response.json();
-        //     if (data.errors) return data.errors;
-        // }
+        } else if (response2.status < 500) {
+            const data = await response.json();
+            if (data.errors) return data.errors;
+        } 
 
     } else if (response.status < 500) {
         const data = await response.json();

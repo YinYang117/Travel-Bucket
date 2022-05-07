@@ -74,11 +74,11 @@ def change_trip(id):
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             trip = Trip.query.get(id)
-            trip.name= data["name"]
-            trip.destination = data["destination"]
-            trip.image_url = data["imageUrl"]
-            trip.start_date = data["startDate"]
-            trip.end_date = data["endDate"]
+            trip.name= form.data["name"]
+            trip.destination = form.data["destination"]
+            trip.image_url = form.data["imageUrl"]
+            trip.start_date = form.data["startDate"]
+            trip.end_date = form.data["endDate"]
             current_time = date.today()
             trip.updated_at = current_time
 
@@ -100,13 +100,10 @@ def trip_users(id):
     if request.method == "GET":
         trip = Trip.query.get(id)
         all_users = trip.invited_users
-        if all_users:
-            users = {}
-            for user in all_users:
-                users[user.id] = user.to_dict()
-            return users
-        else:
-            return {'error': ['No Users found for this Trip']}
+        users = {}
+        for user in all_users:
+            users[user.id] = user.to_dict()
+        return users
 
     if request.method == "POST":
         data = request.get_json(force=True)

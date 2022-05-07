@@ -40,17 +40,15 @@ function IndividualTrip() {
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    
-    useEffect(() => {
-        dispatch(tripActions.loadATrip(tripId))
-        dispatch(invitedUsersActions.loadInvitedUsers(tripId))
-        dispatch(noteActions.getTripNotes(tripId))
-        dispatch(eventActions.loadAllEvents(tripId))
-    }, [tripId])
 
     useEffect(() => {
-        if (trip) setCurrentTrip(trip)
-    }, [trip])
+        if(tripId) {
+            dispatch(tripActions.loadATrip(tripId))
+            dispatch(invitedUsersActions.loadInvitedUsers(tripId))
+            dispatch(noteActions.getTripNotes(tripId))
+            dispatch(eventActions.loadAllEvents(tripId))
+        }
+    }, [tripId])
 
     useEffect(() => {
         setEvents(Object.values(eventsObj))
@@ -97,16 +95,6 @@ function IndividualTrip() {
     const deleteInvitedUser = (user) => {
         setErrors([]);
         dispatch(invitedUsersActions.removeInvitedUsers(user.id,tripId))
-        .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-        });
-    }
-
-    const deleteNote = (note) => {
-        setErrors([]);
-        console.log("THIS IS NOTE-------->", note)
-        dispatch(noteActions.removeNote(note.id))
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
@@ -183,16 +171,16 @@ function IndividualTrip() {
                 }
                 {notes && notes.map(note =>
                     <div key={note.id}>
-                        <div>{note.note}</div>
+                        <div>{note?.note}</div>
                         <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
                         {showDeleteModal && (
                             <Modal onClose={() => setShowDeleteModal(false)}>
                                 <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
                             </Modal>
                         )}
-                        < NoteFormModal />
                     </div>
                 )}
+                < NoteFormModal />
                 {tripDates && tripDates.map(tripDate => (
                     <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
                     ))}
