@@ -144,50 +144,59 @@ function IndividualTrip() {
         return dailyEvents
     }
 
+
     return (
         <>
-            <h1>INDIVIDUAL PAGE</h1>
-            <img src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
-            {invitedUsers && invitedUsers.map(user =>
-                <li key={user.id}>
-                    {user?.username}
-                    <button onClick={e => deleteInvitedUser(user)}>Delete User</button>
-                </li>
-            )
-            }
-            <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
-            { showAddedUserForm && 
-                <form
+        <div className="individual-trip">
+            <div className="center-trip">
+                <div style={{ backgroundImage: `url(${trip?.imageUrl})` }} className="background-image-trip">
+                    <div className="trip-box">
+                        <h1>{trip?.name}</h1>
+                        <h2 id="destination-name">{trip?.destination}</h2>
+                        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
+                    </div>
+                </div>
+                {invitedUsers && invitedUsers.map(user =>
+                    <li key={user.id}>
+                        {user?.username}
+                        <button onClick={e => deleteInvitedUser(user)}>Delete User</button>
+                    </li>
+                )
+                }
+                { showAddedUserForm && 
+                    <form
                     className="new-note-form"
                     onSubmit={e => {
                         e.preventDefault();
                         submitUser();
                     }}>
-                    <label className='label'>
-                        Add a User:
-                    </label>
-                    <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
-                    <ul className="new-note-errors">
+                        <ul className="new-note-errors">
                         {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
-                    <button className="add-user-submit" type='submit' >Submit User</button>
-                </form>
-            }
-            {notes && notes.map(note =>
-                <div key={note.id}>
-                    <div >{note.note}</div>
-                    <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
-                    {showDeleteModal && (
-                        <Modal onClose={() => setShowDeleteModal(false)}>
-                            <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
-                        </Modal>
-                    )}
-                    < NoteFormModal />
-                </div>
-            )}
-            {tripDates && tripDates.map(tripDate => (
-                <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
-            ))}
+                        </ul>
+                        <label className='label'>
+                            Add a User:
+                        </label>
+                        <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
+                        <button className="add-user-submit" type='submit' >Submit User</button>
+                    </form>
+                }
+                {notes && notes.map(note =>
+                    <div key={note.id}>
+                        <div>{note.note}</div>
+                        <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
+                        {showDeleteModal && (
+                            <Modal onClose={() => setShowDeleteModal(false)}>
+                                <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
+                            </Modal>
+                        )}
+                        < NoteFormModal />
+                    </div>
+                )}
+                {tripDates && tripDates.map(tripDate => (
+                    <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
+                    ))}
+            </div>
+        </div>
         </>
     )
 }

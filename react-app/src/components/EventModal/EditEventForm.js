@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { editEvent } from "../../store/event";
 import { useHistory } from "react-router-dom";
-import { Modal } from "../../context/Modal"
 import './EditEventModal.css';
 
 
@@ -18,15 +17,35 @@ function EditEvent({closeModal, event}) {
     const [startDate, setStartDate] = useState(event.startDate);
     const [endDate, setEndDate] = useState(event.endDate);
     const [errors, setErrors] = useState([]);
+    const [hasSubmitted, setHasSubmitted] = useState(false)
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
 
+    const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+
+    useEffect(() => {
+        let errors = [];
+        if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
+        if (!imageUrl.length) errors.push("Please enter a URL.")
+
+        if (!name.length) errors.push("Please enter a name.")
+        if (!description.length) errors.push("Please enter a description.")
+        if (!location.length) errors.push("Please enter a location.")
+        if (!startDate.length) errors.push("Please enter a startDate.")
+        if (!endDate.length) errors.push("Please enter a endDate.")
+        //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
+        setErrors(errors)
+    }, [name, description, location, startDate, endDate, imageUrl])
+
 
     const submitEdits = () => {
+
+        setHasSubmitted(true)
+        if (errors.length > 0) return; 
+
         const editedEvent = event;
-        setErrors([]);
         // trip and owner id stays the same
         editedEvent.name = name
         editedEvent.description = description
@@ -58,6 +77,9 @@ function EditEvent({closeModal, event}) {
                         e.preventDefault();
                         submitEdits();
                     }}>
+                    <ul className="errors">
+                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
                     <label className='label'>
                         Event Name:
                     </label>
@@ -82,9 +104,6 @@ function EditEvent({closeModal, event}) {
                         Event End:
                     </label>
                     <input onChange={e => setEndDate(e.target.value)} type="date" className="edit-event-end-date" value={endDate} />
-                    <ul className="errors">
-                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
                     <div id="edit_trip_buttons">
                         <button id="new-event-submit" type='submit' >Submit Edit Event</button>
                         <button id="new-event-submit" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>

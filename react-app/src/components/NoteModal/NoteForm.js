@@ -23,6 +23,14 @@ function NoteForm({ closeModal }) {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
 
+    useEffect(() => {
+        let errors = [];
+
+        if(!note.length) errors.push("Please enter a note.")
+        setErrors(errors)
+
+    }, [note])
+
     const submitNote = () => {
         setHasSubmitted(true)
         if (errors.length > 0) return;
@@ -54,13 +62,13 @@ function NoteForm({ closeModal }) {
                     e.preventDefault();
                     submitNote();
                 }}>
+                <ul className="new-note-errors">
+                {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
                 <label className='label'>
                     Note:
                 </label>
                 <input onChange={e => setNote(e.target.value)} type="text" className="new-note-text" placeholder="Add note text here..." value={note} />
-                <ul className="new-note-errors">
-                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
                 <button id="new-note-submit" type='submit' >Submit Note</button>
             </form>
         </div>
