@@ -9,15 +9,16 @@ function EditEvent({closeModal, event}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
-
+    let startHolder = new Date(event.startDate)
+    let endHolder = new Date(event.endDate)
     const [name, setName] = useState(event.name);
     const [description, setDescription] = useState(event.description);
     const [location, setLocation] = useState(event.location);
     const [imageUrl, setImageUrl] = useState(event.imageUrl);
-    const [startDate, setStartDate] = useState(event.startDate);
-    const [endDate, setEndDate] = useState(event.endDate);
-    const [errors, setErrors] = useState([]);
+    const [startDate, setStartDate] = useState(startHolder.toString());
+    const [endDate, setEndDate] = useState(endHolder.toString());
     const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
