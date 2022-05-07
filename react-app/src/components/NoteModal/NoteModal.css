@@ -67,3 +67,26 @@ input {
     color: #080710;
     background-color: #ffffff;
 }
+
+
+
+
+
+.addTripButton,
+.deleteNoteButton {
+    border-bottom: 4px solid transparent;
+    display:inline;
+    width: 110px;
+    margin: 0 auto;
+}
+
+.addTripButton.active,
+.addTripButton:hover {
+    border-color: #33CCFF;
+}
+
+
+.deleteNoteButton.active,
+.deleteNoteButton:hover {
+    border-color: #f63d43;
+}

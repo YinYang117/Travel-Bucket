@@ -56,7 +56,7 @@ def event(id):
     if request.method == "GET":
         event = Event.query.get(id)
         if event:
-            return event
+            return event.to_dict
         else:
             return {'error': ['Event not found']}
 

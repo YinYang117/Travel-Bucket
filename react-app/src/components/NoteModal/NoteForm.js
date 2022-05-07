@@ -57,6 +57,7 @@ function NoteForm({ closeModal }) {
     return (
         <div className="formContainer8">
             <form
+
                 className="new-note-form"
                 onSubmit={e => {
                     e.preventDefault();

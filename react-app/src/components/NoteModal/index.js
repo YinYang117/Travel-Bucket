@@ -8,7 +8,6 @@ function NoteFormModal() {
   return (
     <>
       <button className="addTripButton" onClick={() => setShowModal(true)}>
-        {/* <i class="fa-solid fa-right-to-bracket"></i> */}
         Add Note
       </button>
       {showModal && (

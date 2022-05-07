@@ -33,6 +33,7 @@
 
 #destination-name {
     color: #666666;
+    margin-bottom: 20px;
 }
 
 #no-trip {
@@ -71,4 +72,3 @@
 .grow img{
     transition: 1s ease;
 }
-    

@@ -29,6 +29,8 @@ function IndividualTrip() {
     const [tripDate, setTripDate] = useState("");
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [stringStartDate, setStringStartDate] = useState("")
+    const [stringEndDate, setStringEndDate] = useState("")
 
      // ------------------------THIS IS FOR THE USER -----------------------------------
 
@@ -78,6 +80,14 @@ function IndividualTrip() {
     useEffect(() => {
         if (trip) {
             itineraryMaker(trip.startDate, trip.endDate);
+            // const startDate = trip.startDate.getUTCMonth() + 1
+            // const day = trip.startDate.getUTCDate()
+            // const year = trip.startDate.getUTCFullYear();
+            const startDate = trip.startDate.slice(0,17)
+            const endDate = trip.endDate.slice(0,17)
+            setStringStartDate(startDate)
+            setStringEndDate(endDate)
+            //console.log("LOOK HERE---------", trip.startDate)
             setCurrentTrip(trip);
         }
     }, [trip])
@@ -145,6 +155,8 @@ function IndividualTrip() {
     }
 
 
+
+
     return (
         <>
         <div className="individual-trip">
@@ -153,7 +165,8 @@ function IndividualTrip() {
                     <div className="trip-box">
                         <h1>{trip?.name}</h1>
                         <h2 id="destination-name">{trip?.destination}</h2>
-                        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
+                        <h3>{stringStartDate} to {stringEndDate}</h3>
+                        <button className="addUser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
                     </div>
                 </div>
                 {invitedUsers && invitedUsers.map(user =>
@@ -163,7 +176,7 @@ function IndividualTrip() {
                     </li>
                 )
                 }
-                { showAddedUserForm && 
+                { showAddedUserForm &&
                     <form
                     className="new-note-form"
                     onSubmit={e => {
@@ -174,16 +187,21 @@ function IndividualTrip() {
                         {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
                         </ul>
                         <label className='label'>
-                            Add a User:
                         </label>
                         <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
                         <button className="add-user-submit" type='submit' >Submit User</button>
                     </form>
                 }
                 {notes && notes.map(note =>
-                    <div key={note.id}>
-                        <div>{note.note}</div>
-                        <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
+                    <div key={note.id} className="note-container" >
+                        <div className="dialogbox">
+                            <div className="body">
+                                <span className="tip tip-down"></span>
+                                <div className='message'>{note.note}</div>
+                            </div>
+                        </div>
+
+                        <button className="deleteNoteButton" onClick={e => setShowDeleteModal(true)}>Delete Note</button>
                         {showDeleteModal && (
                             <Modal onClose={() => setShowDeleteModal(false)}>
                                 <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
