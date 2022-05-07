@@ -47,7 +47,6 @@ function IndividualTrip() {
             dispatch(invitedUsersActions.loadInvitedUsers(tripId))
             dispatch(noteActions.getTripNotes(tripId))
             dispatch(eventActions.loadAllEvents(tripId))
-
         }
     }, [tripId])
 
