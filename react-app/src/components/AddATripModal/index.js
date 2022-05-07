@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { Modal } from "../../context/Modal";
 import {useDispatch, useSelector} from 'react-redux';
-import {useHistory} from "react-router-dom";
 import * as tripActions from "../../store/trip"
+import { useHistory } from "react-router-dom";
 import "./AddATrip.css"
 
 
@@ -22,7 +22,7 @@ function AddATripModal() {
 
   useEffect(() => {
       if (!sessionUser) history.push('/')
-  }, [sessionUser])
+  },[sessionUser])
 
   const submitNewTrip = () => {
       const newTripData = { };

@@ -2,13 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as eventActions from "../../store/event";
 import { useHistory } from "react-router-dom";
-import { Modal } from "../../context/Modal";
 import { TripContext } from '../../context/Trip';
 import './EventModal.css';
 
 
 function Event({closeModal}) {
-    const { currentTrip, setCurrentTrip } = useContext(TripContext);
+    const { currentTrip } = useContext(TripContext);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -22,7 +21,6 @@ function Event({closeModal}) {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [errors, setErrors] = useState([]);
-    const [tripId, setTripId] = useState("");
 
 
     useEffect(() => {

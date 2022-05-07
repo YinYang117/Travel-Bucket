@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { editEvent } from "../../store/event";
 import { useHistory } from "react-router-dom";
-import { Modal } from "../../context/Modal"
 import './EditEventModal.css';
 
 
