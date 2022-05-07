@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteEvent } from '../../store/event';
+import "./DeleteEventModal.css"
 
 function DeleteEvent ({ hideModal, event }) {
   const dispatch = useDispatch();
@@ -16,13 +17,15 @@ function DeleteEvent ({ hideModal, event }) {
   };
 
   return (
-    <form id="delete_event_form" onSubmit={handleSubmit}>
-      <h3>Are you sure you want to delete your <span id="delete_event_name">{event.name}</span> Event?</h3>
-      <div id="delete_event_buttons">
-        <button id="delete" className="deleteButton" type="submit">Confirm Delete</button>
-        <button id="cancel" className="cancelDelete" onClick={handleCancelClick}>Cancel</button>
-      </div>
-    </form>
+    <div className="formContainer6">
+      <form onSubmit={handleSubmit}>
+        <h3>Are you sure you want to delete your <span id="delete_event_name">{event.name}</span> Event?</h3>
+        <div id="delete_event_buttons">
+          <button id="delete" className="deleteButton" type="submit">Confirm Delete</button>
+          <button id="delete" className="cancelDelete" onClick={handleCancelClick}>Cancel</button>
+        </div>
+      </form>
+    </div>
   )
 }
 

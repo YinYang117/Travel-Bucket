@@ -4,6 +4,7 @@ import * as eventActions from "../../store/event";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import { TripContext } from '../../context/Trip';
+import './EventModal.css';
 
 
 function Event({closeModal}) {
@@ -55,7 +56,7 @@ function Event({closeModal}) {
 
     return (
         <>
-            <div className="formContainer">
+            <div className="formContainer4">
                 <h1> Add An Event </h1>
                 <form
                     className="new-event-form"
@@ -90,7 +91,7 @@ function Event({closeModal}) {
                     <ul className="new-event-errors">
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
-                    <button className="new-event-submit" type='submit' >Submit New event</button>
+                    <button id="new-event-submit" type='submit' >Submit New event</button>
                 </form>
             </div>
 

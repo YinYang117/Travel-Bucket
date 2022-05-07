@@ -3,3 +3,68 @@
     height: 300px;
     width: 300px;
 }
+
+.trip-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto 20px auto;
+    padding: 2em;
+    border-radius: 1em;
+    border: 1px solid transparentize(white, 0.5);
+    text-shadow: 0 0 1em transparentize(black, 0.5);
+    background: transparentize(white, 0.8);
+    backdrop-filter: blur(20px);
+    transform: perspective(500px);
+    transform-style: preserve-3d;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#trip-name {
+    margin-bottom: 10px;
+    color: #116530;
+}
+
+#destination-name {
+    color: #666666;
+}
+
+#trip-image {
+    transition: 2s ease;
+    margin: 5px 0 5px 0;
+    border-radius: 1em;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.30), 0 3px 5px rgba(0,0,0,0.22);
+}
+
+#trip-image:hover{
+    -webkit-transform: scale(1.04);
+    -ms-transform: scale(1.04);
+    transform: scale(1.04);
+    transition: 2s ease;
+}
+
+.button5,
+.button6 {
+    border-bottom: 4px solid transparent;
+}
+
+.button5.active,
+.button5:hover {
+    border-color: #d057ee;
+}
+
+.button6.active,
+.button6:hover {
+    border-color: #f63d43;
+}
+
+.grow img{
+    transition: 1s ease;
+}
+    

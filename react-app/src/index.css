@@ -16,6 +16,7 @@
     justify-content: space-between;
     background-color: white;
     border-bottom: 5px solid rgb(99,174,170);
+    z-index: 1;
 }
 
 .nav-bar-left {
@@ -177,4 +178,23 @@ h2{
     position:relative;
     top:15px;
 
+}
+
+/* Trip page css */
+.page-container {
+    margin-top: 100px;
+    margin-left: 30px;
+    
+}
+
+#all-trips {
+    text-align: center;
+    text-shadow: 0 1px;
+    color: #444444;
+}
+
+.trip-gallery {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
