@@ -41,5 +41,5 @@ def users():
         }
     else:
         return {
-            "error" : "This user does not exist. Please type an existing user."
+            "errors" : ["This user does not exist. Please type an existing user."]
         }

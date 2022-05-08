@@ -60,21 +60,20 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
             body: JSON.stringify({invitedUserId, tripId})
         })
         
-        if (response2.ok) {
-            disptach(addInvitedUser(data.invitedUser))
-        } else if (response2.status < 500) {
-            const data = await response.json();
-            if (data.errors) return data.errors;
-        } 
 
-    } else if (response.status !== 200) {
+            disptach(addInvitedUser(data.invitedUser))
+
+    } else if (response.status < 500) {
         const data = await response.json();
         console.log("THIS IS DATA IN THE STORE FOR POST--------", data)
-        // if (data.errors) {
-        //     console.log("THIS IS THE STORE ERRORS---------", data.errors)
-        //     return data.errors;
-        // }
-    } else return ['An error occurred. Please try again.']
+        if (data.errors) {
+            console.log("THIS IS THE STORE ERRORS---------", data.errors)
+            return data.errors;
+        }
+    } else {
+        console.log("THIS IS THE ELSE ---------------")
+        return {"errors": ['An error occurred. Please try again.']}
+    }
 }
 
 export const loadInvitedUsers = (tripId) => async (dispatch) => {
