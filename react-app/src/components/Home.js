@@ -11,7 +11,16 @@ function Home() {
     const tripsObj = useSelector(state => state.trips)
     const trips = Object.values(tripsObj)
 
+    const invitedUsersObj = useSelector(state => state.invited)
+    const invitedUsers = Object.values(invitedUsersObj)
 
+    // console.log("THIS IS INvited USERS-----------", invitedUsers)
+
+    // const singleInvitedUser = invitedUsers.filter(invitedUser => invitedUser.id === sessionUser.id) 
+
+    //have a store and backend route for all trips 
+
+    
     useEffect(() => {
         if (!sessionUser) history.push('/')
         if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
