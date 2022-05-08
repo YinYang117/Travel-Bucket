@@ -11,7 +11,6 @@ function Home() {
     const sessionUser = useSelector(state => state.session.user);
     const tripsObj = useSelector(state => state.trips)
     const trips = Object.values(tripsObj)
-    console.log('trips',trips)
     useEffect(() => {
         if (!sessionUser) history.push('/')
         if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
