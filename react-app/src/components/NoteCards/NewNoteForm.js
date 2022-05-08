@@ -1,24 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as noteActions from "../../store/note";
-import { useHistory } from "react-router-dom";
-import { Modal } from "../../context/Modal";
 import { TripContext } from '../../context/Trip';
-import "./NoteModal.css";
+import "./NoteCards.css";
 
-function NoteForm({ closeModal }) {
-    const { currentTrip, setCurrentTrip } = useContext(TripContext);
+function NewNoteForm({ closeModal }) {
+    const { currentTrip } = useContext(TripContext);
     const dispatch = useDispatch();
-    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const [note, setNote] = useState("");
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
-
-    useEffect(() => {
-        if (!sessionUser) history.push('/')
-    }, [sessionUser])
 
     useEffect(() => {
         let errors = [];
@@ -33,13 +26,14 @@ function NoteForm({ closeModal }) {
         noteData.note = note
         noteData.tripId = currentTrip.id
         // noteData.tripDate = tripDate
-        noteData.ownerId = currentTrip.ownerId
-        dispatch(noteActions.postNote(noteData))
-            .then(() => closeModal())
-            .catch(async (res) => {
-                const data = await res.json()
-                if (data && data.errors) setErrors(data.errors)
-            })
+        noteData.ownerId = sessionUser.id
+        
+        dispatch(noteActions.postNewNote(noteData))
+        .then(() => closeModal())
+        .catch(async (res) => {
+            const data = await res.json()
+            if (data && data.errors) setErrors(data.errors)
+        })
     };
 
 
@@ -63,4 +57,4 @@ function NoteForm({ closeModal }) {
         </div>
     );
 }
-export default NoteForm;
+export default NewNoteForm;

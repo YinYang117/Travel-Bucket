@@ -8,7 +8,6 @@ import LogoutButton from "../auth/LogoutButton";
 
 function ProfileButton() {
     const user = useSelector(state => state.session.user);
-    //console.log(user)
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const openMenu = () => {

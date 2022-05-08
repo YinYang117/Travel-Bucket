@@ -1,7 +1,7 @@
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeNote, getTripNotes } from '../../store/note';
-import React, { useState, useEffect, useContext } from "react";
-import "./DeleteNoteModal.css";
+import { removeNote } from '../../store/note';
+import "./NoteCards.css";
 
 function DeleteNote({ hideModal, note }) {
     const dispatch = useDispatch();
@@ -10,12 +10,11 @@ function DeleteNote({ hideModal, note }) {
     const handleSubmit = async (e, note) => {
         e.preventDefault();
         setErrors([]);
-        //console.log("THIS IS NOTE-------->", note)
         dispatch(removeNote(note.id))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
-            });
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
         hideModal();
     }
 
@@ -27,7 +26,7 @@ function DeleteNote({ hideModal, note }) {
     return (
         <div className="formContainer7">
             <form id="delete_note_form" onSubmit={e => handleSubmit(e, note)}>
-                <h3>Are you sure you want to delete your <span id="delete_note_name">{note.name}</span> Note?</h3>
+                <h3>Are you sure?</h3>
                 <div id="delete_note_buttons">
                     <button id="delete" className="deleteButton" type="submit">Confirm Delete</button>
                     <button id="delete" className="cancelDelete" onClick={handleCancelClick}>Cancel</button>

@@ -58,7 +58,6 @@ export const loadAllEvents = (tripId) => async (dispatch) => {
 }
 
 export const editEvent = (newEvent) => async (dispatch) => {
-    console.log("edit event in the store", newEvent)
     const id = parseInt(newEvent.id, 10)
     const res = await fetch(`/api/events/${id}`, {
     method: 'PUT',
