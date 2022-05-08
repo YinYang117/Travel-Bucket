@@ -89,9 +89,10 @@ function IndividualTrip() {
         addingUser.tripId = tripId
         addingUser.userName = userName
         dispatch(invitedUsersActions.postInvitedUsers(addingUser))
-        // .catch(async (res) => {
-        //     const data = await res.json();
-        //     if (data && data.errors) setErrors(data.errors);
+        // .catch(async (response) => {
+        //     const data = await response.json();
+        //     console.log("THIS IS ERRORS IN THE SUBMIT USER----------", data.errors)
+        //     if (data && data.errors) errorsAddedUser.push("Please enter an exisiting user.");
         // });
     };
 

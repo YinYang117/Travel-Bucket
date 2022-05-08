@@ -67,9 +67,13 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
             if (data.errors) return data.errors;
         } 
 
-    } else if (response.status < 500) {
+    } else if (response.status !== 200) {
         const data = await response.json();
-        if (data.errors) return data.errors;
+        console.log("THIS IS DATA IN THE STORE FOR POST--------", data)
+        // if (data.errors) {
+        //     console.log("THIS IS THE STORE ERRORS---------", data.errors)
+        //     return data.errors;
+        // }
     } else return ['An error occurred. Please try again.']
 }
 
