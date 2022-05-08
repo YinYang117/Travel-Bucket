@@ -9,7 +9,6 @@ import './LoginForm.css';
 function LoginForm() {
     const dispatch = useDispatch();
     const history = useHistory();
-    //const [credential, setCredential] = useState("");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
@@ -21,7 +20,7 @@ function LoginForm() {
         if (data) {
             setErrors(data);
         }
-        history.push("/Home")   
+        history.push("/Home")
     };
 
     const updateEmail = (e) => {
@@ -32,13 +31,8 @@ function LoginForm() {
         setPassword(e.target.value);
     };
 
-    // //demo user onclick function
-    // const demo = () => {
-    //     setEmail("demo@aa.io")
-    //     setPassword("password")
-    //     return;
-    // }
-  
+
+
     if (sessionUser) return ( <Redirect to="/Home" /> );
     return (
         <div className="formContainer">
@@ -67,7 +61,6 @@ function LoginForm() {
                         value={password}
                         onChange={updatePassword}
                     />
-                    {/* <button type='demo' onClick={demo}>Demo User</button> */}
                     <button id="loginButton" type='submit'>Login</button>
                 </div>
             </form>

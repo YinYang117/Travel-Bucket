@@ -8,7 +8,6 @@ function SignUpFormModal() {
   return (
     <>
       <button className="signUpButton" onClick={() => setShowModal(true)}>
-        {/* <i class="fa-solid fa-right-to-bracket"></i> */}
         Sign Up
       </button>
       {showModal && (

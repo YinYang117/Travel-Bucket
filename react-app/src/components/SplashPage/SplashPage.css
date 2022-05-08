@@ -1,10 +1,9 @@
 .waterfall{
-    /* width:auto; */
+
     width:100%;
     max-width:100%;
     z-index: 0;
-    /* display: inline-block; */
-    /* background-size: 100% 100%; */
+
 
 }
 
@@ -17,15 +16,14 @@
 
 
 .travel{
-    /* width:auto; */
+
     margin-top: 60px;
-    /* position:relative; */
+
 
     width:100%;
     max-width:100%;
     z-index: 0;
-    /* display: inline-block; */
-    /* background-size: 100% 100%; */
+
 
 }
 
@@ -41,7 +39,7 @@
 .gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* grid-column: 9; */
+
 }
 
 .gallery_info {
@@ -69,7 +67,6 @@
 .gallery_img{
     width:260px;
     height: 144px;
-    /* max-width: 60em; */
     margin: 5em 15em;
     padding: 0.5em;
     border-radius: 15px;
