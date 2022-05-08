@@ -240,14 +240,14 @@ display: inline-block;
     height: auto;
     margin: 20px 10px;
     padding: 5px;
-    background-color: #DADADA;
+    background-color: #fdffdc;
     border-radius: 3px;
-    border: 5px solid #ccc;
+    border: 3px solid #ccc;
   }
 
   .body .message {
     min-height: 30px;
-    border-radius: 3px;
+    border-radius: 5px;
     font-family: Arial;
     font-size: 14px;
     line-height: 1.5;

@@ -48,7 +48,7 @@ function NewNoteForm({ closeModal }) {
                 <ul className="new-note-errors">
                 {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
-                <label className='label'>
+                <label className='textlabel'>
                     Note:
                 </label>
                 <input onChange={e => setNote(e.target.value)} type="text" className="new-note-text" placeholder="Add note text here..." value={note} />

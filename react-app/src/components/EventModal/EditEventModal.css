@@ -10,7 +10,7 @@
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.1);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 50px 35px;
+    padding: 40px 30px;
 }
 
 .formContainer5  *{
@@ -22,22 +22,22 @@
 }
 
 .formContainer5  h3{
-    font-size: 26px;
+    font-size: 18px;
     font-weight: 500;
-    line-height: 42px;
+    line-height: 20px;
     text-align: center;
 }
 
 label {
     display: block;
-    margin-top: 14px;
+    margin-top: 10px;
     font-size: 16px;
     font-weight: 500;
 }
 
 input {
     display: block;
-    height: 50px;
+    height: 30px;
     width: 100%;
     background-color: rgba(255,255,255,0.07);
     border-radius: 3px;
@@ -52,7 +52,7 @@ input {
 }
 
 #new-event-submit {
-    margin-top: 20px;
+    margin-top: 15px;
     width: 100%;
     color: #ffffff;
     padding: 15px 0;
