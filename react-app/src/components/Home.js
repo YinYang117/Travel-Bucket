@@ -27,23 +27,23 @@ function Home() {
 
         // console.log("THIS IS INvited USERS-----------", invitedUsers)
 
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch(`/api/invited_users/${sessionUser.id}/trips`);
-            const responseData = await response.json();
-            const allTrips = Object.values(responseData)
-            console.log("THIS IS ALL OF THE TRIPS THAT EXISTS-------------", allTrips)
-            // console.log("THIS IS ALL OF THE TRIPS THAT EXISTS-------------", responseData)
-            setinvitedUserTrips(allTrips);
-        }
-        fetchData();
-        }, []);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const response = await fetch(`/api/invited_users/${sessionUser.id}/trips`);
+    //         const responseData = await response.json();
+    //         const allTrips = Object.values(responseData)
+    //         console.log("THIS IS ALL OF THE TRIPS THAT EXISTS-------------", allTrips)
+    //         // console.log("THIS IS ALL OF THE TRIPS THAT EXISTS-------------", responseData)
+    //         setinvitedUserTrips(allTrips);
+    //     }
+    //     fetchData();
+    //     }, []);
     
-    useEffect(() => {
-        if(sessionUser.id) {
-            dispatch(invitedUsersActions.loadInvitedUsers(sessionUser.id))
-        }
-    }, [sessionUser.id])
+    // useEffect(() => {
+    //     if(sessionUser.id) {
+    //         dispatch(invitedUsersActions.loadInvitedUsers(sessionUser.id))
+    //     }
+    // }, [sessionUser.id])
 
     
 
@@ -70,12 +70,12 @@ function Home() {
         <div className="page-container">
             <h1 id="all-trips"> All Trips </h1>
             <div className="trip-gallery">
-                {invitedUserTrips && invitedUserTrips.map(invitedUserTrip => 
+                {/* {invitedUserTrips && invitedUserTrips.map(invitedUserTrip => 
                         <TripCard key={invitedUserTrip.id} trip={invitedUsertrip} />
                     // <li key={invitedUserTrip.id}>  
                     //     {invitedUserTrip.name}
                     // </li>
-                )}
+                )} */}
                 {trips &&
                 trips.map(trip =>
                 <TripCard key={trip.id} trip={trip} />

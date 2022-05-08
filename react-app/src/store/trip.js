@@ -60,6 +60,15 @@ export const loadAllUserRelatedTrips = (userId) => async (dispatch) => {
     }
 }
 
+// export const loadInvitedUserTrips = (userId) => async (dispatch) => {
+//     const res = await fetch(`/api/invited_users/${userId}/trips`)
+
+//     if (res.ok) {
+//         const data = await res.json();
+//         dispatch(getInvitedUsers(data))
+//     }
+// }
+
 export const editTrip = (editedTrip) => async (dispatch) => {
     const id = parseInt(editedTrip.id, 10)
     const res = await fetch(`/api/trips/${id}`, {
