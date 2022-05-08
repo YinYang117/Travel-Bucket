@@ -11,10 +11,6 @@ function Home() {
     const tripsObj = useSelector(state => state.trips)
     const trips = Object.values(tripsObj)
 
-    console.log("THIS IS TRIPS-----------------", trips)
-
-    // const invitedUsersObj = useSelector(state => state.invited)
-    // const invitedUsers = Object.values(invitedUsersObj)
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
