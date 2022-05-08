@@ -68,7 +68,10 @@ export const editEvent = (newEvent) => async (dispatch) => {
     if(res.ok) {
         const data = await res.json()
         dispatch(addEvent(data))
-    }
+    } else if (res.status < 500) {
+        const data = await res.json();
+        if (data.errors) return data.errors;
+    } else return ['An error occurred. Please try again.']
 }
 
 export const deleteEvent = (id) => async (dispatch) => {
@@ -79,6 +82,10 @@ export const deleteEvent = (id) => async (dispatch) => {
     if(res.ok) {
         dispatch(deleteEventAction(id))
     }
+    //  else if (res.status < 500) {
+    //     const data = await res.json();
+    //     if (data.errors) return data.errors}
+    else return ['An error occurred. Please try again.']
 }
 
 

@@ -4,13 +4,14 @@ import * as sessionActions from '../../store/session';
 import { useHistory } from "react-router-dom";
 import './Navigation.css'
 import LogoutButton from "../auth/LogoutButton";
+import { Modal } from "../../context/Modal";
 //import User from "../User";
 
 function ProfileButton() {
     const user = useSelector(state => state.session.user);
-    //console.log(user)
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
@@ -37,25 +38,29 @@ function ProfileButton() {
 
     return (
         <>
-            <button onClick={openMenu}>
+            <button className="User-Profile" onClick={() => setShowModal(true)}>
+                {/* <button onClick={openMenu}> */}
                 User Profile
-                {/* <i className="fa-solid fa-book-journal-whills" style={{ fontSize: "25px" }} /> */}
             </button>
-            {showMenu && (
-                <ul className="profile-dropdown">
-                    <li className="dropdown-list">
-                        <strong>User Id</strong> {user.id}
-                    </li>
-                    <li className="dropdown-list">
-                        <strong>Username</strong> {user.username}
-                    </li>
-                    <li className="dropdown-list">
-                        <strong>Email</strong> {user.email}
-                    </li>
-                    <li className="dropdown-list">
-                        <LogoutButton />
-                    </li>
-                </ul>
+            {showModal && (
+                <Modal onClose={() => setShowModal(false)}>
+                    <div className="formContainer9">
+                        <ul className="profile-dropdown">
+                            <li className="dropdown-list">
+                                <strong>User Id</strong> {user.id}
+                            </li>
+                            <li className="dropdown-list">
+                                <strong>Username</strong> {user.username}
+                            </li>
+                            <li className="dropdown-list">
+                                <strong>Email</strong> {user.email}
+                            </li>
+                            <li className="logout">
+                                <LogoutButton/>
+                            </li>
+                        </ul>
+                    </div>
+                </Modal>
             )}
         </>
     );

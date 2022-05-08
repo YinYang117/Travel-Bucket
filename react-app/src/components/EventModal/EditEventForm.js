@@ -9,15 +9,16 @@ function EditEvent({closeModal, event}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
-
+    let startHolder = new Date(event.startDate)
+    let endHolder = new Date(event.endDate)
     const [name, setName] = useState(event.name);
     const [description, setDescription] = useState(event.description);
     const [location, setLocation] = useState(event.location);
     const [imageUrl, setImageUrl] = useState(event.imageUrl);
-    const [startDate, setStartDate] = useState(event.startDate);
-    const [endDate, setEndDate] = useState(event.endDate);
-    const [errors, setErrors] = useState([]);
+    const [startDate, setStartDate] = useState(startHolder.getFullYear()+"-"+(startHolder.getMonth()+1)+"-"+(startHolder.getDate()+1));
+    const [endDate, setEndDate] = useState(endHolder.getFullYear()+"-"+(endHolder.getMonth()+1)+"-"+(endHolder.getDate()+1));
     const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
@@ -29,7 +30,6 @@ function EditEvent({closeModal, event}) {
         let errors = [];
         if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
         if (!imageUrl.length) errors.push("Please enter a URL.")
-
         if (!name.length) errors.push("Please enter a name.")
         if (!description.length) errors.push("Please enter a description.")
         if (!location.length) errors.push("Please enter a location.")
@@ -41,7 +41,6 @@ function EditEvent({closeModal, event}) {
 
 
     const submitEdits = () => {
-
         setHasSubmitted(true)
         if (errors.length > 0) return; 
 

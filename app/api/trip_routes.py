@@ -100,13 +100,10 @@ def trip_users(id):
     if request.method == "GET":
         trip = Trip.query.get(id)
         all_users = trip.invited_users
-        # if all_users:
         users = {}
         for user in all_users:
             users[user.id] = user.to_dict()
         return users
-        # else:
-        #     return {'error': ['No Users found for this Trip']}
 
     if request.method == "POST":
         data = request.get_json(force=True)
@@ -125,11 +122,7 @@ def trip_users(id):
         return trip.to_dict
 
     if request.method == "DELETE":
-        # I think we need relation.c.the_id == incoming ID to check
-        # When interacting with a table instead of a model.
-        # as is, id ^ is for trip.
         data = request.get_json(force=True)
-        # print("THIS IS DATA FROM THE BACKEND--------------------", data)
         userId = data["invitedUserId"]
         user = User.query.get(userId)
         trip = Trip.query.get(id)

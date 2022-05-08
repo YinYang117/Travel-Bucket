@@ -1,39 +1,36 @@
 import React, { useState, useEffect, useContext } from "react";
+import { TripContext } from '../../context/Trip';
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
 import * as invitedUsersActions from "../../store/invited_user"
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
 import * as eventActions from "../../store/event";
-import { useHistory } from "react-router-dom";
 import TripDateCard from "./TripDateCard";
-import { TripContext } from '../../context/Trip';
-import NoteFormModal from "../NoteModal";
-import DeleteNote from "../NoteModal/DeleteNoteForm";
+import TripNotes from "../NoteCards"
 import { Modal } from "../../context/Modal";
 // import "./individualPage.css";
+// Why is this ^ commented out?
 
 function IndividualTrip() {
     const dispatch = useDispatch()
-    const { tripId } = useParams()
-    const trip = useSelector(state => state.trips[tripId]);
-    const { currentTrip, setCurrentTrip } = useContext(TripContext);
-    const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
-    const notesObj = useSelector(state => state.notes)
-    const notes = Object.values(notesObj)
+    const { tripId } = useParams()
+    
+    const trip = useSelector(state => state.trips[tripId]);
+    const sessionUser = useSelector(state => state.session.user);
     const eventsObj = useSelector(state => state.events)
-    const [showNoteForm, setShowNoteForm] = useState(false)
-    const [note, setNote] = useState("");
-    const [ownerId, setOwnerId] = useState("");
-    const [tripDate, setTripDate] = useState("");
-    const [errors, setErrors] = useState([]);
+
+    const { setCurrentTrip } = useContext(TripContext);
+
+    const [stringStartDate, setStringStartDate] = useState("")
+    const [stringEndDate, setStringEndDate] = useState("")
     const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [errors, setErrors] = useState([]);
 
      // ------------------------THIS IS FOR THE USER -----------------------------------
 
     const invitedUsersObj = useSelector(state => state.invited)
-    // console.log("THIS IS INVITED USERS-------------", invitedUsers)
     const invitedUsers = Object.values(invitedUsersObj)
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
@@ -58,29 +55,21 @@ function IndividualTrip() {
 
 
     useEffect(() => {
+        if (!sessionUser) history.push('/')
+    },[sessionUser])
+    
+    useEffect(() => {
         if(tripId) {
             dispatch(tripActions.loadATrip(tripId))
             dispatch(invitedUsersActions.loadInvitedUsers(tripId))
             dispatch(noteActions.getTripNotes(tripId))
             dispatch(eventActions.loadAllEvents(tripId))
-
         }
     }, [tripId])
 
     useEffect(() => {
         setEvents(Object.values(eventsObj))
-        console.log('events after setEvents from OBJ',events)
     }, [eventsObj])
-
-    useEffect(() => {
-        if (!sessionUser) history.push('/')
-    },[sessionUser])
-
-    useEffect(() => {
-        let errors = [];
-        if (!note.length) errors.push("Please enter Note text.")
-        setErrors(errors)
-    }, [note])
 
     useEffect(() => {
         let errorsAddedUser = [];
@@ -103,6 +92,10 @@ function IndividualTrip() {
     useEffect(() => {
         if (trip) {
             itineraryMaker(trip.startDate, trip.endDate);
+            const startDate = trip.startDate.slice(0,17)
+            const endDate = trip.endDate.slice(0,17)
+            setStringStartDate(startDate)
+            setStringEndDate(endDate)
             setCurrentTrip(trip);
         }
     }, [trip])
@@ -131,16 +124,6 @@ function IndividualTrip() {
         });
     }
 
-    // const deleteNote = (note) => {
-    //     setErrors([]);
-    //     console.log("THIS IS NOTE-------->", note)
-    //     dispatch(noteActions.removeNote(note.id))
-    //     .catch(async (res) => {
-    //         const data = await res.json();
-    //         if (data && data.errors) setErrors(data.errors);
-    //     });
-    // }
-
     const itineraryMaker = (tripStart, tripEnd) => {
         let endDate = new Date(tripEnd);
         let itinerary = [];
@@ -148,11 +131,9 @@ function IndividualTrip() {
             itinerary.push(new Date(currentDate));
         }
         setTripDates(itinerary);
-        console.log('trip dates----------', tripDates)
     }
 
     const eventFilter = (tripDate) => {
-        // console.log('are threr even evnts in here',events)
         let dailyEvents = []
         events.forEach(event => {
             let eventEndDate = new Date(event.endDate)
@@ -167,7 +148,6 @@ function IndividualTrip() {
                 }
             }
         })
-        // console.log('this is daily events func', dailyEvents)
         return dailyEvents
     }
 
@@ -180,7 +160,8 @@ function IndividualTrip() {
                     <div className="trip-box">
                         <h1>{trip?.name}</h1>
                         <h2 id="destination-name">{trip?.destination}</h2>
-                        <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
+                        <h3>{stringStartDate} to {stringEndDate}</h3>
+                        {/* <button className="addUser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button> */}
                     </div>
                 </div>
                 {users.map(user => 
@@ -189,6 +170,9 @@ function IndividualTrip() {
                 </li>
                 )
                 }
+                <div>
+                    <button className="adduser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Invite A User To Your Trip!</button>
+                </div>
                 {invitedUsers && invitedUsers.map(user =>
                     <li key={user.id}>
                         {user?.username}
@@ -196,7 +180,7 @@ function IndividualTrip() {
                     </li>
                 )
                 }
-                { showAddedUserForm && 
+                { showAddedUserForm &&
                     <form
                     className="new-note-form"
                     onSubmit={e => {
@@ -206,33 +190,20 @@ function IndividualTrip() {
                         <ul className="new-note-errors">
                         {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
                         </ul>
-                        <label className='label'>
-                            Add a User:
-                        </label>
-                        <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
-                        <button className="add-user-submit" type='submit' >Submit User</button>
+                        <div className="addUserDiv">
+                            <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Type username here..." value={userName} />
+                            <button className="add-user-submit" type='submit' >Submit User</button>
+                        </div>
                     </form>
                 }
-                {notes && notes.map(note =>
-                    <div key={note.id}>
-                        <div>{note?.note}</div>
-                        <button onClick={e => setShowDeleteModal(true)}>Delete Note</button>
-                        {showDeleteModal && (
-                            <Modal onClose={() => setShowDeleteModal(false)}>
-                                <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
-                            </Modal>
-                        )}
-                    </div>
-                )}
-                < NoteFormModal />
+                <TripNotes />
                 {tripDates && tripDates.map(tripDate => (
-                    <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
+                    <TripDateCard key={tripDate} events={eventFilter(tripDate)} tripDate={tripDate} />
                     ))}
             </div>
         </div>
         </>
     )
 }
-
 
 export default IndividualTrip

@@ -16,7 +16,7 @@ class Trip(db.Model):
     updated_at = db.Column(db.Date, nullable=False, default=date.today)
 
     user = db.relationship("User", back_populates="trips")
-    invited_users = db.relationship("User", secondary=trip_invites, back_populates="invited_trips", cascade="all, delete")
+    invited_users = db.relationship("User", secondary=trip_invites, back_populates="invited_trips")
     events = db.relationship("Event", back_populates="trip", cascade="all, delete-orphan")
     notes = db.relationship("Note", back_populates="trip", cascade="all, delete-orphan")
 

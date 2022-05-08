@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { editTrip } from '../../store/trip'
 import './EditTrip.css';
 
 function EditTripForm ({ hideModal, trip }) {
   const dispatch = useDispatch();
-
-  const sessionUser = useSelector(state => state.session.user);
-
-  const [name, setName] = useState(trip?.name);
-  const [destination, setDestination] = useState(trip?.destination);
-  const [imageUrl, setImageUrl] = useState(trip?.imageUrl);
-  const [startDate, setStartDate] = useState(trip?.startDate);
-  const [endDate, setEndDate] = useState(trip?.endDate);
+  let startHolder = new Date(trip.startDate)
+  let endHolder = new Date(trip.endDate)
+  const [name, setName] = useState(trip.name);
+  const [destination, setDestination] = useState(trip.destination);
+  const [imageUrl, setImageUrl] = useState(trip.imageUrl);
+  const [startDate, setStartDate] = useState(startHolder.getFullYear()+"-"+(startHolder.getMonth()+1)+"-"+(startHolder.getDate()+1));
+  const [endDate, setEndDate] = useState(endHolder.getFullYear()+"-"+(endHolder.getMonth()+1)+"-"+(endHolder.getDate()+1));
   const [errors, setErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
@@ -30,7 +29,6 @@ function EditTripForm ({ hideModal, trip }) {
   }, [imageUrl, name, destination, startDate, endDate])
 
   const submitTripEdits = () => {
-
       setHasSubmitted(true)
       if(errors.length > 0) return; 
 
@@ -67,19 +65,19 @@ function EditTripForm ({ hideModal, trip }) {
             <label className='label'>
                 Trip Name:
             </label>
-            <input onChange={e => setName(e.target.value)} type="text" className="new-trip-name" placeholder={trip?.name} value={name} />
+            <input onChange={e => setName(e.target.value)} type="text" className="new-trip-name" placeholder={'Trip Name'} value={name} />
             <label className='label'>
                 Trip Destination:
             </label>
-            <input onChange={e => setDestination(e.target.value)} type="text" className="new-trip-destination" placeholder={trip?.destination} value={destination} />
+            <input onChange={e => setDestination(e.target.value)} type="text" className="new-trip-destination" placeholder={'Trip Destination'} value={destination} />
             <label className='label'>
                 Trip Main Image URL:
             </label>
-            <input onChange={e => setImageUrl(e.target.value)} type="text" className="new-trip-image" placeholder={trip?.imageUrl} value={imageUrl} />
+            <input onChange={e => setImageUrl(e.target.value)} type="text" className="new-trip-image" placeholder={'Trip Image Url'} value={imageUrl} />
             <label className='label'>
                 Trip Start:
             </label>
-            <input onChange={e => setStartDate(e.target.value)} type="date" className="new-trip-start-date" placeholder={trip?.startDate} value={startDate} />
+            <input onChange={e => setStartDate(e.target.value)} type="date" id="edit-trip-start-date" value={startDate} />
             <label className='label'>
                 Trip End:
             </label>
@@ -87,10 +85,10 @@ function EditTripForm ({ hideModal, trip }) {
             <div id="edit_trip_buttons">
                 <button id="edit" className="confirmEditsButton" type="submit">Confirm Edits</button>
                 <button id="edit" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>
-        </div>
+            </div>
         </form>
     </div>
-  )
+    )
 }
 
 export default EditTripForm;

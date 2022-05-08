@@ -56,15 +56,16 @@ def event(id):
     if request.method == "GET":
         event = Event.query.get(id)
         if event:
-            return event
+            return event.to_dict
         else:
             return {'error': ['Event not found']}
 
     if request.method == "PUT":
+        data = request.get_json(force=True) # not needed if using form.
+        print("data for PUT event api--------------------------------", data)
         form = EditEvent()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            # data = request.get_json(force=True) # not needed if using form.
             event = Event.query.get(id)
             event.name = form.data["name"],
             event.description = form.data["description"],
@@ -79,6 +80,7 @@ def event(id):
             db.session.commit()
             return event.to_dict
         else:
+            print("errors ---------", form.errors)
             return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
     if request.method == "DELETE":

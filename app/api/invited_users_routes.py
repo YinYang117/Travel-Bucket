@@ -31,7 +31,6 @@ def validation_errors_to_error_messages(validation_errors):
 @login_required
 def users():
     data = request.get_json(force=True)
-    print ("THIS IS DATA IN THE INVITED USERS ROUTES------------", data)
     tripId = data["tripId"]
     user = User.query.filter(User.username == data["userName"]).one()
     print("THIS IS USER FOR THE BACKEND ROUTES--------------", user)
