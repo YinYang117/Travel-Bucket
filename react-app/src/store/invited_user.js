@@ -101,5 +101,4 @@ const invitedUsersReducer = (state = initialState, action) => {
     }
 }
 
-
 export default invitedUsersReducer;
