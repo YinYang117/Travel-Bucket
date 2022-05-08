@@ -81,7 +81,7 @@ function IndividualTrip() {
         let existUser = users.filter(user => user.username === userName)
          
 
-
+        // console.log("existUser", existUser)
 
         if (!userName.length) errorsAddedUser.push("Please enter a user.")
         if (!existUser.length) errorsAddedUser.push("Please enter an existing user.")
