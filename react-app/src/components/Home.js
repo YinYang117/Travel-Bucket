@@ -20,6 +20,19 @@ function Home() {
 
     //have a store and backend route for all trips 
 
+        // console.log("THIS IS INvited USERS-----------", invitedUsers)
+
+        const invitedUsersObj = useSelector(state => state.invited)
+        const invitedUsers = Object.values(invitedUsersObj)
+    
+        const singleInvitedUser = invitedUsers.filter(invitedUser => invitedUser.id === sessionUser.id) 
+    
+        // have a store and backend route for all trips 
+        // check id of trip with id of session
+        // query in the backend user, get the id then user.invited_trips
+        // then get all trips 
+        // then display the trips
+
     
     useEffect(() => {
         if (!sessionUser) history.push('/')
