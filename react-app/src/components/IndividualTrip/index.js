@@ -164,12 +164,6 @@ function IndividualTrip() {
                         {/* <button className="addUser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button> */}
                     </div>
                 </div>
-                {users.map(user => 
-                <li key={user?.id}>
-                    {user?.username}
-                </li>
-                )
-                }
                 <div>
                     <button className="adduser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Invite A User To Your Trip!</button>
                 </div>
