@@ -63,7 +63,10 @@ def users_owned_trips(id):
         for invited_trip in invited_trips:
             other_trips[invited_trip.id] = invited_trip.to_dict
         return {**made_trips, **other_trips}
-    elif trips and not invited_trips:
+    # else:
+    #     return {'error': ['No Trips found for this User']}
+
+    if trips and not invited_trips:
         made_trips = {}
         for trip in trips:
             made_trips[trip.id] = trip.to_dict
