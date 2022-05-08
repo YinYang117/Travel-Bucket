@@ -118,7 +118,6 @@ function IndividualTrip() {
             itinerary.push(new Date(currentDate));
         }
         setTripDates(itinerary);
-        //console.log('trip dates----------', tripDates)
     }
 
     const eventFilter = (tripDate) => {
