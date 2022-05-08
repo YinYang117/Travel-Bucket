@@ -7,7 +7,6 @@ import { TripContext } from '../../context/Trip';
 import "./NoteModal.css";
 
 function NoteForm({ closeModal }) {
-
     const { currentTrip, setCurrentTrip } = useContext(TripContext);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -17,47 +16,36 @@ function NoteForm({ closeModal }) {
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
 
-
-
     useEffect(() => {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
 
     useEffect(() => {
         let errors = [];
-
         if(!note.length) errors.push("Please enter a note.")
         setErrors(errors)
-
     }, [note])
 
     const submitNote = () => {
         setHasSubmitted(true)
         if (errors.length > 0) return;
-
         const noteData = {}
         noteData.note = note
-        console.log("CUTTENT TRIP-------",currentTrip)
-
         noteData.tripId = currentTrip.id
         // noteData.tripDate = tripDate
         noteData.ownerId = currentTrip.ownerId
-
-        console.log("THIS IS NOTE DATA", noteData)
-
         dispatch(noteActions.postNote(noteData))
             .then(() => closeModal())
-            // .catch(async (res) => {
-            //     const data = await res.json()
-            //     if (data && data.errors) setErrors(data.errors)
-            // })
+            .catch(async (res) => {
+                const data = await res.json()
+                if (data && data.errors) setErrors(data.errors)
+            })
     };
 
 
     return (
         <div className="formContainer8">
             <form
-
                 className="new-note-form"
                 onSubmit={e => {
                     e.preventDefault();

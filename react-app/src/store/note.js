@@ -36,7 +36,7 @@ const deleteNote = (id) => {
 
 export const postNote = (postNote) => async (disptach) => {
     const { ownerId, tripId, note } = postNote
-    // Need to add tripDate above
+    // add tripDate to notes after everything else working
     const response = await fetch(`/api/notes/`, { // thinking we dont need the trailing slashes
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

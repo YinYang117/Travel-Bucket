@@ -198,7 +198,7 @@ function IndividualTrip() {
                 )}
                 < NoteFormModal />
                 {tripDates && tripDates.map(tripDate => (
-                    <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
+                    <TripDateCard key={tripDate} events={eventFilter(tripDate)} tripDate={tripDate} />
                     ))}
             </div>
         </div>
