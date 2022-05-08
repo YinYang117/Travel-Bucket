@@ -4,7 +4,7 @@ import * as sessionActions from '../../store/session';
 import { useHistory } from "react-router-dom";
 import './Navigation.css'
 import LogoutButton from "../auth/LogoutButton";
-import { Modal } from "../../context/Modal";
+import { ProfileModal } from "../../context/ProfileModal";
 //import User from "../User";
 
 function ProfileButton() {
@@ -43,8 +43,8 @@ function ProfileButton() {
                 User Profile
             </button>
             {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    <div className="formContainer9">
+                <ProfileModal onClose={() => setShowModal(false)}>
+                    <div className="formContainer11">
                         <ul className="profile-dropdown">
                             <li className="dropdown-list">
                                 <strong>User Id</strong> {user.id}
@@ -60,7 +60,7 @@ function ProfileButton() {
                             </li>
                         </ul>
                     </div>
-                </Modal>
+                </ProfileModal>
             )}
         </>
     );
