@@ -34,10 +34,10 @@ const deleteNote = (id) => {
 /////////////////////////////////////////
 // thunks return a function that returns an action
 
-export const postNote = (postNote) => async (disptach) => {
+export const postNewNote = (postNote) => async (disptach) => {
     const { ownerId, tripId, note } = postNote
-    // Need to add tripDate above
-    const response = await fetch(`/api/notes/`, { // thinking we dont need the trailing slashes
+    // add tripDate to notes after everything else working
+    const response = await fetch(`/api/notes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ownerId, tripId, note })
@@ -62,25 +62,16 @@ export const getTripNotes = (tripId) => async (dispatch) => {
 }
 
 // export const editNote = (editedNote) => async (dispatch) => {
-//     console.log("THIS IS EDITED TRIP STORE------", editedNote)
-
 //     const id = parseInt(editedNote.id, 10)
-
-//     console.log("THIS IS NOTE ID--------", id)
-
 //     const res = await fetch(`/api/notes/${id}`, {
 //     method: 'PUT',
 //     headers: { 'Content-Type': 'application/json' },
 //     body: JSON.stringify(editedNote)
 //     });
 
-//     console.log("THIS IS RES", res)
-
 //     if(res.ok) {
 //         const note = await res.json()
-//         console.log("STORE TRIP--------", note)
 //         dispatch(addNote(note))
-
 //     }
 // }
 
@@ -94,9 +85,6 @@ export const removeNote = (idString) => async (dispatch) => {
         dispatch(deleteNote(id))
     }
 }
-
-
-
 
 
 // end of thunks

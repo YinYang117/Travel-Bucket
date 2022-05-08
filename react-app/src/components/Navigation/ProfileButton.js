@@ -9,7 +9,6 @@ import { Modal } from "../../context/Modal";
 
 function ProfileButton() {
     const user = useSelector(state => state.session.user);
-    //console.log(user)
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const [showModal, setShowModal] = useState(false);
