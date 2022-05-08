@@ -74,7 +74,6 @@ const SignUpForm = () => {
                         required={true}
                     ></input>
                 </div>
-                {/* <DemoButton /> */}
                 <button id="loginButton" type='submit'>Sign Up</button>
             </form>
         </div>

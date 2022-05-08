@@ -43,8 +43,8 @@ function AddATripModal() {
   const submitNewTrip = () => {
 
     setHasSubmitted(true)
-    if (errors.length > 0) return; 
-    
+    if (errors.length > 0) return;
+
       const newTripData = { };
         setOwnerId(sessionUser.id)
         newTripData.ownerId = ownerId
@@ -77,7 +77,6 @@ function AddATripModal() {
   return (
     <>
       <button className="AddATripButton" onClick={() => setShowModal(true)}>
-        {/* <i class="fa-solid fa-right-to-bracket"></i> */}
         Add A Trip
       </button>
       {showModal && (

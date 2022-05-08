@@ -8,7 +8,6 @@ function LoginFormModal() {
   return (
     <>
       <button className="loginButton" onClick={() => setShowModal(true)}>
-        {/* <i class="fa-solid fa-right-to-bracket"></i> */}
         Login
       </button>
       {showModal && (

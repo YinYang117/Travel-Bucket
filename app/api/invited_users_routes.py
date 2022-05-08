@@ -33,7 +33,6 @@ def users():
     data = request.get_json(force=True)
     tripId = data["tripId"]
     user = User.query.filter(User.username == data["userName"]).one()
-    print("THIS IS USER FOR THE BACKEND ROUTES--------------", user)
     if user:
         return {
             "invitedUser": user.to_dict(), "tripId": tripId
