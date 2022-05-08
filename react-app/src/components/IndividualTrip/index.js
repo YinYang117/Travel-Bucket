@@ -1,36 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
+import { TripContext } from '../../context/Trip';
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
 import * as invitedUsersActions from "../../store/invited_user"
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
 import * as eventActions from "../../store/event";
-import { useHistory } from "react-router-dom";
 import TripDateCard from "./TripDateCard";
-import { TripContext } from '../../context/Trip';
-import NoteFormModal from "../NoteModal";
-import DeleteNote from "../NoteModal/DeleteNoteForm";
+import TripNotes from "../NoteCards"
 import { Modal } from "../../context/Modal";
 // import "./individualPage.css";
+// Why is this ^ commented out?
 
 function IndividualTrip() {
     const dispatch = useDispatch()
-    const { tripId } = useParams()
-    const trip = useSelector(state => state.trips[tripId]);
-    const { currentTrip, setCurrentTrip } = useContext(TripContext);
-    const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
-    const notesObj = useSelector(state => state.notes)
-    const notes = Object.values(notesObj)
+    const { tripId } = useParams()
+    
+    const trip = useSelector(state => state.trips[tripId]);
+    const sessionUser = useSelector(state => state.session.user);
     const eventsObj = useSelector(state => state.events)
-    const [showNoteForm, setShowNoteForm] = useState(false)
-    const [note, setNote] = useState("");
-    const [ownerId, setOwnerId] = useState("");
-    const [tripDate, setTripDate] = useState("");
-    const [errors, setErrors] = useState([]);
-    const [hasSubmitted, setHasSubmitted] = useState(false)
+
+    const { setCurrentTrip } = useContext(TripContext);
+
     const [stringStartDate, setStringStartDate] = useState("")
     const [stringEndDate, setStringEndDate] = useState("")
+    const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [errors, setErrors] = useState([]);
 
      // ------------------------THIS IS FOR THE USER -----------------------------------
 
@@ -41,8 +37,12 @@ function IndividualTrip() {
     const [userName, setUserName] = useState("")
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+
+    useEffect(() => {
+        if (!sessionUser) history.push('/')
+    },[sessionUser])
+    
     useEffect(() => {
         if(tripId) {
             dispatch(tripActions.loadATrip(tripId))
@@ -54,18 +54,7 @@ function IndividualTrip() {
 
     useEffect(() => {
         setEvents(Object.values(eventsObj))
-        console.log('events after setEvents from OBJ',events)
     }, [eventsObj])
-
-    useEffect(() => {
-        if (!sessionUser) history.push('/')
-    },[sessionUser])
-
-    useEffect(() => {
-        let errors = [];
-        if (!note.length) errors.push("Please enter Note text.")
-        setErrors(errors)
-    }, [note])
 
     useEffect(() => {
         let errorsAddedUser = [];
@@ -77,14 +66,10 @@ function IndividualTrip() {
     useEffect(() => {
         if (trip) {
             itineraryMaker(trip.startDate, trip.endDate);
-            // const startDate = trip.startDate.getUTCMonth() + 1
-            // const day = trip.startDate.getUTCDate()
-            // const year = trip.startDate.getUTCFullYear();
             const startDate = trip.startDate.slice(0,17)
             const endDate = trip.endDate.slice(0,17)
             setStringStartDate(startDate)
             setStringEndDate(endDate)
-            //console.log("LOOK HERE---------", trip.startDate)
             setCurrentTrip(trip);
         }
     }, [trip])
@@ -121,7 +106,6 @@ function IndividualTrip() {
     }
 
     const eventFilter = (tripDate) => {
-        // console.log('are threr even evnts in here',events)
         let dailyEvents = []
         events.forEach(event => {
             let eventEndDate = new Date(event.endDate)
@@ -136,7 +120,6 @@ function IndividualTrip() {
                 }
             }
         })
-        // console.log('this is daily events func', dailyEvents)
         return dailyEvents
     }
 
@@ -179,25 +162,9 @@ function IndividualTrip() {
                         </div>
                     </form>
                 }
-                {notes && notes.map(note =>
-                    <div key={note.id} className="note-container" >
-                        <div className="dialogbox">
-                            <div className="body">
-                                <span className="tip tip-down"></span>
-                                <div className='message'>{note.note}</div>
-                            </div>
-                        </div>
-                        <button className="deleteNoteButton" onClick={e => setShowDeleteModal(true)}>Delete Note</button>
-                        {showDeleteModal && (
-                            <Modal onClose={() => setShowDeleteModal(false)}>
-                                <DeleteNote hideModal={() => setShowDeleteModal(false)} note={note} />
-                            </Modal>
-                        )}
-                    </div>
-                )}
-                < NoteFormModal />
+                <TripNotes />
                 {tripDates && tripDates.map(tripDate => (
-                    <TripDateCard key={tripDate} events={eventFilter(tripDate)} notes={notes} tripDate={tripDate} />
+                    <TripDateCard key={tripDate} events={eventFilter(tripDate)} tripDate={tripDate} />
                     ))}
             </div>
         </div>
