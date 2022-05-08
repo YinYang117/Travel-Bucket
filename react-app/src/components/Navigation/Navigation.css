@@ -1,0 +1,44 @@
+.formContainer9 {
+    height: auto;
+    width: 300px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 40px 30px;
+    text-align: center;
+    color: white;
+}
+
+.formContainer9  *{
+    font-family: 'Poppins',sans-serif;
+    /* color: #ffffff; */
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+
+
+.logout{
+
+        width: 100%;
+        color: #ffffff;
+        /* padding: 15px 0; */
+        /* font-size: 18px; */
+        /* font-weight: 600; */
+        margin-top: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+}
+
+.logout:hover,
+.logout:active {
+        color: red;
+        background-color: #ffffff;
+    }

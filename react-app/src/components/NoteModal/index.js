@@ -8,7 +8,7 @@ function NoteFormModal() {
   return (
     <>
       <button className="addTripButton" onClick={() => setShowModal(true)}>
-        Add Note
+        Add A Note
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>

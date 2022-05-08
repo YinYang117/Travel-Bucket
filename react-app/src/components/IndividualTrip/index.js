@@ -118,7 +118,6 @@ function IndividualTrip() {
             itinerary.push(new Date(currentDate));
         }
         setTripDates(itinerary);
-        console.log('trip dates----------', tripDates)
     }
 
     const eventFilter = (tripDate) => {
@@ -155,7 +154,7 @@ function IndividualTrip() {
                     </div>
                 </div>
                 <div>
-                    <button onClick={e => setAddedUserForm(!showAddedUserForm)}>Add A User to your Trip!</button>
+                    <button className="adduser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Invite A User To Your Trip!</button>
                 </div>
                 {invitedUsers && invitedUsers.map(user =>
                     <li key={user.id}>
@@ -174,10 +173,10 @@ function IndividualTrip() {
                         <ul className="new-note-errors">
                         {hasSubmitted && errorsAddedUser.map((error, idx) => <li key={idx}>{error}</li>)}
                         </ul>
-                        <label className='label'>
-                        </label>
-                        <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Add user here..." value={userName} />
-                        <button className="add-user-submit" type='submit' >Submit User</button>
+                        <div className="addUserDiv">
+                            <input onChange={e => setUserName(e.target.value)} type="text" className="add-user" placeholder="Type username here..." value={userName} />
+                            <button className="add-user-submit" type='submit' >Submit User</button>
+                        </div>
                     </form>
                 }
                 {notes && notes.map(note =>

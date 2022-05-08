@@ -286,3 +286,53 @@ display: inline-block;
     transform-style: preserve-3d; */
 
   }
+
+
+  .adduser{
+      margin-top: 25px;
+      border-bottom: 4px solid transparent;
+      display:inline;
+      width: 250px;
+      margin: 0 auto;
+
+  }
+
+
+
+.adduser.active,
+.adduser:hover {
+    border-color: #33CC66;
+}
+
+
+.addUserDiv{
+    width: 300px;
+    position: relative;
+}
+
+
+
+.add-user{
+    margin: 0px;
+        padding: 0px;
+        width: 100%;
+        outline: none;
+        height: 30px;
+        border-radius: 5px;
+}
+
+
+
+.add-user-submit{
+    position: absolute;
+    top: 0;
+    border-radius: 5px;
+    right: 0px;
+    z-index: 2;
+    border: none;
+    top: 2px;
+    height: 30px;
+    cursor: pointer;
+    transform: translateX(2px);
+    top:-10px;
+}
