@@ -240,7 +240,7 @@ Travel Bucket, a Wanderlog clone, is a travel planning website for users to cust
 
 Huyen Nguyen - [GitHub](https://github.com/huyennguuyen)
 
-Kicky Lau - [GitHub](https://github.com/kickylau)
+Kicky Liu - [GitHub](https://github.com/kickylau)
 
 
 Ryan Schneider - [GitHub](https://github.com/YinYang117)
