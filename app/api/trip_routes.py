@@ -118,8 +118,6 @@ def trip_users(id):
             return {'error': ['Either User or Trip was not found']}
 
         db.session.commit()
-        # print(trip.invited_users)
-        # can return anything really
         return trip.to_dict
 
     if request.method == "DELETE":

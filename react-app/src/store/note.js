@@ -1,4 +1,3 @@
-//import { csrfFetch } from './csrf';
 
 const LOAD_NOTES = "note/loadNotes"
 const POST_NOTE = "note/postNote"
@@ -54,7 +53,6 @@ export const postNewNote = (postNote) => async (disptach) => {
 
 export const getTripNotes = (tripId) => async (dispatch) => {
     const res = await fetch(`/api/notes/trips/${tripId}`)
-    // const res = await fetch(`/api/trips/users/${userId}/`)
     if (res.ok) {
         const trips = await res.json();
         dispatch(loadNotes(trips))
@@ -102,7 +100,6 @@ const notesReducer = (state = initialState, action) => {
         case LOAD_NOTES:
             newState = action.payload
             return newState
-            // assumes incoming trips are flattened
         case DELETE_NOTE:
             delete newState[action.payload]
             return newState

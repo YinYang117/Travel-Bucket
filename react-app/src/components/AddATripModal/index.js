@@ -37,9 +37,9 @@ function AddATripModal() {
 
   const submitNewTrip = () => {
     setHasSubmitted(true)
-    if (errors.length > 0) return; 
-    
-    const newTripData = { };
+    if (errors.length > 0) return;
+
+    const newTripData = {};
     setOwnerId(sessionUser.id)
     newTripData.ownerId = ownerId
     newTripData.name = name

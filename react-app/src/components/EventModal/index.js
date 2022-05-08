@@ -17,7 +17,6 @@ function EventFormModal() {
         <>
             <h1> All Events </h1>
             <button className="EventButton" onClick={() => setShowModal(!showModal)}>
-                {/* <i class="fa-solid fa-right-to-bracket"></i> */}
                 Add a Event
             </button>
             {showModal && (

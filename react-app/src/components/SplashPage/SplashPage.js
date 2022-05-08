@@ -15,13 +15,7 @@ function SplashPage() {
 
     return (
         <>
-            {/* {!sessionUser &&
-        <h1>Splash Page </h1>
-        } */}
 
-            {/* <a>
-                <img src="https://s8.gifyu.com/images/ezgif.com-gif-maker-219a8009ec36a1e87.gif" alt="ezgif.com-gif-maker-219a8009ec36a1e87.gif" className="waterfall" border="0" />
-            </a> */}
 
             <a>
                 <img src={travel} alt="Travel" className="travel" />

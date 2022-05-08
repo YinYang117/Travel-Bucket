@@ -1,4 +1,3 @@
-//import { csrfFetch } from './csrf';
 
 const LOAD_INVITED_USERS = "invited_user/loadInvitedUsers"
 const POST_INVITED_USERS = "invited_user/postInvitedUsers"
@@ -36,7 +35,7 @@ const deleteInvitedUsers = (id) => {
 
 export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
     const {tripId, userName} = tripAndUserName
-    const response = await fetch('/api/invited_users/', { 
+    const response = await fetch('/api/invited_users/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({tripId, userName})

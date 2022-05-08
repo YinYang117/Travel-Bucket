@@ -42,10 +42,9 @@ function EditEvent({closeModal, event}) {
 
     const submitEdits = () => {
         setHasSubmitted(true)
-        if (errors.length > 0) return; 
+        if (errors.length > 0) return;
 
         const editedEvent = event;
-        // trip and owner id stays the same
         editedEvent.name = name
         editedEvent.description = description
         editedEvent.imageUrl = imageUrl
