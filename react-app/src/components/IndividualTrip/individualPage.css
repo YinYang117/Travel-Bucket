@@ -61,29 +61,7 @@
         width:900px;
 }
 
-/* .event-container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 20px auto 20px auto;
-    padding: 2em;
-    border-radius: 1em;
-    border: 1px solid transparentize(white, 0.5);
-    text-shadow: 0 0 1em transparentize(black, 0.5);
-    background: transparentize(white, 0.8);
-    backdrop-filter: blur(20px);
-    transform: perspective(500px);
-    transform-style: preserve-3d;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 
-} */
-
-/* .eventImage-container{
-    transition: 2s ease;
-    margin: 5px 0 5px 0;
-    border-radius: 1em;
-    box-shadow: 0 4px 5px rgba(0,0,0,0.30), 0 3px 5px rgba(0,0,0,0.22);
-} */
 
 .eventImage-container:hover{
     -webkit-transform: scale(1.04);
@@ -124,7 +102,6 @@
     transform: perspective(500px);
     transform-style: preserve-3d;
     width:400px;
-    /* box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); */
 
 
 }
@@ -142,14 +119,9 @@
     backdrop-filter: blur(20px);
     transform: perspective(500px);
     transform-style: preserve-3d;
-    /* box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); */
 
 }
 
-/* .flex-child{
-    flex:1;
-
-} */
 
 .flex-child:first-child{
     margin-right:20px;
@@ -223,7 +195,6 @@ display: inline-block;
 
 .add-user-submit{
 
-    /* float:left;  */
 
 	float:right;
     align-items: center;
@@ -254,36 +225,13 @@ display: inline-block;
     color: #797979;
   }
 
-  /* .tip-down {
-    bottom: -25px;
-    left: 10px;
-    border-right-color: transparent;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-  } */
-
-  /* .tip {
-    width: 0px;
-    height: 0px;
-    position: absolute;
-    background: transparent;
-    border: 10px solid #ccc;
-  } */
 
 
   .note-container{
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* margin: 20px auto 20px auto;
-    padding: 2em;
-    border-radius: 1em;
-    border: 1px solid transparentize(white, 0.5);
-    text-shadow: 0 0 1em transparentize(black, 0.5);
-    background: transparentize(white, 0.8);
-    backdrop-filter: blur(20px);
-    transform: perspective(500px);
-    transform-style: preserve-3d; */
+
 
   }
 
