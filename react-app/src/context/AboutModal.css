@@ -1,0 +1,20 @@
+#modal2 {
+    position: fixed;
+    top: 40px;
+    right: 400px;
+    z-index: 3;
+}
+
+#modal2-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+ 
+#modal2-content {
+    position: absolute;
+    border-radius: 10px;
+    background-color:rgb(28, 104, 139);
+}

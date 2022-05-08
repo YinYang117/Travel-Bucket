@@ -20,21 +20,70 @@
     border: none;
 }
 
+.formContainer12 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px;
+    height: auto;
+    width: auto;
+    background-color: rgba(255,255,255);
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.2);
+    padding: 20px 10px;
+    color: white;
+}
+
+.github {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+.github a {
+    margin-left: 5px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.github a:active,
+.github a:visited {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
 .dropdown-list {
     color: black;
 }
 
 .logout{
-        width: fit-content;
-        color: black;
-        padding: 5px;
-        margin-top: 5px;
-        border-radius: 5px;
-        cursor: pointer;
+    width: fit-content;
+    color: black;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .logout:hover,
 .logout:active {
-        color: rgb(255, 255, 255);
-        background-color: #ff0000;
-    }
+    color: rgb(255, 255, 255);
+    background-color: #ff0000;
+}
+
+.about-us {
+    border-bottom: 4px solid transparent;
+    display: inline;
+    margin: 0 auto;
+}
+
+.about-us.active,
+.about-us:hover {
+    border-color: #f3fd40;
+}
