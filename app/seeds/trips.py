@@ -11,7 +11,7 @@ def seed_trips():
         destination='Hawaii', 
         image_url="https://images.unsplash.com/photo-1598135753163-6167c1a1ad65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80",
         start_date=date(2022,5,10),
-        end_date=date(2022,5,24),
+        end_date=date(2022,5,20),
         created_at=today,
         updated_at=today )
 

@@ -13,11 +13,64 @@ def seed_events():
         image_url="https://cdn.pixabay.com/photo/2017/06/23/04/49/beach-2433476__480.jpg",
         location='The Beach', 
         start_date=date(2022,5,10),
-        end_date=date(2022,5,11),
+        end_date=date(2022,5,10),
+        created_at=today,
+        updated_at=today )
+    
+    event2 = Event(
+        owner_id=1,
+        trip_id=1,
+        name="2-Day CoastLine Tour",
+        description='East Side of the Island', 
+        image_url="https://images.pexels.com/photos/2521619/pexels-photo-2521619.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        location='The Beach', 
+        start_date=date(2022,5,11),
+        end_date=date(2022,5,12),
         created_at=today,
         updated_at=today )
 
+    event3 = Event(
+        owner_id=1,
+        trip_id=1,
+        name="Dinner Plans!",
+        description='The Grand Hotel Restraurant Reservations', 
+        image_url="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+        location='302 E Main St', 
+        start_date=date(2022,5,12),
+        end_date=date(2022,5,12),
+        created_at=today,
+        updated_at=today )
+
+    event4 = Event(
+        owner_id=1,
+        trip_id=1,
+        name="Cooking Class",
+        description='Learn how to make classic Hawian Food', 
+        image_url="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+        location='The Pink Flamingo', 
+        start_date=date(2022,5,18),
+        end_date=date(2022,5,18),
+        created_at=today,
+        updated_at=today )
+
+    event5 = Event(
+        owner_id=1,
+        trip_id=1,
+        name="Daily Hikes",
+        description='Every Day has a differing hike with this travelling group', 
+        image_url="https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+        location='Starts at The Base Camp each day', 
+        start_date=date(2022,5,15),
+        end_date=date(2022,5,20),
+        created_at=today,
+        updated_at=today )
+
+
     db.session.add(event1)
+    db.session.add(event2)
+    db.session.add(event3)
+    db.session.add(event4)
+    db.session.add(event5)
 
     db.session.commit()
 

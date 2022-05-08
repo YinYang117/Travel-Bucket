@@ -60,7 +60,7 @@ function TripCard ({trip}) {
         return (
             <div className="trip-container">
                 <h3 id="no-trip">Plan a Trip Now!</h3>
-                <img id="trip-image" src="/travel.png" alt="Where to?" className="image"/>
+                <img id="trip-image" src="/static/travel.png" alt="Where to?" className="image"/>
                 <AddATripModal/>
             </div>
         )

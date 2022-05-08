@@ -49,7 +49,7 @@ const NavBar = () => {
       <ul className="nav-bar-left">
         <li className="nav-list">
           <NavLink to='/Home' exact={true} className="nav-link">
-            <img src="/icon.png" className="icon" alt="Travel Bucket Icon" />
+            <img src="/static/icon.png" className="icon" alt="Travel Bucket Icon" />
             <h2 id="travel">Travel Bucket</h2>
           </NavLink>
         </li>
