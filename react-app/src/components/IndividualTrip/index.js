@@ -56,7 +56,7 @@ function IndividualTrip() {
         setEvents(Object.values(eventsObj))
         console.log('events after setEvents from OBJ',events)
     }, [eventsObj])
-    
+
     useEffect(() => {
         if (!sessionUser) history.push('/')
     },[sessionUser])
@@ -73,7 +73,7 @@ function IndividualTrip() {
         //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
         setErrorsAddedUser(errorsAddedUser)
     }, [userName])
-    
+
     useEffect(() => {
         if (trip) {
             itineraryMaker(trip.startDate, trip.endDate);
@@ -101,7 +101,7 @@ function IndividualTrip() {
         //     if (data && data.errors) setErrors(data.errors);
         // });
     };
-    
+
     const deleteInvitedUser = (user) => {
         setErrors([]);
         dispatch(invitedUsersActions.removeInvitedUsers(user.id,tripId))
@@ -120,7 +120,7 @@ function IndividualTrip() {
         setTripDates(itinerary);
         console.log('trip dates----------', tripDates)
     }
-    
+
     const eventFilter = (tripDate) => {
         // console.log('are threr even evnts in here',events)
         let dailyEvents = []
@@ -151,7 +151,7 @@ function IndividualTrip() {
                         <h1>{trip?.name}</h1>
                         <h2 id="destination-name">{trip?.destination}</h2>
                         <h3>{stringStartDate} to {stringEndDate}</h3>
-                        <button className="addUser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button>
+                        {/* <button className="addUser" onClick={e => setAddedUserForm(!showAddedUserForm)}>Add User</button> */}
                     </div>
                 </div>
                 <div>
