@@ -52,11 +52,22 @@ def trips():
 @trip_routes.route("/users/<int:id>")
 def users_owned_trips(id):
     trips = Trip.query.filter(Trip.owner_id == id).all()
-    if trips:
-        all_trips = {}
+    user = User.query.get(id)
+    invited_on_trips = user.invited_trips
+
+    if trips and invited_on_trips:
+        made_trips = {}
+        other_trips = {}
         for trip in trips:
-            all_trips[trip.id] = trip.to_dict
-        return all_trips
+            made_trips[trip.id] = trip.to_dict
+        for invited_trip in invited_on_trips:
+            other_trips[invited_trip.id] = invited_trip.to_dict
+        return {**made_trips, **other_trips}
+    elif trips and not invited_on_trips:
+        made_trips = {}
+        for trip in trips:
+            made_trips[trip.id] = trip.to_dict
+        return made_trips
     # else:
     #     return {'error': ['No Trips found for this User']}
     # causing an error rendering, and refactored so this isnt needed.

@@ -32,6 +32,8 @@ function IndividualTrip() {
 
     const invitedUsersObj = useSelector(state => state.invited)
     const invitedUsers = Object.values(invitedUsersObj)
+
+    // console.log("THIS IS FOR INVITED USERS------------", invitedUsers)
     const [errorsAddedUser, setErrorsAddedUser] = useState([]);
     const [showAddedUserForm, setAddedUserForm] = useState(false)
     const [userName, setUserName] = useState("")
@@ -39,7 +41,6 @@ function IndividualTrip() {
     const [events, setEvents] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [users, setUsers] = useState([]);
-    const [isUser, setIsUser] = useState(false)
 
     useEffect(() => {
         async function fetchData() {
@@ -78,7 +79,7 @@ function IndividualTrip() {
         let existUser = users.filter(user => user.username === userName)
 
 
-
+        // console.log("existUser", existUser)
 
         if (!userName.length) errorsAddedUser.push("Please enter a user.")
         if (!existUser.length) errorsAddedUser.push("Please enter an existing user.")
