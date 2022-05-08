@@ -33,5 +33,12 @@ def users():
     data = request.get_json(force=True)
     tripId = data["tripId"]
     user = User.query.filter(User.username == data["userName"]).one()
-    
-    return { "invitedUser": user.to_dict(), "tripId": tripId }
+    print("THIS IS USER FOR THE BACKEND ROUTES--------------", user)
+    if user:
+        return {
+            "invitedUser": user.to_dict(), "tripId": tripId
+        }
+    else:
+        return {
+            "errors" : ["This user does not exist. Please type an existing user."]
+        }

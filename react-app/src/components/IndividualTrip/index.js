@@ -37,6 +37,21 @@ function IndividualTrip() {
     const [userName, setUserName] = useState("")
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [isUser, setIsUser] = useState(false)
+
+    useEffect(() => {
+      async function fetchData() {
+        const response = await fetch('/api/users/');
+        const responseData = await response.json();
+        // console.log("THIS IS ALL OF THE USERS THAT EXISTS-------------", users)
+        setUsers(responseData.users);
+      }
+      fetchData();
+    }, []);
+
+    // console.log("THIS IS ALL OF THE USERS THAT EXISTS-------------", users)
 
 
     useEffect(() => {
@@ -58,9 +73,20 @@ function IndividualTrip() {
 
     useEffect(() => {
         let errorsAddedUser = [];
+
+       
+
+
+        let existUser = users.filter(user => user.username === userName)
+         
+
+
+
         if (!userName.length) errorsAddedUser.push("Please enter a user.")
-        //errors for not finding a user in the database so need a useSelector for all users so might need a store for users maybe
+        if (!existUser.length) errorsAddedUser.push("Please enter an existing user.")
+        
         setErrorsAddedUser(errorsAddedUser)
+        
     }, [userName])
 
     useEffect(() => {
@@ -81,9 +107,10 @@ function IndividualTrip() {
         addingUser.tripId = tripId
         addingUser.userName = userName
         dispatch(invitedUsersActions.postInvitedUsers(addingUser))
-        // .catch(async (res) => {
-        //     const data = await res.json();
-        //     if (data && data.errors) setErrors(data.errors);
+        // .catch(async (response) => {
+        //     const data = await response.json();
+        //     console.log("THIS IS ERRORS IN THE SUBMIT USER----------", data.errors)
+        //     if (data && data.errors) setErrorsAddedUser([data.errors])
         // });
     };
 
@@ -92,6 +119,7 @@ function IndividualTrip() {
         dispatch(invitedUsersActions.removeInvitedUsers(user.id,tripId))
         .catch(async (res) => {
             const data = await res.json();
+            console.log("THIS IS INVITED USERS DATA ERRROS--------------------",)
             if (data && data.errors) setErrors(data.errors);
         });
     }
