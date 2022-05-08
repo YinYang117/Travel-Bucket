@@ -93,23 +93,23 @@ function AddATripModal() {
               <ul className="new-trip-errors">
               {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
               </ul>
-              <label className='label'>
+              <label className='triplabel'>
                 Trip Name:
               </label>
               <input onChange={e => setName(e.target.value)} type="text" className="new-trip-name" placeholder='Trip Name' value={name} />
-              <label className='label'>
+              <label className='triplabel'>
                 Trip Destination:
               </label>
               <input onChange={e => setDestination(e.target.value)} type="text" className="new-trip-destination" placeholder='Trip Destination' value={destination} />
-              <label className='label'>
+              <label className='triplabel'>
                 Trip Main Image URL:
               </label>
               <input onChange={e => setImageUrl(e.target.value)} type="text" className="new-trip-image" placeholder='Image Url' value={imageUrl} />
-              <label className='label'>
+              <label className='triplabel'>
                 Trip Start:
               </label>
               <input onChange={e => setStartDate(e.target.value)} type="date" className="new-trip-start-date" value={startDate} />
-              <label className='label'>
+              <label className='triplabel'>
                 Trip End:
               </label>
               <input onChange={e => setEndDate(e.target.value)} type="date" className="new-trip-end-date" value={endDate} />
