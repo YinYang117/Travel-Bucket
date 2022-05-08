@@ -57,8 +57,9 @@ def users_owned_trips(id):
         for trip in trips:
             all_trips[trip.id] = trip.to_dict
         return all_trips
-    else:
-        return {'error': ['No Trips found for this User']}
+    # else:
+    #     return {'error': ['No Trips found for this User']}
+    # causing an error rendering, and refactored so this isnt needed.
 
 
 @trip_routes.route("/<int:id>", methods=["GET", "PUT", "DELETE"])

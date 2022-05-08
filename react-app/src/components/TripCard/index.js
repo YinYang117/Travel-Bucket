@@ -6,7 +6,6 @@ import { Modal } from "../../context/Modal"
 import { TripContext } from '../../context/Trip';
 import DeleteTripForm from "./deleteTripForm";
 import EditTripForm from "./editTripForm";
-import AddATripModal from '../AddATripModal';
 import "./TripCard.css";
 
 
@@ -55,14 +54,6 @@ function TripCard ({trip}) {
                     )}
                 </div>
         </div>
-        )
-    } else {
-        return (
-            <div className="trip-container">
-                <h3 id="no-trip">Plan a Trip Now!</h3>
-                <img id="trip-image" src="/static/travel.png" alt="Where to?" className="image"/>
-                <AddATripModal/>
-            </div>
         )
     }
 }
