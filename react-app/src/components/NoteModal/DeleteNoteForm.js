@@ -16,6 +16,7 @@ function DeleteNote({ hideModal, note }) {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             });
+        hideModal();
     }
 
     const handleCancelClick = (e) => {
