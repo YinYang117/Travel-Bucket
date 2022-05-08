@@ -11,8 +11,8 @@ function Home() {
     const tripsObj = useSelector(state => state.trips)
     const trips = Object.values(tripsObj)
 
-    const invitedUsersObj = useSelector(state => state.invited)
-    const invitedUsers = Object.values(invitedUsersObj)
+    // const invitedUsersObj = useSelector(state => state.invited)
+    // const invitedUsers = Object.values(invitedUsersObj)
 
     // console.log("THIS IS INvited USERS-----------", invitedUsers)
 
