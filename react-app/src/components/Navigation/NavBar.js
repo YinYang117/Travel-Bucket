@@ -17,15 +17,12 @@ const NavBar = () => {
         <li className="nav button1">
           <AddATripModal/>
         </li>
-        {/* <NavLink to={`/users/${user.id}`}>User Profile</NavLink> */}
         <li className="nav button2">
           <NavLink to="/Home" exact={true} className="trips">
             Trips
           </NavLink>
         </li>
-        {/* <li className="nav-list">
-          <LogoutButton />
-        </li> */}
+
         <li className="nav button3">
           <ProfileButton/>
         </li>
@@ -43,9 +40,6 @@ const NavBar = () => {
         <li className="nav button3">
           <SignUpFormModal/>
         </li>
-        {/* <NavLink to='/sign-up' exact={true} activeClassName='active'>
-          Sign Up
-        </NavLink> */}
       </ul>
     );
   }

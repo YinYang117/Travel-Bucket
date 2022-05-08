@@ -33,7 +33,6 @@ function ProfileButton() {
     return (
         <>
             <button className="User-Profile" onClick={() => setShowModal(true)}>
-                {/* <button onClick={openMenu}> */}
                 User Profile
             </button>
             {showModal && (
