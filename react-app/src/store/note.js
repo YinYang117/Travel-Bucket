@@ -37,7 +37,7 @@ const deleteNote = (id) => {
 export const postNewNote = (postNote) => async (disptach) => {
     const { ownerId, tripId, note } = postNote
     // add tripDate to notes after everything else working
-    const response = await fetch(`/api/notes`, {
+    const response = await fetch(`/api/notes/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ownerId, tripId, note })
@@ -54,7 +54,7 @@ export const postNewNote = (postNote) => async (disptach) => {
 
 export const getTripNotes = (tripId) => async (dispatch) => {
     const res = await fetch(`/api/notes/trips/${tripId}`)
-    // const res = await fetch(`/api/trips/users/${userId}/`) // thinking we dont need the trailing slashes
+    // const res = await fetch(`/api/trips/users/${userId}/`)
     if (res.ok) {
         const trips = await res.json();
         dispatch(loadNotes(trips))
