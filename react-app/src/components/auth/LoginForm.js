@@ -32,7 +32,6 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  //demo user onclick function
   const demo = () => {
     setEmail("demo@aa.io")
     setPassword("password")
@@ -40,9 +39,7 @@ const LoginForm = () => {
   }
 
 
-  // if (user) {
-  //   return <Redirect to='/' />;
-  // }
+
 
   return (
     <form onSubmit={onLogin}>

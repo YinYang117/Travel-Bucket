@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import './Navigation.css'
 import LogoutButton from "../auth/LogoutButton";
 import { ProfileModal } from "../../context/ProfileModal";
-//import User from "../User";
 
 function ProfileButton() {
     const user = useSelector(state => state.session.user);
@@ -29,17 +28,11 @@ function ProfileButton() {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
-    // const logout = (e) => {
-    //     e.preventDefault();
-    //     dispatch(sessionActions.logout());
-    //     // return <Redirect to="/" />
-    //     // return history.push("/")
-    // };
+
 
     return (
         <>
             <button className="User-Profile" onClick={() => setShowModal(true)}>
-                {/* <button onClick={openMenu}> */}
                 User Profile
             </button>
             {showModal && (

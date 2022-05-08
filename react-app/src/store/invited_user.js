@@ -1,4 +1,3 @@
-//import { csrfFetch } from './csrf';
 
 const LOAD_INVITED_USERS = "invited_user/loadInvitedUsers"
 const POST_INVITED_USERS = "invited_user/postInvitedUsers"
@@ -36,7 +35,7 @@ const deleteInvitedUsers = (id) => {
 
 export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
     const {tripId, userName} = tripAndUserName
-    const response = await fetch('/api/invited_users/', { 
+    const response = await fetch('/api/invited_users/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({tripId, userName})
@@ -51,21 +50,13 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({invitedUserId, tripId})
         })
-        
-
-            disptach(addInvitedUser(data.invitedUser))
-
+        disptach(addInvitedUser(data.invitedUser))
     } else if (response.status < 500) {
         const data = await response.json();
-        console.log("THIS IS DATA IN THE STORE FOR POST--------", data)
         if (data.errors) {
-            console.log("THIS IS THE STORE ERRORS---------", data.errors)
             return data.errors;
         }
-    } else {
-        console.log("THIS IS THE ELSE ---------------")
-        return {"errors": ['An error occurred. Please try again.']}
-    }
+    } else return {"errors": ['An error occurred. Please try again.']}
 }
 
 export const loadInvitedUsers = (tripId) => async (dispatch) => {
@@ -118,6 +109,5 @@ const invitedUsersReducer = (state = initialState, action) => {
             return state;
     }
 }
-
 
 export default invitedUsersReducer;

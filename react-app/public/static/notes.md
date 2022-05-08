@@ -1,1 +1,3 @@
-apparently heroku has a hard time reading static assests when deployed in a container or something, and having a folder of static helps.
+apparently heroku has a hard time reading free floating static assests
+when deployed in a container (or something)
+having a folder of static helps.

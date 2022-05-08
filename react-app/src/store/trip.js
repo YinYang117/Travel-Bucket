@@ -1,4 +1,3 @@
-//import { csrfFetch } from './csrf';
 
 const LOAD_ALL_USER_RELATED_TRIPS = "trip/loadAllUserRelatedTrips"
 const LOAD_SINGLE_TRIP = "trip/loadSingleTrip"
@@ -35,8 +34,8 @@ const deleteTripAction = (id) => {
 // thunks return a function that returns an action
 
 export const newTrip = (newTrip) => async (dispatch) => {
-    const { ownerId, name, destination, imageUrl, startDate, endDate } = newTrip 
-    const response = await fetch('/api/trips/', { // thinking we dont need the trailing slashes
+    const { ownerId, name, destination, imageUrl, startDate, endDate } = newTrip
+    const response = await fetch('/api/trips/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ownerId, name, destination, imageUrl, startDate, endDate })
@@ -53,7 +52,6 @@ export const newTrip = (newTrip) => async (dispatch) => {
 
 export const loadAllUserRelatedTrips = (userId) => async (dispatch) => {
     const res = await fetch(`/api/trips/users/${userId}`)
-    // const res = await fetch(`/api/trips/users/${userId}/`) // thinking we dont need the trailing slashes
     if (res.ok) {
         const trips = await res.json();
         dispatch(loadTrips(trips))
@@ -121,7 +119,6 @@ const tripsReducer = (state = initialState, action) => {
         case LOAD_ALL_USER_RELATED_TRIPS:
             newState = action.payload
             return newState
-            // assumes incoming trips are flattened
         case DELETE_TRIP:
             delete newState[action.payload]
             return newState

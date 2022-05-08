@@ -13,7 +13,7 @@ function TripDateCard({ events, notes, tripDate }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
 
-    
+
     return (
         <>
             <div className="tripDateCard-container">
@@ -64,7 +64,6 @@ function TripDateCard({ events, notes, tripDate }) {
                     )
                 }
                 <button className="eventButton" onClick={() => setShowModal(!showModal)}>
-                    {/* <i class="fa-solid fa-right-to-bracket"></i> */}
                     Add An Event
                 </button>
                 {showModal && (
