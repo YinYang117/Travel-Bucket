@@ -86,27 +86,27 @@ function Event({closeModal}) {
                     <ul className="new-event-errors">
                         {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
-                    <label className='label'>
+                    <label className='eventlabel'>
                         Event Name:
                     </label>
                     <input onChange={e => setName(e.target.value)} type="text" className="new-event-name" placeholder='Event Name' value={name} />
-                    <label className='label'>
+                    <label className='eventlabel'>
                         Event Description:
                     </label>
                     <input onChange={e => setDescription(e.target.value)} type="text" className="new-event-description" placeholder='Event Description' value={description} />
-                    <label className='label'>
+                    <label className='eventlabel'>
                         Event Location:
                     </label>
                     <input onChange={e => setLocation(e.target.value)} type="text" className="new-event-location" placeholder='Event Location' value={location} />
-                    <label className='label'>
+                    <label className='eventlabel'>
                         Event Image URL:
                     </label>
                     <input onChange={e => setImageUrl(e.target.value)} type="text" className="new-event-image" placeholder='Image Url' value={imageUrl} />
-                    <label className='label'>
+                    <label className='eventlabel'>
                         Event Start:
                     </label>
                     <input onChange={e => setStartDate(e.target.value)} type="date" className="new-event-start-date" value={startDate} />
-                    <label className='label'>
+                    <label className='eventlabel'>
                         Event End:
                     </label>
                     <input onChange={e => setEndDate(e.target.value)} type="date" className="new-event-end-date" value={endDate} />
