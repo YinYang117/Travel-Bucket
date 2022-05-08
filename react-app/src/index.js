@@ -6,6 +6,7 @@ import App from './App';
 import configureStore from './store';
 import { ModalProvider } from './context/Modal';
 import { ProfileModalProvider } from './context/ProfileModal';
+import { AboutModalProvider } from './context/AboutModal';
 import { TripProvider } from './context/Trip';
 // import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
@@ -23,7 +24,9 @@ ReactDOM.render(
         <Provider store={store}>
           <ModalProvider>
             <ProfileModalProvider>
-              <App />
+              <AboutModalProvider>
+                <App />
+              </AboutModalProvider>
             </ProfileModalProvider>
           </ModalProvider>
         </Provider>
