@@ -9,6 +9,11 @@ body {
   overflow-x: hidden;
 }
 
+a,
+button {
+  transition: 0.5s;
+}
+
 /* Nav bar styling -> to be inherited across site */
 
 .nav-container {
@@ -102,6 +107,7 @@ button {
   outline: inherit;
   color: rgb(99, 174, 170);
   font-weight: bold;
+  transition: 0.5s;
 }
 
 .profile-dropdown {

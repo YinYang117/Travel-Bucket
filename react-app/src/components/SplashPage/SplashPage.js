@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./SplashPage.css";
 import travel from "./travel.jpg";
@@ -8,6 +9,13 @@ import intro4 from "./intro4.jpg";
 
 function SplashPage() {
   const sessionUser = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
 
   return (
     <>
