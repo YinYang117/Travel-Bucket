@@ -1,286 +1,264 @@
- .eventImage{
-     height: 300px;
-     width: 400px;
- }
-
- .center-trip {
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
- }
-
- .image {
-     display: flex;
-     justify-content: center;
- }
-
- .individual-trip{
-     margin-top: 69px;
- }
-
- .background-image-trip {
-     height: 300px;
-     width: 100vw;
- }
-
- .trip-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 50vw;
-    margin: 60px auto 20px auto;
-    padding: 2em;
-    border-radius: 10px;
-    border: 1px solid transparentize(white, 0.5);
-    text-shadow: 0 0 1em transparentize(black, 0.5);
-    background-color: white;
-    backdrop-filter: blur(20px);
-    transform: perspective(500px);
-    transform-style: preserve-3d;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
- }
-
-
-
-.tripDateCard-container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 20px auto 20px auto;
-        padding: 2em;
-        border-radius: 1em;
-        border: 1px solid transparentize(white, 0.5);
-        text-shadow: 0 0 1em transparentize(black, 0.5);
-        background: transparentize(white, 0.8);
-        backdrop-filter: blur(20px);
-        transform: perspective(500px);
-        transform-style: preserve-3d;
-        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-        width:900px;
+.eventImage {
+  height: 300px;
+  width: 400px;
 }
 
-
-
-.eventImage-container:hover{
-    -webkit-transform: scale(1.04);
-    -ms-transform: scale(1.04);
-    transform: scale(1.04);
-    transition: 2s ease;
+.center-trip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-
-.tripDate{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 20px auto 20px auto;
-    padding: 1em;
-    border-radius: 1em;
-    border: 1px solid transparentize(white, 0.5);
-    text-shadow: 0 0 1em transparentize(black, 0.5);
-    background: transparentize(white, 0.8);
-    backdrop-filter: blur(20px);
-    transform: perspective(500px);
-    transform-style: preserve-3d;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-
+.image {
+  display: flex;
+  justify-content: center;
 }
 
-.eventDetail-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px auto 20px auto;
-    padding: 1em;
-    border-radius: 1em;
-    border: 1px solid transparentize(white, 0.5);
-    text-shadow: 0 0 1em transparentize(black, 0.5);
-    background: transparentize(white, 0.8);
-    backdrop-filter: blur(20px);
-    transform: perspective(500px);
-    transform-style: preserve-3d;
-    width:400px;
-
-
+.individual-trip {
+  margin-top: 69px;
 }
 
-.eventinside-container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 20px auto 20px auto;
-    padding: 1em;
-    border-radius: 1em;
-    border: 1px solid transparentize(white, 0.5);
-    text-shadow: 0 0 1em transparentize(black, 0.5);
-    background: transparentize(white, 0.8);
-    backdrop-filter: blur(20px);
-    transform: perspective(500px);
-    transform-style: preserve-3d;
-
+.background-image-trip {
+  height: 300px;
+  width: 100vw;
 }
 
-
-.flex-child:first-child{
-    margin-right:20px;
+.trip-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+  margin: 60px auto 20px auto;
+  padding: 2em;
+  border-radius: 10px;
+  border: 1px solid transparentize(white, 0.5);
+  text-shadow: 0 0 1em transparentize(black, 0.5);
+  background-color: white;
+  backdrop-filter: blur(20px);
+  transform: perspective(500px);
+  transform-style: preserve-3d;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
+.tripDateCard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto 20px auto;
+  padding: 2em;
+  border-radius: 1em;
+  border: 1px solid transparentize(white, 0.5);
+  text-shadow: 0 0 1em transparentize(black, 0.5);
+  background: transparentize(white, 0.8);
+  backdrop-filter: blur(20px);
+  transform: perspective(500px);
+  transform-style: preserve-3d;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  width: 900px;
+}
+
+.eventImage-container:hover {
+  -webkit-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+  transform: scale(1.04);
+  transition: 2s ease;
+}
+
+.tripDate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px auto 20px auto;
+  padding: 1em;
+  border-radius: 1em;
+  border: 1px solid transparentize(white, 0.5);
+  text-shadow: 0 0 1em transparentize(black, 0.5);
+  background: transparentize(white, 0.8);
+  backdrop-filter: blur(20px);
+  transform: perspective(500px);
+  transform-style: preserve-3d;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+.eventDetail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto 20px auto;
+  padding: 1em;
+  border-radius: 1em;
+  border: 1px solid transparentize(white, 0.5);
+  text-shadow: 0 0 1em transparentize(black, 0.5);
+  background: transparentize(white, 0.8);
+  backdrop-filter: blur(20px);
+  transform: perspective(500px);
+  transform-style: preserve-3d;
+  width: 400px;
+}
+
+.eventinside-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px auto 20px auto;
+  padding: 1em;
+  border-radius: 1em;
+  border: 1px solid transparentize(white, 0.5);
+  text-shadow: 0 0 1em transparentize(black, 0.5);
+  background: transparentize(white, 0.8);
+  backdrop-filter: blur(20px);
+  transform: perspective(500px);
+  transform-style: preserve-3d;
+}
+
+.flex-child:first-child {
+  margin-right: 20px;
+}
 
 .eventButton,
 .addUser {
-    border-bottom: 4px solid transparent;
-    display:inline;
-    width: 200px;
-    margin: 0 auto;
+  border-bottom: 4px solid transparent;
+  display: inline;
+  width: 200px;
+  margin: 0 auto;
 }
 
 .eventButton.active,
 .eventButton:hover {
-    border-color: #d057ee;
+  border-color: #d057ee;
 }
 
 .addUser.active,
 .addUser:hover {
-    border-color: #d057ee;
+  border-color: #d057ee;
 }
-
-
 
 .editEventButton,
 .deleteEventButton {
-    border-bottom: 4px solid transparent;
-    display:inline;
-    width: 200px;
-    margin: 0 auto;
+  border-bottom: 4px solid transparent;
+  display: inline;
+  width: 200px;
+  margin: 0 auto;
 }
 
 .editEventButton.active,
 .editEventButton:hover {
-    border-color: #33CCFF;
+  border-color: #33ccff;
 }
 
 .deleteEventButton.active,
 .deleteEventButton:hover {
-    border-color: #f63d43;
+  border-color: #f63d43;
 }
 
-
-
-
-
-
-.buttons{
-    width: 200px;
-margin: 0 auto;
-display: inline-block;
-
+.buttons {
+  width: 200px;
+  margin: 0 auto;
+  display: inline-block;
 }
 
-.buttonAction{
-    display: inline-block;
-    width: calc(50% - 4px);
-    margin: 0 auto;
+.buttonAction {
+  display: inline-block;
+  width: calc(50% - 4px);
+  margin: 0 auto;
 }
 
 .eventName,
 .eventLocation,
 .eventDescription,
 .eventDate {
-    margin-bottom:25px;
-    color: #666666;
+  margin-bottom: 25px;
+  color: #666666;
 }
 
-
-.add-user-submit{
-
-
-	float:right;
-    align-items: center;
-
-
-
+.add-user-submit {
+  float: right;
+  align-items: center;
 }
-
-
 
 .dialogbox .body {
-    position: relative;
-    max-width: 300px;
-    height: auto;
-    margin: 20px 10px;
-    padding: 5px;
-    background-color: #fdffdc;
-    border-radius: 3px;
-    border: 3px solid #ccc;
-  }
+  position: relative;
+  max-width: 300px;
+  height: auto;
+  margin: 20px 10px;
+  padding: 5px;
+  background-color: #fdffdc;
+  border-radius: 3px;
+  border: 3px solid #ccc;
+}
 
-  .body .message {
-    min-height: 30px;
-    border-radius: 5px;
-    font-family: Arial;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #797979;
-  }
+.body .message {
+  min-height: 30px;
+  border-radius: 5px;
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #797979;
+}
 
+.note-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
-
-  .note-container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-
-  }
-
-
-  .adduser{
-      margin-top: 25px;
-      border-bottom: 4px solid transparent;
-      display:inline;
-      width: 250px;
-      margin: 0 auto;
-
-  }
-
-
+.adduser {
+  margin-top: 25px;
+  border-bottom: 4px solid transparent;
+  display: inline;
+  width: 250px;
+  margin: 0 auto;
+}
 
 .adduser.active,
 .adduser:hover {
-    border-color: #33CC66;
+  border-color: #33cc66;
 }
 
-
-.addUserDiv{
-    width: 300px;
-    position: relative;
+.addUserDiv {
+  width: 300px;
+  position: relative;
 }
 
-
-
-.add-user{
-    margin: 0px;
-        padding: 0px;
-        width: 100%;
-        outline: none;
-        height: 30px;
-        border-radius: 5px;
+.deleteuser {
+  margin-left: 10px;
+  margin-top: 25px;
+  border-bottom: 4px solid transparent;
+  display: inline;
+  width: 120px;
+  margin: 0 auto;
 }
 
+.deleteuser.active,
+.deleteuser:hover {
+  border-color: #e93c3c;
+}
 
+.add-user {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  outline: none;
+  height: 30px;
+  border-radius: 5px;
+}
 
-.add-user-submit{
-    position: absolute;
-    top: 0;
-    border-radius: 5px;
-    right: 0px;
-    z-index: 2;
-    border: none;
-    top: 2px;
-    height: 30px;
-    cursor: pointer;
-    transform: translateX(2px);
-    top:-10px;
+.add-user-submit {
+  position: absolute;
+  top: 0;
+  border-radius: 5px;
+  right: 0px;
+  z-index: 2;
+  border: none;
+  top: 2px;
+  height: 30px;
+  cursor: pointer;
+  transform: translateX(2px);
+  top: -10px;
+}
+
+.tripDateCard-container h1 {
+  font-size: 18pt;
 }

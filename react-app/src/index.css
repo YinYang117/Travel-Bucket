@@ -9,6 +9,32 @@ body {
   overflow-x: hidden;
 }
 
+a,
+button {
+  transition: 0.5s;
+}
+
+/* Scroll bar */
+
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(99, 174, 170);
+  background: rgb(227, 255, 254);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(99, 174, 170);
+  border-radius: 8px;
+  margin: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(79, 139, 136);
+}
+
 /* Nav bar styling -> to be inherited across site */
 
 .nav-container {
@@ -102,6 +128,7 @@ button {
   outline: inherit;
   color: rgb(99, 174, 170);
   font-weight: bold;
+  transition: 0.5s;
 }
 
 .profile-dropdown {
@@ -264,7 +291,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(5) {
-  --bubble-left-offset: 78vw;
+  --bubble-left-offset: 32vw;
   --bubble-radius: 10vw;
   --bubble-float-duration: 7s;
   --bubble-sway-duration: 6s;
@@ -300,7 +327,7 @@ h2 {
   --bubble-sway-type: sway-right-to-left;
 }
 .bubble:nth-child(9) {
-  --bubble-left-offset: 1vw;
+  --bubble-left-offset: 71vw;
   --bubble-radius: 10vw;
   --bubble-float-duration: 10s;
   --bubble-sway-duration: 5s;
@@ -336,7 +363,7 @@ h2 {
   --bubble-sway-type: sway-right-to-left;
 }
 .bubble:nth-child(13) {
-  --bubble-left-offset: 11vw;
+  --bubble-left-offset: 19vw;
   --bubble-radius: 7vw;
   --bubble-float-duration: 10s;
   --bubble-sway-duration: 6s;
@@ -372,7 +399,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(17) {
-  --bubble-left-offset: 6vw;
+  --bubble-left-offset: 56vw;
   --bubble-radius: 6vw;
   --bubble-float-duration: 10s;
   --bubble-sway-duration: 5s;
@@ -381,7 +408,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(18) {
-  --bubble-left-offset: 70vw;
+  --bubble-left-offset: 32vw;
   --bubble-radius: 4vw;
   --bubble-float-duration: 10s;
   --bubble-sway-duration: 4s;
@@ -390,7 +417,7 @@ h2 {
   --bubble-sway-type: sway-right-to-left;
 }
 .bubble:nth-child(19) {
-  --bubble-left-offset: 77vw;
+  --bubble-left-offset: 66vw;
   --bubble-radius: 9vw;
   --bubble-float-duration: 9s;
   --bubble-sway-duration: 5s;
@@ -399,7 +426,7 @@ h2 {
   --bubble-sway-type: sway-right-to-left;
 }
 .bubble:nth-child(20) {
-  --bubble-left-offset: 95vw;
+  --bubble-left-offset: 40vw;
   --bubble-radius: 8vw;
   --bubble-float-duration: 10s;
   --bubble-sway-duration: 6s;
@@ -408,7 +435,7 @@ h2 {
   --bubble-sway-type: sway-right-to-left;
 }
 .bubble:nth-child(21) {
-  --bubble-left-offset: 89vw;
+  --bubble-left-offset: 64vw;
   --bubble-radius: 8vw;
   --bubble-float-duration: 7s;
   --bubble-sway-duration: 4s;
@@ -426,7 +453,7 @@ h2 {
   --bubble-sway-type: sway-right-to-left;
 }
 .bubble:nth-child(23) {
-  --bubble-left-offset: 88vw;
+  --bubble-left-offset: 26vw;
   --bubble-radius: 10vw;
   --bubble-float-duration: 6s;
   --bubble-sway-duration: 5s;
@@ -435,7 +462,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(24) {
-  --bubble-left-offset: 80vw;
+  --bubble-left-offset: 64vw;
   --bubble-radius: 10vw;
   --bubble-float-duration: 6s;
   --bubble-sway-duration: 4s;
@@ -462,7 +489,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(27) {
-  --bubble-left-offset: 6vw;
+  --bubble-left-offset: 16vw;
   --bubble-radius: 1vw;
   --bubble-float-duration: 6s;
   --bubble-sway-duration: 5s;
@@ -471,7 +498,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(28) {
-  --bubble-left-offset: 99vw;
+  --bubble-left-offset: 50vw;
   --bubble-radius: 10vw;
   --bubble-float-duration: 10s;
   --bubble-sway-duration: 4s;
@@ -480,7 +507,7 @@ h2 {
   --bubble-sway-type: sway-right-to-left;
 }
 .bubble:nth-child(29) {
-  --bubble-left-offset: 97vw;
+  --bubble-left-offset: 63vw;
   --bubble-radius: 3vw;
   --bubble-float-duration: 10s;
   --bubble-sway-duration: 5s;
@@ -489,7 +516,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(30) {
-  --bubble-left-offset: 8vw;
+  --bubble-left-offset: 70vw;
   --bubble-radius: 1vw;
   --bubble-float-duration: 8s;
   --bubble-sway-duration: 4s;
@@ -498,7 +525,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(31) {
-  --bubble-left-offset: 4vw;
+  --bubble-left-offset: 15vw;
   --bubble-radius: 10vw;
   --bubble-float-duration: 12s;
   --bubble-sway-duration: 5s;
@@ -534,7 +561,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(35) {
-  --bubble-left-offset: 95vw;
+  --bubble-left-offset: 56vw;
   --bubble-radius: 6vw;
   --bubble-float-duration: 10s;
   --bubble-sway-duration: 4s;
@@ -570,7 +597,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(39) {
-  --bubble-left-offset: 80vw;
+  --bubble-left-offset: 57vw;
   --bubble-radius: 1vw;
   --bubble-float-duration: 12s;
   --bubble-sway-duration: 5s;
@@ -579,7 +606,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(40) {
-  --bubble-left-offset: 0vw;
+  --bubble-left-offset: 22vw;
   --bubble-radius: 7vw;
   --bubble-float-duration: 12s;
   --bubble-sway-duration: 4s;
@@ -633,7 +660,7 @@ h2 {
   --bubble-sway-type: sway-left-to-right;
 }
 .bubble:nth-child(46) {
-  --bubble-left-offset: 16vw;
+  --bubble-left-offset: 73vw;
   --bubble-radius: 3vw;
   --bubble-float-duration: 11s;
   --bubble-sway-duration: 5s;
