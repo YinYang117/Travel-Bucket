@@ -19,6 +19,7 @@ class Trip(db.Model):
     invited_users = db.relationship("User", secondary=trip_invites, back_populates="invited_trips")
     events = db.relationship("Event", back_populates="trip", cascade="all, delete-orphan")
     notes = db.relationship("Note", back_populates="trip", cascade="all, delete-orphan")
+    location = db.relationship("Location", back_populates="trip", cascade="all, delete-orphan", uselist=False)
 
 
     @property

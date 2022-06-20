@@ -1,4 +1,6 @@
 import React, { useState, useMemo, useRef, useCallback } from "react";
+import { useSelector } from "react-redux";
+import { TripContext } from "../../context/Trip";
 import {
   GoogleMap,
   useLoadScript,
@@ -41,13 +43,14 @@ const Map = () => {
   const [selected, setSelected] = useState(false);
   const [cityMarkers, setCityMarkers] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const currentTrip = useSelector((state) => state.map.trip);
   const mapRef = useRef();
   const center = useMemo(
     () => ({
-      lat: 38.9072,
-      lng: 77.0369,
+      lat: parseFloat(currentTrip.lat),
+      lng: parseFloat(currentTrip.lng),
     }),
-    []
+    [currentTrip]
   );
   const onLoad = useCallback((map) => (mapRef.current = map), []);
   const trackNewCenter = async () => {
@@ -67,7 +70,7 @@ const Map = () => {
   return (
     <div className="maps-container">
       <div className="maps">
-        {/* <div>
+        <div>
           <PlacesAutocomplete
             setCityMarkers={setCityMarkers}
             setSelected={(position) => {
@@ -75,7 +78,7 @@ const Map = () => {
               mapRef.current?.panTo(position);
             }}
           />
-        </div> */}
+        </div>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -88,11 +91,6 @@ const Map = () => {
               {(clusterer) =>
                 cityMarkers?.map((mark, i) => (
                   <Marker
-                    label={{
-                      fontWeight: "bold",
-                      fontSize: "7px",
-                      text: `${mark.price.toFixed(2)}`,
-                    }}
                     key={mark.id}
                     position={{
                       lat: parseFloat(mark.lat),
