@@ -11,7 +11,6 @@ import IndividualTrip from './components/IndividualTrip';
 import { authenticate } from './store/session';
 import SplashPage from './components/SplashPage/SplashPage';
 import EventModal from './components/EventModal';
-import MapContainer from './components/Map';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -49,9 +48,6 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/events' >
           <EventModal/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/map'>
-          <MapContainer />
         </ProtectedRoute>
         <Route path='/' >
           <SplashPage />

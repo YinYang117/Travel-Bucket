@@ -1,6 +1,7 @@
 .eventImage {
-  height: 300px;
-  width: 400px;
+  height: 210px;
+  width: 280px;
+  border-radius: 5px;
 }
 
 .center-trip {
@@ -56,7 +57,7 @@
   transform: perspective(500px);
   transform-style: preserve-3d;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-  width: 900px;
+  width: 700px;
 }
 
 .eventImage-container:hover {
@@ -95,7 +96,7 @@
   backdrop-filter: blur(20px);
   transform: perspective(500px);
   transform-style: preserve-3d;
-  width: 400px;
+  width: 300px;
 }
 
 .eventinside-container {
@@ -261,4 +262,17 @@
 
 .tripDateCard-container h1 {
   font-size: 18pt;
+}
+
+.events-and-map {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.map-div {
+  position: -webkit-sticky; 
+  position: sticky;
+  top: 4rem;
+  align-self: flex-start;
 }

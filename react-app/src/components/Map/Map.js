@@ -33,8 +33,8 @@ const Maps = ({ apiKey }) => {
 };
 
 const containerStyle = {
-  width: "400px",
-  height: "400px",
+  width: "700px",
+  height: "700px",
 };
 
 const Map = () => {
@@ -67,7 +67,7 @@ const Map = () => {
   return (
     <div className="maps-container">
       <div className="maps">
-        <div>
+        {/* <div>
           <PlacesAutocomplete
             setCityMarkers={setCityMarkers}
             setSelected={(position) => {
@@ -75,7 +75,7 @@ const Map = () => {
               mapRef.current?.panTo(position);
             }}
           />
-        </div>
+        </div> */}
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
