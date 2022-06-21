@@ -1,4 +1,10 @@
-import React, { useState, useMemo, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useMemo,
+  useRef,
+  useCallback,
+  useEffect,
+} from "react";
 import { useSelector } from "react-redux";
 import { TripContext } from "../../context/Trip";
 import {
@@ -52,6 +58,21 @@ const Map = () => {
     }),
     [currentTrip]
   );
+
+  useEffect(() => {
+      (async () => {
+        const res = await fetch(`/api/map/${currentTrip?.lat}/${currentTrip?.lng}/${10}`);
+        if (res.ok) {
+          const data = await res.json();
+          console.log("THIS DATA SHOULD HAVE PLACES:", data);
+          if (data.places.length > 0) {
+            setCityMarkers(data.places);
+          }
+        }
+      })()
+      setSelected(true);
+  }, [currentTrip]);
+
   const onLoad = useCallback((map) => (mapRef.current = map), []);
   const trackNewCenter = async () => {
     const lat = mapRef.current?.getCenter().lat();
@@ -70,7 +91,7 @@ const Map = () => {
   return (
     <div className="maps-container">
       <div className="maps">
-        <div>
+        {/* <div>
           <PlacesAutocomplete
             setCityMarkers={setCityMarkers}
             setSelected={(position) => {
@@ -78,7 +99,7 @@ const Map = () => {
               mapRef.current?.panTo(position);
             }}
           />
-        </div>
+        </div> */}
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
