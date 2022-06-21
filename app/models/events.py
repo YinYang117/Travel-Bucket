@@ -20,6 +20,7 @@ class Event(db.Model):
 
     owner = db.relationship("User", back_populates="owned_events")
     trip = db.relationship("Trip", back_populates="events")
+    event_locations = db.relationship("Event_location", back_populates="event", cascade="all, delete-orphan")
 
     @property
     def to_dict(self):
