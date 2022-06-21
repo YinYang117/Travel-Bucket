@@ -60,17 +60,19 @@ const Map = () => {
   );
 
   useEffect(() => {
-      (async () => {
-        const res = await fetch(`/api/map/${currentTrip?.lat}/${currentTrip?.lng}/${10}`);
-        if (res.ok) {
-          const data = await res.json();
-          console.log("THIS DATA SHOULD HAVE PLACES:", data);
-          if (data.places.length > 0) {
-            setCityMarkers(data.places);
-          }
+    (async () => {
+      const res = await fetch(
+        `/api/map/${currentTrip?.lat}/${currentTrip?.lng}/${10}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        console.log("THIS DATA SHOULD HAVE PLACES:", data);
+        if (data.places.length > 0) {
+          setCityMarkers(data.places);
         }
-      })()
-      setSelected(true);
+      }
+    })();
+    setSelected(true);
   }, [currentTrip]);
 
   const onLoad = useCallback((map) => (mapRef.current = map), []);
@@ -122,7 +124,11 @@ const Map = () => {
                   >
                     {selectedMarker && mark.id === selectedMarker.id ? (
                       <InfoWindow>
-                        <div>{selectedMarker.address}</div>
+                        <>
+                          <div>{selectedMarker.info}</div>
+                          <div>{selectedMarker.location}</div>
+                          <div>{selectedMarker.address}</div>
+                        </>
                       </InfoWindow>
                     ) : null}
                   </Marker>
