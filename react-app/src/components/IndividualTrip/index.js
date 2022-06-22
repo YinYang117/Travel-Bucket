@@ -33,7 +33,7 @@ function IndividualTrip() {
   const invitedUsersObj = useSelector((state) => state.invited);
   const invitedUsers = Object.values(invitedUsersObj);
 
-  // console.log("THIS IS FOR INVITED USERS------------", invitedUsers)
+  //("THIS IS FOR INVITED USERS------------", invitedUsers)
   const [errorsAddedUser, setErrorsAddedUser] = useState([]);
   const [showAddedUserForm, setAddedUserForm] = useState(false);
   const [userName, setUserName] = useState("");
