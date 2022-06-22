@@ -8,11 +8,8 @@ class Location(db.Model):
 
     id = db.Column(db.Integer, primary_key= True)
     trip_id = db.Column(db.Integer, db.ForeignKey("trips.id"), nullable=False)
-    city = db.Column(db.String)
-    state = db.Column(db.String)
-    country = db.Column(db.String)
-    lat = db.Column(db.Numeric(15, 10))
-    lng = db.Column(db.Numeric(15, 10))
+    lat = db.Column(db.Numeric(15, 10), nullable=False)
+    lng = db.Column(db.Numeric(15, 10), nullable=False)
 
     trip = db.relationship("Trip", back_populates="location")
 
@@ -21,9 +18,6 @@ class Location(db.Model):
         return {
             'id': self.id,
             "tripId":self.trip_id,
-            'city': self.city,
-            'state': self.state,
-            'country': self.country,
             'lat': json.dumps(self.lat, use_decimal=True),
             'lng': json.dumps(self.lng, use_decimal=True)
         }
