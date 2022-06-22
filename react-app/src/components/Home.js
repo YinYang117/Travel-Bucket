@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import TripCard from "./TripCard";
 import AddATripModal from './AddATripModal';
 import * as tripActions from "../store/trip"
+import * as invitedUsersActions from "../store/invited_user"
 
 function Home() {
     const dispatch = useDispatch();
@@ -11,6 +12,8 @@ function Home() {
     const sessionUser = useSelector(state => state.session.user);
     const tripsObj = useSelector(state => state.trips)
     const trips = Object.values(tripsObj)
+    const [invitedUserTrips, setinvitedUserTrips] = useState();
+
     useEffect(() => {
         if (!sessionUser) history.push('/')
         if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
@@ -20,6 +23,7 @@ function Home() {
         <div className="page-container">
             <h1 id="all-trips"> All Trips </h1>
             <div className="trip-gallery">
+
                 {trips && trips.map(trip =>
                     <TripCard key={trip.id} trip={trip} />
                 )}

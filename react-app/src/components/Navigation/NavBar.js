@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import DemoButton from '../auth/DemoButton';
 import LoginFormModal from '../LoginFormModal';
 import ProfileButton from './ProfileButton';
+import AboutButton from './AboutButton';
 import SignUpFormModal from '../SignUpModal';
 import AddATripModal from '../AddATripModal';
 
@@ -14,6 +15,9 @@ const NavBar = () => {
   if (user) {
     sessionLinks = (
       <ul className="logged-in-nav">
+        <li className="nav button4">
+          <AboutButton />
+        </li>
         <li className="nav button1">
           <AddATripModal/>
         </li>
@@ -31,6 +35,9 @@ const NavBar = () => {
   } else {
     sessionLinks = (
       <ul className="logged-out-nav">
+        <li className="nav button4">
+          <AboutButton />
+        </li>
         <li className="nav button1">
           <DemoButton />
         </li>

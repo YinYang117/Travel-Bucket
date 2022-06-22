@@ -58,6 +58,15 @@ export const loadAllUserRelatedTrips = (userId) => async (dispatch) => {
     }
 }
 
+// export const loadInvitedUserTrips = (userId) => async (dispatch) => {
+//     const res = await fetch(`/api/invited_users/${userId}/trips`)
+
+//     if (res.ok) {
+//         const data = await res.json();
+//         dispatch(getInvitedUsers(data))
+//     }
+// }
+
 export const editTrip = (editedTrip) => async (dispatch) => {
     const id = parseInt(editedTrip.id, 10)
     const res = await fetch(`/api/trips/${id}`, {
@@ -102,7 +111,7 @@ export const loadATrip = (id) => async (dispatch) => {
 
 const initialState = {};
 const tripsReducer = (state = initialState, action) => {
-    let newState = Object.assign({}, state)
+    let newState = Object.assign({}, state);
     switch (action.type) {
         case LOAD_SINGLE_TRIP:
             newState[action.payload.id] = action.payload

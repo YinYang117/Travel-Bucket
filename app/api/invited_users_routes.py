@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect
 from flask_login import login_required
-from ..models import db, User
+from ..models import db, User, Trip
 
 invited_users_routes = Blueprint('invited_users', __name__)
 
@@ -41,3 +41,16 @@ def users():
         return {
             "errors" : ["This user does not exist. Please type an existing user."]
         }
+
+@invited_users_routes.route('/<int:id>/trips')
+@login_required
+def invited_user_trips(id):
+    user = User.query.get(id)
+    all_trips = user.invited_trips
+    trips = {}
+    for trip in all_trips:
+        trips[trip.id] = trip.to_dict
+    print("THIS IS TRIPS IN THE BACKEND-------------", trips)
+    return trips
+    
+
