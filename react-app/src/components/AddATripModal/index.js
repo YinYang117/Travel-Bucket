@@ -1,16 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "../../context/Modal";
-import {useDispatch, useSelector} from 'react-redux';
-import * as tripActions from "../../store/trip"
+import { useDispatch, useSelector } from "react-redux";
+import * as tripActions from "../../store/trip";
 import { useHistory } from "react-router-dom";
-import "./AddATrip.css"
-
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import "./AddATrip.css";
 
 function AddATripModal() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
 
   const [ownerId, setOwnerId] = useState(sessionUser?.id);
   const [name, setName] = useState("");
@@ -19,51 +22,65 @@ function AddATripModal() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
-  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const key = useSelector((state) => state.map.key);
 
-  const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+  const url =
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+  const placesLibraryScript = document.getElementById("places-script");
+  placesLibraryScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initAutocomplete`;
 
   useEffect(() => {
-      let errors = [];
-      if (!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
-      if (!imageUrl.length) errors.push("Please enter a URL.")
-      if (!name.length) errors.push("Please enter a name.")
-      if (!destination.length) errors.push("Please enter a destination.")
-      if (!startDate.length) errors.push("Please enter a startDate.")
-      if (!endDate.length) errors.push("Please enter a endDate.")
+    let errors = [];
+    if (!imageUrl.match(url)) errors.push("Please enter a valid URL.");
+    if (!imageUrl.length) errors.push("Please enter a URL.");
+    if (!name.length) errors.push("Please enter a name.");
+    if (!destination.length) errors.push("Please enter a destination.");
+    if (!startDate.length) errors.push("Please enter a startDate.");
+    if (!endDate.length) errors.push("Please enter a endDate.");
 
-      setErrors(errors)
-  }, [name, destination, startDate, endDate, imageUrl])
+    setErrors(errors);
+  }, [name, destination, startDate, endDate, imageUrl]);
 
   const submitNewTrip = () => {
-    setHasSubmitted(true)
+    setHasSubmitted(true);
     if (errors.length > 0) return;
 
     const newTripData = {};
-    setOwnerId(sessionUser.id)
-    newTripData.ownerId = ownerId
-    newTripData.name = name
-    newTripData.destination = destination
-    newTripData.imageUrl = imageUrl
-    newTripData.startDate = startDate
-    newTripData.endDate = endDate
+    setOwnerId(sessionUser.id);
+    newTripData.ownerId = ownerId;
+    newTripData.name = name;
+    newTripData.destination = destination;
+    newTripData.imageUrl = imageUrl;
+    newTripData.startDate = startDate;
+    newTripData.endDate = endDate;
 
     dispatch(tripActions.newTrip(newTripData))
-    .then(() => {
-      setName("");
-      setDestination("");
-      setImageUrl("");
-      setStartDate("");
-      setEndDate("");
-      setErrors([]);
-      setShowModal(false)
-      history.push('/Home')
-      // need a .then and redirect IF you add a new trip while on another trip details page
-    })
-    .catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) setErrors(data.errors);
-    });
+      .then(() => {
+        setName("");
+        setDestination("");
+        setImageUrl("");
+        setStartDate("");
+        setEndDate("");
+        setErrors([]);
+        setShowModal(false);
+        history.push("/Home");
+        // need a .then and redirect IF you add a new trip while on another trip details page
+      })
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
+  };
+
+  function initAutoComplete() {
+    geocoder = new google.maps.Geocoder();
+    autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById("auto-complete") /*,
+      {types: ['(cities)']}*/
+    );
+
+    autocomplete.addListener("place_changed", fillInAddress);
   }
 
   return (
@@ -77,34 +94,62 @@ function AddATripModal() {
             <h1> Add A Trip </h1>
             <form
               className="new-trip-form"
-              onSubmit={e => {
+              onSubmit={(e) => {
                 e.preventDefault();
                 submitNewTrip();
-              }}>
+              }}
+            >
               <ul className="new-trip-errors">
-              {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                {hasSubmitted &&
+                  errors.map((error, idx) => <li key={idx}>{error}</li>)}
               </ul>
-              <label className='triplabel'>
-                Trip Name:
-              </label>
-              <input onChange={e => setName(e.target.value)} type="text" className="new-trip-name" placeholder='Trip Name' value={name} />
-              <label className='triplabel'>
-                Trip Destination:
-              </label>
-              <input onChange={e => setDestination(e.target.value)} type="text" className="new-trip-destination" placeholder='Trip Destination' value={destination} />
-              <label className='triplabel'>
-                Trip Main Image URL:
-              </label>
-              <input onChange={e => setImageUrl(e.target.value)} type="text" className="new-trip-image" placeholder='Image Url' value={imageUrl} />
-              <label className='triplabel'>
-                Trip Start:
-              </label>
-              <input onChange={e => setStartDate(e.target.value)} type="date" className="new-trip-start-date" value={startDate} />
-              <label className='triplabel'>
-                Trip End:
-              </label>
-              <input onChange={e => setEndDate(e.target.value)} type="date" className="new-trip-end-date" value={endDate} />
-              <button id="new-trip-submit" type='submit' >Submit New Trip</button>
+              <label className="triplabel">Trip Name:</label>
+              <input
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                className="new-trip-name"
+                placeholder="Trip Name"
+                value={name}
+              />
+              <label className="triplabel">Trip Destination:</label>
+              <input
+                onChange={(e) => setDestination(e.target.value)}
+                type="text"
+                className="new-trip-destination"
+                placeholder="Trip Destination"
+                value={destination}
+              />
+              <label className="triplabel">Trip Start City:</label>
+              <input
+                id="auto-complete"
+                className="new-trip-destination"
+                placeholder="Trip Destination"
+              />
+              <label className="triplabel">Trip Main Image URL:</label>
+              <input
+                onChange={(e) => setImageUrl(e.target.value)}
+                type="text"
+                className="new-trip-image"
+                placeholder="Image Url"
+                value={imageUrl}
+              />
+              <label className="triplabel">Trip Start:</label>
+              <input
+                onChange={(e) => setStartDate(e.target.value)}
+                type="date"
+                className="new-trip-start-date"
+                value={startDate}
+              />
+              <label className="triplabel">Trip End:</label>
+              <input
+                onChange={(e) => setEndDate(e.target.value)}
+                type="date"
+                className="new-trip-end-date"
+                value={endDate}
+              />
+              <button id="new-trip-submit" type="submit">
+                Submit New Trip
+              </button>
             </form>
           </div>
         </Modal>
