@@ -77,6 +77,7 @@ const Map = () => {
 
   const onLoad = useCallback((map) => (mapRef.current = map), []);
   const trackNewCenter = async () => {
+    setSelectedMarker(null);
     const lat = mapRef.current?.getCenter().lat();
     const lng = mapRef.current?.getCenter().lng();
     const zoom = mapRef.current?.getZoom();
@@ -108,6 +109,7 @@ const Map = () => {
           zoom={10}
           onLoad={onLoad}
           onCenterChanged={trackNewCenter}
+          onClick={() => setSelectedMarker(null)}
         >
           {selected && (
             <MarkerClusterer>
