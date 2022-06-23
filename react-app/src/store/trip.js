@@ -111,7 +111,7 @@ export const loadATrip = (id) => async (dispatch) => {
 
 const initialState = {};
 const tripsReducer = (state = initialState, action) => {
-    let newState = Object.assign({}, state)
+    let newState = Object.assign({}, state);
     switch (action.type) {
         case LOAD_SINGLE_TRIP:
             newState[action.payload.id] = action.payload
