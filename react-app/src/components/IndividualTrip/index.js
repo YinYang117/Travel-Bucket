@@ -8,9 +8,7 @@ import * as tripActions from "../../store/trip";
 import * as eventActions from "../../store/event";
 import TripDateCard from "./TripDateCard";
 import TripNotes from "../NoteCards"
-import { Modal } from "../../context/Modal";
-// import "./individualPage.css";
-// Why is this ^ commented out?
+import "./individualPage.css";
 
 function IndividualTrip() {
     const dispatch = useDispatch()
@@ -39,7 +37,6 @@ function IndividualTrip() {
     const [userName, setUserName] = useState("")
     const [tripDates, setTripDates] = useState([]);
     const [events, setEvents] = useState([]);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -73,13 +70,7 @@ function IndividualTrip() {
     useEffect(() => {
         let errorsAddedUser = [];
 
-
-
-
         let existUser = users.filter(user => user.username === userName)
-
-
-        // console.log("existUser", existUser)
 
         if (!userName.length) errorsAddedUser.push("Please enter a user.")
         if (!existUser.length) errorsAddedUser.push("Please enter an existing user.")
@@ -162,7 +153,7 @@ function IndividualTrip() {
                     {invitedUsers && invitedUsers.map(user =>
                         <span key={user.id}>
                             {user?.username}
-                            <button onClick={e => deleteInvitedUser(user)}>Delete User</button>
+                            <button className="deleteuser" onClick={e => deleteInvitedUser(user)}>Delete User</button>
                         </span>
                     )
                     }
