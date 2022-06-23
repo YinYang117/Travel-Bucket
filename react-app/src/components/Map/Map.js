@@ -29,6 +29,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 import "./Map.css";
+import pin from "./pin.png";
 
 const libraries = ["places"];
 const Maps = ({ apiKey }) => {
@@ -62,11 +63,10 @@ const Map = () => {
   useEffect(() => {
     (async () => {
       const res = await fetch(
-        `/api/map/${currentTrip?.lat}/${currentTrip?.lng}/${10}`
+        `/api/map/${currentTrip?.lat}/${currentTrip?.lng}/${5}`
       );
       if (res.ok) {
         const data = await res.json();
-        console.log("THIS DATA SHOULD HAVE PLACES:", data);
         if (data.places.length > 0) {
           setCityMarkers(data.places);
         }
@@ -77,6 +77,7 @@ const Map = () => {
 
   const onLoad = useCallback((map) => (mapRef.current = map), []);
   const trackNewCenter = async () => {
+    setSelectedMarker(null);
     const lat = mapRef.current?.getCenter().lat();
     const lng = mapRef.current?.getCenter().lng();
     const zoom = mapRef.current?.getZoom();
@@ -108,6 +109,7 @@ const Map = () => {
           zoom={10}
           onLoad={onLoad}
           onCenterChanged={trackNewCenter}
+          onClick={() => setSelectedMarker(null)}
         >
           {selected && (
             <MarkerClusterer>
@@ -119,6 +121,7 @@ const Map = () => {
                       lat: parseFloat(mark.lat),
                       lng: parseFloat(mark.lng),
                     }}
+                    icon={pin}
                     clusterer={clusterer}
                     onClick={() => setSelectedMarker(mark)}
                   >
