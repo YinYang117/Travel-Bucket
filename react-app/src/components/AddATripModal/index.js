@@ -73,15 +73,15 @@ function AddATripModal() {
       });
   };
 
-  function initAutoComplete() {
-    geocoder = new google.maps.Geocoder();
-    autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("auto-complete") /*,
-      {types: ['(cities)']}*/
-    );
+  // function initAutoComplete() {
+  //   geocoder = new google.maps.Geocoder();
+  //   autocomplete = new google.maps.places.Autocomplete(
+  //     document.getElementById("auto-complete") /*,
+  //     {types: ['(cities)']}*/
+  //   );
 
-    autocomplete.addListener("place_changed", fillInAddress);
-  }
+  //   autocomplete.addListener("place_changed", fillInAddress);
+  // }
 
   return (
     <>
