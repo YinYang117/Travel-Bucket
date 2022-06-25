@@ -23,20 +23,22 @@ function AddATripModal() {
 
   const url =
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-  const placesLibraryScript = document.getElementById("places-script");
-  let key;
-  const getKey = async () => {
-    const res = await fetch("/api/map/key", {
-      method: "POST",
-    });
-  
-    if (res.ok) {
-      const data = await res.json();
-      key = data.googleMapsAPIKey;
-      placesLibraryScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initMap`;
-    }
-  };
-  getKey();
+    // useEffect (() => {
+    //     const placesLibraryScript = document.getElementById("places-script");
+    //     let key;
+    //     const getKey = async () => {
+    //       const res = await fetch("/api/map/key", {
+    //         method: "POST",
+    //       });
+        
+    //       if (res.ok) {
+    //         const data = await res.json();
+    //         key = data.googleMapsAPIKey;
+    //         placesLibraryScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initMap`;
+    //       }
+    //     };
+    //     getKey();
+    // },[])
   
   useEffect(() => {
     let errors = [];
@@ -80,6 +82,12 @@ function AddATripModal() {
         if (data && data.errors) setErrors(data.errors);
       });
   };
+
+  // return (
+  //   <>
+  //   <PlacesAutocomplete />
+  //   </>
+  // )
 
   return (
     <>
