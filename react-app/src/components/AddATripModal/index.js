@@ -3,10 +3,7 @@ import { Modal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import * as tripActions from "../../store/trip";
 import { useHistory } from "react-router-dom";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
+import PlacesAutocomplete from "../PlacesAutocomplete";
 import "./AddATrip.css";
 
 function AddATripModal() {
@@ -23,13 +20,26 @@ function AddATripModal() {
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const key = useSelector((state) => state.map.key);
 
   const url =
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-  const placesLibraryScript = document.getElementById("places-script");
-  placesLibraryScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initAutocomplete`;
-
+    // useEffect (() => {
+    //     const placesLibraryScript = document.getElementById("places-script");
+    //     let key;
+    //     const getKey = async () => {
+    //       const res = await fetch("/api/map/key", {
+    //         method: "POST",
+    //       });
+        
+    //       if (res.ok) {
+    //         const data = await res.json();
+    //         key = data.googleMapsAPIKey;
+    //         placesLibraryScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initMap`;
+    //       }
+    //     };
+    //     getKey();
+    // },[])
+  
   useEffect(() => {
     let errors = [];
     if (!imageUrl.match(url)) errors.push("Please enter a valid URL.");
@@ -73,6 +83,7 @@ function AddATripModal() {
       });
   };
 
+  //  Suwan branch
   // function initAutoComplete() {
   //   geocoder = new google.maps.Geocoder();
   //   autocomplete = new google.maps.places.Autocomplete(
@@ -80,8 +91,14 @@ function AddATripModal() {
   //     {types: ['(cities)']}*/
   //   );
 
+  //   Huyen branch
   //   autocomplete.addListener("place_changed", fillInAddress);
   // }
+  // return (
+  //   <>
+  //   <PlacesAutocomplete />
+  //   </>
+  // )
 
   return (
     <>
@@ -120,11 +137,7 @@ function AddATripModal() {
                 value={destination}
               />
               <label className="triplabel">Trip Start City:</label>
-              <input
-                id="auto-complete"
-                className="new-trip-destination"
-                placeholder="Trip Destination"
-              />
+              <PlacesAutocomplete />
               <label className="triplabel">Trip Main Image URL:</label>
               <input
                 onChange={(e) => setImageUrl(e.target.value)}
