@@ -127,7 +127,7 @@ const handleSelect = (val) => {
     <>
         <Combobox onSelect={handleSelect}>
           <ComboboxInput value={value} onChange={handleInput} disabled={!ready} />
-          <ComboboxPopover>
+          <ComboboxPopover portal={false}>
             <ComboboxList>
               {status === "OK" &&
                 data.map(({ place_id, description }) => (
