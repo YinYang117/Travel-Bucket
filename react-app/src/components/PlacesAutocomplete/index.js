@@ -105,8 +105,34 @@ const handleInput = (e) => {
   setValue(e.target.value);
 };
 
-const handleSelect = (val) => {
-  setValue(val, false);
+const handleSelect = async (val) => {
+  // setValue(val, false);
+  // console.log("THIS IS VAL------", val)
+
+  // getGeocode({ address: val }).then((results) => {
+  //   const { lat, lng } = getLatLng(results[0]);
+  //   console.log("Coordinates: ", { lat, lng });
+  // });
+
+  // setSelected 
+
+  console.log("THIS IS VAL-------", val)
+
+  const results = await getGeocode({ address: val })
+        const { lat, lng } = await getLatLng(results[0])
+        console.log("THIS IS LAT< LNG------", lat, lng)
+        // setSelected({ lat, lng })
+        const zoom = 10
+
+        const res = await fetch(`/api/map/${lat}/${lng}/${zoom}`)
+        if (res.ok) {
+            const data = await res.json()
+            console.log("THIS IS DATA--------", data)
+
+            // setCityMarkers(data.places)
+        }
+        setValue(val, false)
+
 };
 // useEffect(() => {
 //   if (!key) {

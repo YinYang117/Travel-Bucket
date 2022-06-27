@@ -90,7 +90,7 @@ function AddATripModal() {
     if (!endDate.length) errors.push("Please enter a endDate.");
 
     setErrors(errors);
-  }, [name, destination, startDate, endDate, imageUrl]);
+  }, [name, startDate, destination, endDate, imageUrl]);
 
   const submitNewTrip = () => {
     setHasSubmitted(true);
@@ -131,11 +131,7 @@ function AddATripModal() {
 
   }
 
-  // return (
-  //   <>
-  //   <PlacesAutocomplete />
-  //   </>
-  // )
+
 
   return (
     <>
@@ -176,7 +172,7 @@ function AddATripModal() {
                     placeholder="Trip Destination"
                     value={destination}
                   /> */}
-                  <MapContainer showInModal={showInModal} />
+                  <MapContainer showInModal={showInModal}/>
                   {/* <label className="triplabel">Trip Start City:</label> */}
                   {/* <PlacesAutocomplete /> */}
                   <label className="triplabel">Trip Main Image URL:</label>
