@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@reach/combobox": "^0.17.0",
+    "@react-google-maps/api": "^2.12.0",
+    "google-maps-react": "^2.0.6",
+    "use-places-autocomplete": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/google.maps": "^3.49.2"
+  }
+}
