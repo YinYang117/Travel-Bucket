@@ -125,7 +125,7 @@ const handleSelect = (val) => {
 
   return (
     <>
-        <Combobox onSelect={handleSelect} aria-labelledby="demo">
+        <Combobox onSelect={handleSelect}>
           <ComboboxInput value={value} onChange={handleInput} disabled={!ready} />
           <ComboboxPopover>
             <ComboboxList>

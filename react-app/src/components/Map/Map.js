@@ -43,14 +43,11 @@ const Maps = ({ apiKey, showInModal, tripId }) => {
     libraries,
   });
 
-  console.log("THIS IS API KEY------", apiKey)
   return (
     <>
       {showInModal && isLoaded && (
         <PlacesAutocomplete/>
       )}
-
-      {/* {console.log("THIS IS SHOW MAP---------", showMap)} */}
 
       {tripId && isLoaded && (
         <Map />
