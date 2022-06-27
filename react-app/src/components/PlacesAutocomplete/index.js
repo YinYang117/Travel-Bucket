@@ -3,6 +3,18 @@
 //   getLatLng,
 // } from "use-places-autocomplete";
 // import useOnclickOutside from "react-cool-onclickoutside";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getKey } from '../../store/map';
+
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  MarkerClusterer,
+  InfoWindow,
+} from "@react-google-maps/api";
+
 
 import usePlacesAutocomplete from "use-places-autocomplete";
 import {
@@ -75,34 +87,56 @@ import {
 // };
 
 
-const PlacesAutocomplete = () => {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-  } = usePlacesAutocomplete();
+const PlacesAutocomplete = ({setShowInModal}) => {
+  const dispatch = useDispatch()
 
-  const handleInput = (e) => {
-    setValue(e.target.value);
-  };
+//   const key = useSelector(state => state.map.key)
+// console.log("THIS IS KEY FOR THE HOME--------", key)
 
-  const handleSelect = (val) => {
-    setValue(val, false);
-  };
+const {
+  ready,
+  value,
+  suggestions: { status, data },
+  setValue,
+} = usePlacesAutocomplete();
+
+const handleInput = (e) => {
+  setValue(e.target.value);
+};
+
+const handleSelect = (val) => {
+  setValue(val, false);
+};
+// useEffect(() => {
+//   if (!key) {
+//       dispatch(getKey())
+//   }
+// }, [dispatch, key])
+
+// const libraries= ["places"];
+// const { isLoaded } = useLoadScript({
+//   id: "places-script",
+//   googleMapsApiKey: key,
+//   libraries,
+
+// })
+
+
 
   return (
-    <Combobox onSelect={handleSelect} aria-labelledby="demo">
-      <ComboboxInput value={value} onChange={handleInput} disabled={!ready} />
-      <ComboboxPopover>
-        <ComboboxList>
-          {status === "OK" &&
-            data.map(({ place_id, description }) => (
-              <ComboboxOption key={place_id} value={description} />
-            ))}
-        </ComboboxList>
-      </ComboboxPopover>
-    </Combobox>
+    <>
+        <Combobox onSelect={handleSelect} aria-labelledby="demo">
+          <ComboboxInput value={value} onChange={handleInput} disabled={!ready} />
+          <ComboboxPopover>
+            <ComboboxList>
+              {status === "OK" &&
+                data.map(({ place_id, description }) => (
+                  <ComboboxOption key={place_id} value={description} />
+                ))}
+            </ComboboxList>
+          </ComboboxPopover>
+        </Combobox>
+    </>
   );
 };
 

@@ -30,16 +30,40 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import "./Map.css";
 import pin from "./pin.png";
+import AddATripModal from "../AddATripModal";
+import PlacesAutocomplete from "../PlacesAutocomplete";
 
 const libraries = ["places"];
-const Maps = ({ apiKey }) => {
+const Maps = ({ apiKey, showInModal, tripId }) => {
+  // const [showInModal, setShowInModal] = useState(true)
+  // const [showMap, setShowMap] = useState(true)
   const { isLoaded } = useLoadScript({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
     libraries,
   });
-  return <>{isLoaded && <Map />}</>;
+
+  console.log("THIS IS API KEY------", apiKey)
+  return (
+    <>
+      {showInModal && isLoaded && (
+        <PlacesAutocomplete/>
+      )}
+
+      {/* {console.log("THIS IS SHOW MAP---------", showMap)} */}
+
+      {tripId && isLoaded && (
+        <Map />
+      )}
+
+      
+    </>
+
+  )
 };
+
+
+
 
 const containerStyle = {
   width: "700px",
@@ -47,6 +71,7 @@ const containerStyle = {
 };
 
 const Map = () => {
+  // setNoShowInModal(false)
   const [selected, setSelected] = useState(false);
   const [cityMarkers, setCityMarkers] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -92,104 +117,108 @@ const Map = () => {
     }
   };
   return (
-    <div className="maps-container">
-      <div className="maps">
-        <div>
-          <PlacesAutocomplete
-            setCityMarkers={setCityMarkers}
-            setSelected={(position) => {
-              setSelected(true);
-              mapRef.current?.panTo(position);
-            }}
-          />
-        </div>
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-          onLoad={onLoad}
-          onCenterChanged={trackNewCenter}
-          onClick={() => setSelectedMarker(null)}
-        >
-          {selected && (
-            <MarkerClusterer>
-              {(clusterer) =>
-                cityMarkers?.map((mark, i) => (
-                  <Marker
-                    key={mark.id}
-                    position={{
-                      lat: parseFloat(mark.lat),
-                      lng: parseFloat(mark.lng),
-                    }}
-                    icon={pin}
-                    clusterer={clusterer}
-                    onClick={() => setSelectedMarker(mark)}
-                  >
-                    {selectedMarker && mark.id === selectedMarker.id ? (
-                      <InfoWindow>
-                        <>
-                          <div>{selectedMarker.info}</div>
-                          <div>{selectedMarker.location}</div>
-                          <div>{selectedMarker.address}</div>
-                        </>
-                      </InfoWindow>
-                    ) : null}
-                  </Marker>
-                ))
-              }
-            </MarkerClusterer>
-          )}
-        </GoogleMap>
-      </div>
-    </div>
-  );
-};
-
-const PlacesAutocomplete = ({ setSelected, setCityMarkers }) => {
-  const {
-    ready,
-    value,
-    setValue,
-    suggestions: { status, data },
-    clearSuggestions,
-  } = usePlacesAutocomplete();
-
-  const handleSelect = async (address) => {
-    const results = await getGeocode({ address });
-    const { lat, lng } = await getLatLng(results[0]);
-    setSelected({ lat, lng });
-    const zoom = 10;
-
-    const res = await fetch(`/api/map/${lat}/${lng}/${zoom}`);
-    if (res.ok) {
-      const data = await res.json();
-
-      setCityMarkers(data.places);
-    }
-    setValue(address, false);
-    clearSuggestions();
-  };
-
-  return (
     <>
-      <Combobox onSelect={handleSelect}>
-        <ComboboxInput
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          disabled={!ready}
-          placeholder="Search an address"
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-            {status === "OK" &&
-              data?.map(({ place_id, description }) => (
-                <ComboboxOption key={place_id} value={description} />
-              ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
+    {/* {setShowInModal(false) && ( */}
+      <div className="maps-container">
+        <div className="maps">
+          <div>
+            <PlacesAutocomplete
+              setCityMarkers={setCityMarkers}
+              setSelected={(position) => {
+                setSelected(true);
+                mapRef.current?.panTo(position);
+              }}
+            />
+          </div>
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={10}
+            onLoad={onLoad}
+            onCenterChanged={trackNewCenter}
+            onClick={() => setSelectedMarker(null)}
+          >
+            {selected && (
+              <MarkerClusterer>
+                {(clusterer) =>
+                  cityMarkers?.map((mark, i) => (
+                    <Marker
+                      key={mark.id}
+                      position={{
+                        lat: parseFloat(mark.lat),
+                        lng: parseFloat(mark.lng),
+                      }}
+                      icon={pin}
+                      clusterer={clusterer}
+                      onClick={() => setSelectedMarker(mark)}
+                    >
+                      {selectedMarker && mark.id === selectedMarker.id ? (
+                        <InfoWindow>
+                          <>
+                            <div>{selectedMarker.info}</div>
+                            <div>{selectedMarker.location}</div>
+                            <div>{selectedMarker.address}</div>
+                          </>
+                        </InfoWindow>
+                      ) : null}
+                    </Marker>
+                  ))
+                }
+              </MarkerClusterer>
+            )}
+          </GoogleMap>
+        </div>
+      </div>
+    {/* )} */}
     </>
   );
 };
+
+// const PlacesAutocomplete = ({ setSelected, setCityMarkers }) => {
+//   const {
+//     ready,
+//     value,
+//     setValue,
+//     suggestions: { status, data },
+//     clearSuggestions,
+//   } = usePlacesAutocomplete();
+
+//   const handleSelect = async (address) => {
+//     const results = await getGeocode({ address });
+//     const { lat, lng } = await getLatLng(results[0]);
+//     setSelected({ lat, lng });
+//     const zoom = 10;
+
+//     const res = await fetch(`/api/map/${lat}/${lng}/${zoom}`);
+//     if (res.ok) {
+//       const data = await res.json();
+
+//       setCityMarkers(data.places);
+//     }
+//     setValue(address, false);
+//     clearSuggestions();
+//   };
+
+//   return (
+//     <>
+//       <Combobox onSelect={handleSelect}>
+//         <ComboboxInput
+//           value={value}
+//           onChange={(e) => setValue(e.target.value)}
+//           disabled={!ready}
+//           placeholder="Search an address"
+//         />
+//         <ComboboxPopover>
+//           <ComboboxList>
+//             {status === "OK" &&
+//               data?.map(({ place_id, description }) => (
+//                 <ComboboxOption key={place_id} value={description} />
+//               ))}
+//           </ComboboxList>
+//         </ComboboxPopover>
+//       </Combobox>
+//     </>
+//   );
+// };
 
 export default React.memo(Maps);
