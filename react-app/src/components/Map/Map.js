@@ -54,8 +54,8 @@ const Map = () => {
   const mapRef = useRef();
   const center = useMemo(
     () => ({
-      lat: parseFloat(currentTrip.lat),
-      lng: parseFloat(currentTrip.lng),
+      lat: parseFloat(currentTrip?.lat),
+      lng: parseFloat(currentTrip?.lng),
     }),
     [currentTrip]
   );
@@ -94,7 +94,7 @@ const Map = () => {
   return (
     <div className="maps-container">
       <div className="maps">
-        {/* <div>
+        <div>
           <PlacesAutocomplete
             setCityMarkers={setCityMarkers}
             setSelected={(position) => {
@@ -102,7 +102,7 @@ const Map = () => {
               mapRef.current?.panTo(position);
             }}
           />
-        </div> */}
+        </div>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
