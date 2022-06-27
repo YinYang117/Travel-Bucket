@@ -177,7 +177,7 @@ function AddATripModal() {
                     value={destination}
                   /> */}
                   <MapContainer showInModal={showInModal} />
-                  <label className="triplabel">Trip Start City:</label>
+                  {/* <label className="triplabel">Trip Start City:</label> */}
                   {/* <PlacesAutocomplete /> */}
                   <label className="triplabel">Trip Main Image URL:</label>
                   <input

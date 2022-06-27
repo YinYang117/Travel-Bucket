@@ -5,6 +5,7 @@
 // import useOnclickOutside from "react-cool-onclickoutside";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import "./PlacesAutocomplete.css"
 import { getKey } from '../../store/map';
 
 import {
@@ -87,7 +88,7 @@ import {
 // };
 
 
-const PlacesAutocomplete = ({setShowInModal}) => {
+const PlacesAutocomplete = () => {
   const dispatch = useDispatch()
 
 //   const key = useSelector(state => state.map.key)
@@ -127,11 +128,11 @@ const handleSelect = (val) => {
     <>
         <Combobox onSelect={handleSelect}>
           <ComboboxInput value={value} onChange={handleInput} disabled={!ready} />
-          <ComboboxPopover portal={false}>
-            <ComboboxList>
+          <ComboboxPopover portal={false} className="option">
+            <ComboboxList className="option">
               {status === "OK" &&
                 data.map(({ place_id, description }) => (
-                  <ComboboxOption key={place_id} value={description} />
+                  <ComboboxOption key={place_id} value={description} className="option" />
                 ))}
             </ComboboxList>
           </ComboboxPopover>

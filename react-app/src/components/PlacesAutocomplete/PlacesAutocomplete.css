@@ -1,0 +1,42 @@
+[data-reach-menu-item] {
+    color: blue;
+  }
+
+
+[data-reach-combobox-option-text] {
+    color: black
+}
+
+/* .option {
+    color: pink;
+} */
+
+[data-reach-combobox-input] {
+    color: white
+}
+
+[data-reach-combobox-popover] {
+    background-color: white;
+}
+
+[data-reach-combobox-list] {
+    list-style:none;
+    /* background-color: white; */
+}
+
+/* [data-reach-combobox-option] {
+    color: pink
+} */
+
+[data-reach-combobox-option-text] {
+    color: black
+}
+
+[data-reach-combobox-option][data-highlighted] {
+    color: gray;
+
+}
+
+[data-reach-menu-item][data-selected] {
+    background: red;
+  }
