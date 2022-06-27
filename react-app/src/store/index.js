@@ -5,9 +5,11 @@ import tripsReducer from './trip';
 import notesReducer from './note';
 import invitedUsersReducer from './invited_user';
 import eventsReducer from './event';
+import map from './map'
 
 const rootReducer = combineReducers({
   session,
+  map,
   trips:tripsReducer,
   notes:notesReducer,
   invited:invitedUsersReducer,
