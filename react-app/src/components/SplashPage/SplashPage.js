@@ -74,7 +74,9 @@ function SplashPage() {
       <a>
         <img src={travel} alt="Travel" className="travel" />
       </a>
-
+      <div id='intro-text'>
+        The best site to plan your next trip!
+      </div>
       <div className="gallery">
         <div className="gallery_info">
           <div>
