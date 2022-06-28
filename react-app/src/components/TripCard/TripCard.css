@@ -1,4 +1,3 @@
-
 .image {
     height: 300px;
     width: 300px;
@@ -71,4 +70,106 @@
 
 .grow img{
     transition: 1s ease;
+}
+
+.formContainer3 {
+    height: auto;
+    width: 700px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 40px 30px;
+}
+
+.formContainer3  *{
+    font-family: 'Poppins',sans-serif;
+    /* color: #ffffff; */
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+.formContainer3  h3{
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: center;
+}
+
+::placeholder {
+    color: #e5e5e5;
+}
+
+#new-trip-submit {
+    margin-top: 20px;
+    width: 100%;
+    color: #ffffff;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#new-trip-submit:hover,
+#new-trip-submit:active {
+    color: #080710;
+    background-color: #ffffff;
+}
+
+.formContainer6 {
+    height: auto;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+
+.formContainer6  *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+.formContainer6  h3{
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+::placeholder {
+    color: #e5e5e5;
+}
+
+#delete {
+    margin-top: 50px;
+    width: 100%;
+    color: #ffffff;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#delete:hover,
+#delete:active {
+    color: #080710;
+    background-color: #ffffff;
 }

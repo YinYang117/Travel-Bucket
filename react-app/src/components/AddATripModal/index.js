@@ -17,26 +17,22 @@ import MapContainer from "../Map";
 
 
 function AddATripModal() {
-
-
-
-  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
-  const key = useSelector(state => state.map.key)
-  const [showInModal, setShowInModal] = useState(true)
-  const [latitude, setLatitude] =useState("")
-  const [longitude, setLongitude] = useState("")
- 
-
+  // const key = useSelector(state => state.map.key)
+  
   const [ownerId, setOwnerId] = useState(sessionUser?.id);
-  const [name, setName] = useState("");
+  const [showInModal, setShowInModal] = useState(true)
+  const [showModal, setShowModal] = useState(false);
   const [destination, setDestination] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [longitude, setLongitude] = useState(0.0);
+  const [latitude, setLatitude] = useState(0.0);
+  const [imageUrl, setImageUrl] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
+  const [name, setName] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   // const { isLoaded } = useLoadScript({
@@ -86,14 +82,11 @@ function AddATripModal() {
     newTripData.ownerId = ownerId;
     newTripData.name = name;
     newTripData.destination = destination;
-
-    console.log("THUS IS LATITUDE======", latitude)
     newTripData.lat = latitude;
     newTripData.lng = longitude;
     newTripData.imageUrl = imageUrl;
     newTripData.startDate = startDate;
     newTripData.endDate = endDate;
-
     
     dispatch(tripActions.newTrip(newTripData))
       .then(() => {
@@ -114,93 +107,71 @@ function AddATripModal() {
   };
 
   const showing = () => {
-
     setShowModal(true)
-
     setShowInModal(true)
-
   }
-
-
 
   return (
     <>
-      {/* {
-        isLoaded && ( */}
-          <>
-          <button className="AddATripButton" onClick={showing}>
-            Add A Trip
-          </button>
-          {showModal && (
-            <Modal onClose={() => setShowModal(false)}>
-              <div className="formContainer3">
-                <h1> Add A Trip </h1>
-                <form
-                  className="new-trip-form"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    submitNewTrip();
-                  }}
-                >
-                  <ul className="new-trip-errors">
-                    {hasSubmitted &&
-                      errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                  </ul>
-                  <label className="triplabel">Trip Name:</label>
-                  <input
-                    onChange={(e) => setName(e.target.value)}
-                    type="text"
-                    className="new-trip-name"
-                    placeholder="Trip Name"
-                    value={name}
-                  />
-                  <label className="triplabel">Trip Destination:</label>
-                  {/* <input
-                    onChange={(e) => setDestination(e.target.value)}
-                    type="text"
-                    className="new-trip-destination"
-                    placeholder="Trip Destination"
-                    value={destination}
-                  /> */}
-                  <MapContainer showInModal={showInModal} setDestination={setDestination} destination={destination} setLongitude={setLongitude} setLatitude={setLatitude}/>
-                  {/* <label className="triplabel">Trip Start City:</label> */}
-                  {/* <PlacesAutocomplete /> */}
-                  <label className="triplabel">Trip Main Image URL:</label>
-                  <input
-                    onChange={(e) => setImageUrl(e.target.value)}
-                    type="text"
-                    className="new-trip-image"
-                    placeholder="Image Url"
-                    value={imageUrl}
-                  />
-                  <label className="triplabel">Trip Start:</label>
-                  <input
-                    onChange={(e) => setStartDate(e.target.value)}
-                    type="date"
-                    className="new-trip-start-date"
-                    value={startDate}
-                  />
-                  <label className="triplabel">Trip End:</label>
-                  <input
-                    onChange={(e) => setEndDate(e.target.value)}
-                    type="date"
-                    className="new-trip-end-date"
-                    value={endDate}
-                  />
-                  <button id="new-trip-submit" type="submit">
-                    Submit New Trip
-                  </button>
-                </form>
-              </div>
-            </Modal>
-          )}
-          </>
-        {/* )
-      } */}
+      <button className="AddATripButton" onClick={showing}>
+        Add A Trip
+      </button>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <div className="formContainer3">
+            <h1> Add A Trip </h1>
+            <form
+              className="new-trip-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                submitNewTrip();
+              }}
+            >
+              <ul className="new-trip-errors">
+                {hasSubmitted &&
+                  errors.map((error, idx) => <li key={idx}>{error}</li>)}
+              </ul>
+              <label className="triplabel">Trip Name:</label>
+              <input
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                className="new-trip-name"
+                placeholder="Trip Name"
+                value={name}
+              />
+              <label className="triplabel">Trip Destination:</label>
+              <MapContainer showInModal={showInModal} setDestination={setDestination} destination={destination} setLongitude={setLongitude} setLatitude={setLatitude}/>
+              <label className="triplabel">Trip Main Image URL:</label>
+              <input
+                onChange={(e) => setImageUrl(e.target.value)}
+                type="text"
+                className="new-trip-image"
+                placeholder="Image Url"
+                value={imageUrl}
+              />
+              <label className="triplabel">Trip Start:</label>
+              <input
+                onChange={(e) => setStartDate(e.target.value)}
+                type="date"
+                className="new-trip-start-date"
+                value={startDate}
+              />
+              <label className="triplabel">Trip End:</label>
+              <input
+                onChange={(e) => setEndDate(e.target.value)}
+                type="date"
+                className="new-trip-end-date"
+                value={endDate}
+              />
+              <button id="new-trip-submit" type="submit">
+                Submit New Trip
+              </button>
+            </form>
+          </div>
+        </Modal>
+      )}
     </>
   );
 }
 
 export default AddATripModal;
-
-// export default React.memo(Mapss);

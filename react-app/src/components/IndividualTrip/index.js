@@ -18,16 +18,8 @@ function IndividualTrip() {
   const { tripId } = useParams();
 
   const trip = useSelector((state) => state.trips[tripId]);
-
-  // const trips = useSelector((state) => state.trips);
-
-  // console.log("THIS IS TRIPS===========", trips)
-
-
   const sessionUser = useSelector((state) => state.session.user);
   const eventsObj = useSelector((state) => state.events);
-
-  console.log("THIS IS TRIP===========", trip)
 
   const { setCurrentTrip } = useContext(TripContext);
 
@@ -35,9 +27,6 @@ function IndividualTrip() {
   const [stringEndDate, setStringEndDate] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [errors, setErrors] = useState([]);
-
-  // ------------------------THIS IS FOR THE USER -----------------------------------
-
   const invitedUsersObj = useSelector((state) => state.invited);
   const invitedUsers = Object.values(invitedUsersObj);
 
@@ -109,11 +98,10 @@ function IndividualTrip() {
   };
 
   const deleteInvitedUser = (user) => {
-    setErrors([]);
     dispatch(invitedUsersActions.removeInvitedUsers(user.id, tripId)).catch(
       async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
+        if (data && data.errors) ;
       }
     );
   };
@@ -185,17 +173,17 @@ function IndividualTrip() {
               Invite A User To Your Trip!
             </button>
           </div>
-          {invitedUsers &&
-            invitedUsers.map((user) => (
-              <span key={user.id}>
+          {invitedUsers && invitedUsers.map((user) => (
+              <div key={user.id}>
+                
                 {user?.username}
                 <button
                   className="deleteuser"
                   onClick={(e) => deleteInvitedUser(user)}
                 >
-                  Delete User
+                  Remove User
                 </button>
-              </span>
+              </div>
             ))}
           {showAddedUserForm && (
             <form

@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal"
 import { TripContext } from '../../context/Trip';
 import DeleteTripForm from "./deleteTripForm";
@@ -10,18 +8,10 @@ import "./TripCard.css";
 
 
 function TripCard ({trip}) {
-    const history = useHistory()
-    const dispatch = useDispatch ()
-    const sessionUser = useSelector(state => state.session.user);
-
-    const { currentTrip, setCurrentTrip } = useContext(TripContext);
+    const { setCurrentTrip } = useContext(TripContext);
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
     const [showAutoEdit, setShowAutoEdit] = useState(false)
-
-    useEffect(() => {
-        if (!sessionUser) history.push('/')
-    }, [sessionUser])
 
     const submitting = () => {
 
@@ -36,7 +26,9 @@ function TripCard ({trip}) {
     if (typeof(trip.startDate) === 'string') {
         startDate = trip.startDate.slice(0, 17);
         endDate = trip.endDate.slice(0, 17);
-        return (
+    }
+
+    return (
         <div className="trip-container">
                 <h2 id="trip-name">{trip.name}</h2>
                 <h3 id="destination-name">{trip.destination}</h3>
@@ -63,8 +55,7 @@ function TripCard ({trip}) {
                     )}
                 </div>
         </div>
-        )
-    }
+    )
 }
 
 export default TripCard;
