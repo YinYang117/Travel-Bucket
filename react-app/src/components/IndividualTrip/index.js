@@ -230,7 +230,7 @@ function IndividualTrip() {
                 ))}
             </div>
             <div className="map-div">
-              <MapContainer />
+              <MapContainer tripId={tripId} />
             </div>
           </div>
         </div>

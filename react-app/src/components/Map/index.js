@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getKey } from '../../store/map';
+import PlacesAutocomplete from '../PlacesAutocomplete';
+import Mapss from "../Home"
 import Maps from './Map';
 
-const MapContainer = () => {
+const MapContainer = ({showInModal, tripId}) => {
     const key = useSelector(state => state.map.key)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -15,8 +17,14 @@ const MapContainer = () => {
 
     if (!key) return null
 
+    // console.log("THIS IS SHOWMAP IN CONTAINER--------", showMap)
+
     return (
-        <Maps apiKey={key} />
+        <>
+            <Maps apiKey={key} showInModal={showInModal} tripId={tripId}/>
+            {/* <Mapss apiKey={key} /> */}
+        </>
+        
     )
 }
 
