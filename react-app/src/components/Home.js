@@ -14,6 +14,7 @@ function Home() {
     const sessionUser = useSelector(state => state.session.user);
     const tripsObj = useSelector(state => state.trips)
     const trips = Object.values(tripsObj)
+    console.log("THIS IS ALL==========TRIPS=============", trips)
     const [invitedUserTrips, setinvitedUserTrips] = useState();
 
     
@@ -34,9 +35,9 @@ function Home() {
                     <div className="trip-gallery">
 
                         {trips && trips?.map(trip =>
-                            <TripCard key={trip.id} trip={trip} />
+                            <TripCard key={trip?.id} trip={trip} />
                         )}
-                        {(trips.length === 0) &&
+                        {(trips?.length === 0) &&
                         <div className="trip-container">
                             <h3 id="no-trip">Plan a Trip Now!</h3>
                             <img id="trip-image" src="/static/travel.png" alt="Where to?" className="image"/>

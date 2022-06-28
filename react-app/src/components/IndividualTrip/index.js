@@ -18,6 +18,12 @@ function IndividualTrip() {
   const { tripId } = useParams();
 
   const trip = useSelector((state) => state.trips[tripId]);
+
+  // const trips = useSelector((state) => state.trips);
+
+  // console.log("THIS IS TRIPS===========", trips)
+
+
   const sessionUser = useSelector((state) => state.session.user);
   const eventsObj = useSelector((state) => state.events);
 

@@ -76,9 +76,9 @@ const Map = ({tripId}) => {
   // const [cityMarkers, setCityMarkers] = useState([]);
   // const [selectedMarker, setSelectedMarker] = useState(null);
   const trip = useSelector((state) => state?.trips[tripId]);
-  console.log("THIS IS TRIPID---------", tripId)
+  // console.log("THIS IS TRIPID---------", tripId)
   // const currentTrip = useSelector((state) => state.map.trip);
-  console.log("THIS IS CURRENT TRIP----------", trip)
+  // console.log("THIS IS CURRENT TRIP----------", trip)
   // const mapRef = useRef();
   // const center = useMemo(
   //   () => ({
@@ -87,10 +87,6 @@ const Map = ({tripId}) => {
   //   }),
   //   [currentTrip]
   // );
-
-  // useEffect(() => {
-  //   dispatch(tripActions.loadATrip(tripId));
-  // })
 
   // useEffect(() => {
   //   (async () => {
@@ -129,8 +125,8 @@ const Map = ({tripId}) => {
   const long = parseFloat(trip?.lng)
   const latit = parseFloat(trip?.lat)
 
-  console.log("THIS IS LONG=================", long)
-  console.log("THIS IS LAT==================", latit)
+  // console.log("THIS IS LONG=================", long)
+  // console.log("THIS IS LAT==================", latit)
 
   const center = {
     lat: latit,
