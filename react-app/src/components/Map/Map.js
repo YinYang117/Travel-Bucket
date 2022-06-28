@@ -28,9 +28,11 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
+import { useDispatch} from "react-redux";
 import "./Map.css";
 import pin from "./pin.png";
 import AddATripModal from "../AddATripModal";
+import * as tripActions from "../../store/trip";
 import PlacesAutocomplete from "../PlacesAutocomplete";
 
 const libraries = ["places"];
@@ -50,7 +52,7 @@ const Maps = ({ apiKey, showInModal, tripId, destination, setDestination, setLon
       )}
 
       {tripId && isLoaded && (
-        <Map />
+        <Map tripId={tripId}/>
       )}
 
       
@@ -67,13 +69,16 @@ const containerStyle = {
   height: "700px",
 };
 
-const Map = () => {
+const Map = ({tripId}) => {
+  const dispatch = useDispatch()
   // setNoShowInModal(false)
   // const [selected, setSelected] = useState(false);
   // const [cityMarkers, setCityMarkers] = useState([]);
   // const [selectedMarker, setSelectedMarker] = useState(null);
-  const currentTrip = useSelector((state) => state.map.trip);
-  console.log("THIS IS CURRENT TRIP----------", currentTrip)
+  const trip = useSelector((state) => state?.trips[tripId]);
+  console.log("THIS IS TRIPID---------", tripId)
+  // const currentTrip = useSelector((state) => state.map.trip);
+  console.log("THIS IS CURRENT TRIP----------", trip)
   // const mapRef = useRef();
   // const center = useMemo(
   //   () => ({
@@ -82,6 +87,10 @@ const Map = () => {
   //   }),
   //   [currentTrip]
   // );
+
+  // useEffect(() => {
+  //   dispatch(tripActions.loadATrip(tripId));
+  // })
 
   // useEffect(() => {
   //   (async () => {
@@ -115,9 +124,17 @@ const Map = () => {
   //   }
   // };
 
+
+
+  const long = parseInt(trip?.lng)
+  const latit = parseInt(trip?.lat)
+
+  console.log("THIS IS LONG=================", long)
+  console.log("THIS IS LAT==================", latit)
+
   const center = {
-    lat: 21.3156030000,
-    lng: -157.8580930000,
+    lat: latit,
+    lng: long,
   };
 
   return (
