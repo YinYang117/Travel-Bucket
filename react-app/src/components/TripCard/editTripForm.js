@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { editTrip } from '../../store/trip'
+import MapContainer from "../Map";
 import './EditTrip.css';
 
-function EditTripForm ({ hideModal, trip }) {
+function EditTripForm ({ hideModal, trip, showAutoEdit }) {
   const dispatch = useDispatch();
   let startHolder = new Date(trip.startDate)
   let endHolder = new Date(trip.endDate)
   const [name, setName] = useState(trip.name);
-  const [destination, setDestination] = useState(trip.destination);
+  const [destinationEdit, setDestinationEdit] = useState(trip.destination);
   const [imageUrl, setImageUrl] = useState(trip.imageUrl);
   const [startDate, setStartDate] = useState(startHolder.getFullYear()+"-"+(startHolder.getMonth()+1)+"-"+(startHolder.getDate()+1));
   const [endDate, setEndDate] = useState(endHolder.getFullYear()+"-"+(endHolder.getMonth()+1)+"-"+(endHolder.getDate()+1));
   const [errors, setErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [editLat, setEditLat] = useState("")
+  const [editLng, setEditLng] = useState("")
 
   const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
 
@@ -22,11 +25,11 @@ function EditTripForm ({ hideModal, trip }) {
       if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
       if(!imageUrl.length) errors.push("Please enter a URL.")
       if(!name.length) errors.push("Please enter a trip name.")
-      if(!destination.length) errors.push("Please enter a destination.")
+      if(!destinationEdit.length) errors.push("Please enter a destination.")
       if(!startDate.length) errors.push("Please enter a start date.")
       if(!endDate.length) errors.push("Please enter a end date.")
       setErrors(errors)
-  }, [imageUrl, name, destination, startDate, endDate])
+  }, [imageUrl, name, destinationEdit, startDate, endDate])
 
   const submitTripEdits = () => {
       setHasSubmitted(true)
@@ -34,7 +37,9 @@ function EditTripForm ({ hideModal, trip }) {
 
       const editedTripData = trip
       editedTripData.name = name
-      editedTripData.destination = destination
+      editedTripData.destination = destinationEdit
+      editedTripData.lat = editLat
+      editedTripData.lng = editLng
       editedTripData.imageUrl = imageUrl
       editedTripData.startDate = startDate
       editedTripData.endDate = endDate
@@ -69,7 +74,8 @@ function EditTripForm ({ hideModal, trip }) {
             <label className='triplabel'>
                 Trip Destination:
             </label>
-            <input onChange={e => setDestination(e.target.value)} type="text" className="new-trip-destination" placeholder={'Trip Destination'} value={destination} />
+            < MapContainer  setEditLat={setEditLat} setEditLng={setEditLng} showAutoEdit={showAutoEdit} destinationEdit={destinationEdit} setDestinationEdit={setDestinationEdit}/>
+            {/* <input onChange={e => setDestination(e.target.value)} type="text" className="new-trip-destination" placeholder={'Trip Destination'} value={destination} /> */}
             <label className='triplabel'>
                 Trip Main Image URL:
             </label>

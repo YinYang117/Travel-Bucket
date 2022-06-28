@@ -17,10 +17,18 @@ function TripCard ({trip}) {
     const { currentTrip, setCurrentTrip } = useContext(TripContext);
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
+    const [showAutoEdit, setShowAutoEdit] = useState(false)
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
+
+    const submitting = () => {
+
+        setShowEditModal(!showEditModal)
+        setShowAutoEdit(true)
+
+    }
 
     let startDate;
     let endDate;
@@ -41,10 +49,10 @@ function TripCard ({trip}) {
                     <div>{endDate}</div>
                 </div>
                 <div>
-                    <button className="button5" onClick={e => setShowEditModal(!showEditModal)}>Edit</button>
+                    <button className="button5" onClick={submitting}>Edit</button>
                     {showEditModal && (
                         <Modal onClose={() => setShowEditModal(false)}>
-                            <EditTripForm  hideModal={() => setShowEditModal(false)} trip={trip} />
+                            <EditTripForm  hideModal={() => setShowEditModal(false)} trip={trip} showAutoEdit={showAutoEdit}/>
                         </Modal>
                     )}
                     <button className="button6" onClick={e => setShowDeleteModal(true)}>Delete Trip</button>

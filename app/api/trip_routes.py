@@ -89,11 +89,13 @@ def change_trip(id):
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             trip = Trip.query.get(id)
-            trip.name= form.data["name"]
-            trip.destination = form.data["destination"]
-            trip.image_url = form.data["imageUrl"]
-            trip.start_date = form.data["startDate"]
-            trip.end_date = form.data["endDate"]
+            trip.name= form.data["name"],
+            trip.destination = form.data["destination"],
+            trip.lng=form.data["lng"],
+            trip.lat=form.data["lat"],
+            trip.image_url = form.data["imageUrl"],
+            trip.start_date = form.data["startDate"],
+            trip.end_date = form.data["endDate"],
             current_time = date.today()
             trip.updated_at = current_time
 
