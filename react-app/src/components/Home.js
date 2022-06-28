@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import TripCard from "./TripCard";
 import AddATripModal from './AddATripModal';
 import * as tripActions from "../store/trip"
-import * as invitedUsersActions from "../store/invited_user"
-
 
 
 function Home() {
@@ -14,14 +12,11 @@ function Home() {
     const sessionUser = useSelector(state => state.session.user);
     const tripsObj = useSelector(state => state.trips)
     const trips = Object.values(tripsObj)
-    const [invitedUserTrips, setinvitedUserTrips] = useState();
-
     
     useEffect(() => {
         if (!sessionUser) history.push('/')
         if (sessionUser) dispatch(tripActions.loadAllUserRelatedTrips(sessionUser.id))
     }, [sessionUser])
-    //   const libraries = ["places"];
 
     return (
         <>
@@ -44,6 +39,4 @@ function Home() {
     );
 }
 
-
-// export default React.memo(Mapss);
 export default Home;

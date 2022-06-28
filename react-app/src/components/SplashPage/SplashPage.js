@@ -1,25 +1,25 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import "./SplashPage.css";
 import travel from "./travel.jpg";
 import intro1 from "./intro1.jpg";
 import intro2 from "./intro2.png";
 import intro3 from "./intro3.png";
 import intro4 from "./intro4.jpg";
+import "./SplashPage.css";
 
 function SplashPage() {
-  const sessionUser = useSelector((state) => state.session.user);
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "visible";
-    };
-  }, []);
+  // // gets rid of scrollbar
+  // useEffect(() => {
+  //   document.body.style.overflow = "hidden";
+  //   return () => {
+  //     document.body.style.overflow = "visible";
+  //   };
+  // }, []);
 
   return (
     <>
-      <div className="bubbles">
+      {/* TODO fix the scrollbar with how these show up. Or change their spawns. */}
+      {/* <div className="bubbles">
         <div className="bubble"></div>
         <div className="bubble"></div>
         <div className="bubble"></div>
@@ -70,7 +70,7 @@ function SplashPage() {
         <div className="bubble"></div>
         <div className="bubble"></div>
         <div className="bubble"></div>
-      </div>
+      </div> */}
       <a>
         <img src={travel} alt="Travel" className="travel" />
       </a>

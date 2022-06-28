@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { editTrip } from '../../store/trip'
-import './EditTrip.css';
+import './TripCard.css';
 
 function EditTripForm ({ hideModal, trip }) {
   const dispatch = useDispatch();
