@@ -6,7 +6,7 @@ import * as invitedUsersActions from "../../store/invited_user";
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
 import * as eventActions from "../../store/event";
-import {setTripMap} from "../../store/map";
+// import {setTripMap} from "../../store/map";
 import TripDateCard from "./TripDateCard";
 import TripNotes from "../NoteCards";
 import MapContainer from "../Map";
@@ -18,8 +18,16 @@ function IndividualTrip() {
   const { tripId } = useParams();
 
   const trip = useSelector((state) => state.trips[tripId]);
+
+  // const trips = useSelector((state) => state.trips);
+
+  // console.log("THIS IS TRIPS===========", trips)
+
+
   const sessionUser = useSelector((state) => state.session.user);
   const eventsObj = useSelector((state) => state.events);
+
+  console.log("THIS IS TRIP===========", trip)
 
   const { setCurrentTrip } = useContext(TripContext);
 
@@ -54,13 +62,13 @@ function IndividualTrip() {
     if (!sessionUser) history.push("/");
   }, [sessionUser]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (tripId) {
-      dispatch(tripActions.loadATrip(tripId));
-      dispatch(invitedUsersActions.loadInvitedUsers(tripId));
-      dispatch(noteActions.getTripNotes(tripId));
-      dispatch(eventActions.loadAllEvents(tripId));
-      dispatch(setTripMap(tripId));
+      await dispatch(tripActions.loadATrip(tripId));
+      await dispatch(invitedUsersActions.loadInvitedUsers(tripId));
+      await dispatch(noteActions.getTripNotes(tripId));
+      await dispatch(eventActions.loadAllEvents(tripId));
+      // dispatch(setTripMap(tripId));
     }
   }, [tripId]);
 

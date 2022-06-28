@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal"
@@ -11,6 +11,7 @@ import "./TripCard.css";
 
 function TripCard ({trip}) {
     const history = useHistory()
+    const dispatch = useDispatch ()
     const sessionUser = useSelector(state => state.session.user);
 
     const { currentTrip, setCurrentTrip } = useContext(TripContext);
@@ -31,7 +32,7 @@ function TripCard ({trip}) {
         <div className="trip-container">
                 <h2 id="trip-name">{trip.name}</h2>
                 <h3 id="destination-name">{trip.destination}</h3>
-                <NavLink to={`/trips/${trip.id}`} onClick={setCurrentTrip(trip)}>
+                <NavLink to={`/trips/${trip?.id}`} onClick={setCurrentTrip(trip)}>
                     <img id="trip-image" src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
                 </NavLink>
                 <div className="date-container">

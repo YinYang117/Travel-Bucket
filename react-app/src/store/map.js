@@ -8,12 +8,12 @@ const loadKey = (key) => {
   };
 };
 
-const loadTripArea = (map) => {
-  return {
-    type: LOAD_TRIP_AREA,
-    payload: map,
-  };
-};
+// const loadTripArea = (map) => {
+//   return {
+//     type: LOAD_TRIP_AREA,
+//     payload: map,
+//   };
+// };
 
 export const getKey = () => async (dispatch) => {
   const res = await fetch("/api/map/key", {
@@ -27,15 +27,15 @@ export const getKey = () => async (dispatch) => {
   }
 };
 
-export const setTripMap = (tripId) => async (dispatch) => {
-  const res = await fetch(`/api/map/${tripId}`);
+// export const setTripMap = (tripId) => async (dispatch) => {
+//   const res = await fetch(`/api/map/${tripId}`);
 
-  if (res.ok) {
-    const data = await res.json();
+//   if (res.ok) {
+//     const data = await res.json();
 
-    dispatch(loadTripArea(data));
-  }
-}
+//     dispatch(loadTripArea(data));
+//   }
+// }
 
 const initialState = { key: null };
 

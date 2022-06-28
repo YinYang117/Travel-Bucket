@@ -28,14 +28,18 @@ def get_places(lat, lng, zoom):
 
     clause = "SQRT(POW(69.1 * (lat - :lati),2) + POW(69.1 * (:long - lng) * COS(lat / 57.3),2)) < :d"
 
-    places = Event_location.query.filter(text(clause)).params(lati=lat, long=lng, d=distance).all()
+    # places = Event_location.query.filter(text(clause)).params(lati=lat, long=lng, d=distance).all()
 
-    return {'places': [place.to_dict() for place in places]}
+    places_trip = Location.query.filter(text(clause)).params(lati=lat, long=lng, d=distance).all()
 
-@map_routes.route('/<int:id>') 
-@login_required
-def get_location(id):
+    print("THIS IS PLACES BACKEND-----------", places_trip)
 
-    trip_map = Location.query.filter(Location.trip_id == id).one()
+    return {'places': [place.to_dict() for place in places_trip]}
+
+# @map_routes.route('/<int:id>') 
+# @login_required
+# def get_location(id):
+
+#     trip_map = Location.query.filter(Location.trip_id == id).one()
     
-    return trip_map.to_dict()
+#     return trip_map.to_dict()

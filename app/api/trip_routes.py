@@ -38,9 +38,12 @@ def trips():
             owner_id=form.data["ownerId"],
             name=form.data["name"],
             destination=form.data["destination"],
+            lng=form.data["lng"],
+            lat=form.data["lat"],
             image_url=form.data["imageUrl"],
             start_date=form.data["startDate"],
             end_date=form.data["endDate"],
+
         )
         db.session.add(new_trip)
         db.session.commit()
