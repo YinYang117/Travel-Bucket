@@ -18,6 +18,8 @@ class NewTrip(FlaskForm):
 class EditTrip(FlaskForm):
     name = StringField("Trip Name", validators=[DataRequired()])
     destination = StringField("Destination", validators=[DataRequired()])
+    lng = DecimalField()
+    lat = DecimalField()
     imageUrl = StringField("Image URL", validators=[DataRequired()])
     startDate = DateField("Start Date", validators=[DataRequired()])
     endDate = DateField("End Date", validators=[DataRequired()])

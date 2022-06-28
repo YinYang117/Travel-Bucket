@@ -34,9 +34,10 @@ import pin from "./pin.png";
 import AddATripModal from "../AddATripModal";
 import * as tripActions from "../../store/trip";
 import PlacesAutocomplete from "../PlacesAutocomplete";
+import AutoEditTrip from "../AutoEditTrip";
 
 const libraries = ["places"];
-const Maps = ({ apiKey, showInModal, tripId, destination, setDestination, setLongitude, setLatitude}) => {
+const Maps = ({ apiKey, showInModal, tripId, destination, setDestination, setLongitude, setLatitude, showAutoEdit, destinationEdit, setDestinationEdit, setEditLng, setEditLat}) => {
   // const [showInModal, setShowInModal] = useState(true)
   // const [showMap, setShowMap] = useState(true)
   const { isLoaded } = useLoadScript({
@@ -48,11 +49,15 @@ const Maps = ({ apiKey, showInModal, tripId, destination, setDestination, setLon
   return (
     <>
       {showInModal && isLoaded && (
-        <PlacesAutocomplete destination={destination} setDestination={setDestination} setLongitude={setLongitude} setLatitude={setLatitude}/>
+        <PlacesAutocomplete destination={destination} setDestination={setDestination} setLongitude={setLongitude} setLatitude={setLatitude} showAutoEdit={showAutoEdit}/>
       )}
 
       {tripId && isLoaded && (
         <Map tripId={tripId}/>
+      )}
+
+      {showAutoEdit && isLoaded && (
+        <AutoEditTrip destinationEdit={destinationEdit} setDestinationEdit={setDestinationEdit} setEditLng={setEditLng} setEditLat={setEditLat} />
       )}
 
       

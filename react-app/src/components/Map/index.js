@@ -6,7 +6,7 @@ import PlacesAutocomplete from '../PlacesAutocomplete';
 import Mapss from "../Home"
 import Maps from './Map';
 
-const MapContainer = ({showInModal, tripId, destination, setDestination, setLongitude, setLatitude}) => {
+const MapContainer = ({showInModal, tripId, destination, setDestination, setLongitude, setLatitude, setEditLat, setEditLng, showAutoEdit, setDestinationEdit, destinationEdit}) => {
     const key = useSelector(state => state.map.key)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -21,7 +21,9 @@ const MapContainer = ({showInModal, tripId, destination, setDestination, setLong
 
     return (
         <>
-            <Maps apiKey={key} showInModal={showInModal} tripId={tripId} setDestination={setDestination} destination={destination} setLongitude={setLongitude} setLatitude={setLatitude}/>
+            <Maps apiKey={key} showInModal={showInModal} tripId={tripId} setDestination={setDestination} 
+            destination={destination} setLongitude={setLongitude} setLatitude={setLatitude} setEditLat={setEditLat} 
+            setEditLng={setEditLng} showAutoEdit={showAutoEdit} desitnationEdit={destinationEdit} setDestinationEdit={setDestinationEdit}/>
             {/* <Mapss apiKey={key} /> */}
         </>
         
