@@ -34,7 +34,7 @@ import AddATripModal from "../AddATripModal";
 import PlacesAutocomplete from "../PlacesAutocomplete";
 
 const libraries = ["places"];
-const Maps = ({ apiKey, showInModal, tripId, destination }) => {
+const Maps = ({ apiKey, showInModal, tripId, destination, setDestination}) => {
   // const [showInModal, setShowInModal] = useState(true)
   // const [showMap, setShowMap] = useState(true)
   const { isLoaded } = useLoadScript({
@@ -46,7 +46,7 @@ const Maps = ({ apiKey, showInModal, tripId, destination }) => {
   return (
     <>
       {showInModal && isLoaded && (
-        <PlacesAutocomplete destionation={destination}/>
+        <PlacesAutocomplete destination={destination} setDestination={setDestination}/>
       )}
 
       {tripId && isLoaded && (

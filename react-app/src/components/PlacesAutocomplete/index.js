@@ -26,6 +26,9 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 
+// import { useDispatch, useSelector } from "react-redux";
+// import * as tripActions from "../../store/trip";
+
 // const PlacesAutocomplete = () => {
 //   const {
 //     ready,
@@ -88,21 +91,27 @@ import {
 // };
 
 
-const PlacesAutocomplete = () => {
+const PlacesAutocomplete = ({destination, setDestination}) => {
   const dispatch = useDispatch()
+  const [open, setOpen] = useState(false)
+
+
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+  } = usePlacesAutocomplete();
 
 //   const key = useSelector(state => state.map.key)
 // console.log("THIS IS KEY FOR THE HOME--------", key)
 
-const {
-  ready,
-  value,
-  suggestions: { status, data },
-  setValue,
-} = usePlacesAutocomplete();
+// value == destination
 
 const handleInput = (e) => {
   setValue(e.target.value);
+  setDestination(e.target.value)
+  setOpen(true)
 };
 
 const handleSelect = async (val) => {
@@ -116,7 +125,7 @@ const handleSelect = async (val) => {
 
   // setSelected 
 
-  console.log("THIS IS VAL-------", val)
+  // console.log("THIS IS VAL-------", val)
 
   const results = await getGeocode({ address: val })
         const { lat, lng } = await getLatLng(results[0])
@@ -132,36 +141,30 @@ const handleSelect = async (val) => {
             // setCityMarkers(data.places)
         }
         setValue(val, false)
+        // console.log("THIS IS DESTINATION--------", destination)
+        setDestination(val)
+        setOpen(false)
+
+
+
 
 };
-// useEffect(() => {
-//   if (!key) {
-//       dispatch(getKey())
-//   }
-// }, [dispatch, key])
-
-// const libraries= ["places"];
-// const { isLoaded } = useLoadScript({
-//   id: "places-script",
-//   googleMapsApiKey: key,
-//   libraries,
-
-// })
-
 
 
   return (
     <>
         <Combobox onSelect={handleSelect}>
-          <ComboboxInput value={value} onChange={handleInput} disabled={!ready} />
-          <ComboboxPopover portal={false} className="option">
-            <ComboboxList className="option">
-              {status === "OK" &&
-                data.map(({ place_id, description }) => (
-                  <ComboboxOption key={place_id} value={description} className="option" />
-                ))}
-            </ComboboxList>
-          </ComboboxPopover>
+          <ComboboxInput value={destination} onChange={handleInput} disabled={!ready} />
+          {open && (
+            <ComboboxPopover portal={false}>
+                <ComboboxList>
+                  {status === "OK" &&
+                    data.map(({ place_id, description }) => (
+                      <ComboboxOption key={place_id} value={description} className="option" />
+                    ))}
+                </ComboboxList>
+            </ComboboxPopover>
+          )}
         </Combobox>
     </>
   );

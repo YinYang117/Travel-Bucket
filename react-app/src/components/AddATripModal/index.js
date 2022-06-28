@@ -3,7 +3,8 @@ import { Modal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import * as tripActions from "../../store/trip";
 import { useHistory } from "react-router-dom";
-import PlacesAutocomplete from "../PlacesAutocomplete";
+
+import usePlacesAutocomplete from "use-places-autocomplete";
 import "./AddATrip.css";
 import {
   GoogleMap,
@@ -14,29 +15,11 @@ import {
 } from "@react-google-maps/api";
 import MapContainer from "../Map";
 
-import { getKey } from '../../store/map';
-
-
-
-
-// const libraries = ["places"];
-// const Mapss = ({ apiKey }) => {
-//   const { isLoaded } = useLoadScript({
-//     id: "google-map-script",
-//     googleMapsApiKey: apiKey,
-//     libraries,
-//   });
-
-
-//   console.log("THIS IS API KEY IN TRIP=======", apiKey)
-//   return <>{isLoaded && (
-//   <>
-//   <AddATripModal />
-//   </>
-//   )}</>;
-// };
 
 function AddATripModal() {
+
+
+
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -105,6 +88,7 @@ function AddATripModal() {
     newTripData.startDate = startDate;
     newTripData.endDate = endDate;
 
+    
     dispatch(tripActions.newTrip(newTripData))
       .then(() => {
         setName("");
@@ -172,7 +156,7 @@ function AddATripModal() {
                     placeholder="Trip Destination"
                     value={destination}
                   /> */}
-                  <MapContainer showInModal={showInModal}/>
+                  <MapContainer showInModal={showInModal} setDestination={setDestination} destination={destination}/>
                   {/* <label className="triplabel">Trip Start City:</label> */}
                   {/* <PlacesAutocomplete /> */}
                   <label className="triplabel">Trip Main Image URL:</label>
