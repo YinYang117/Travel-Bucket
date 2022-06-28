@@ -41,6 +41,7 @@ def events():
             description = form.data["description"],
             image_url = form.data["imageUrl"],
             location = form.data["location"],
+            
             start_date = form.data["startDate"],
             end_date = form.data["endDate"],
         )
