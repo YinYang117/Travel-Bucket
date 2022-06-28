@@ -34,7 +34,7 @@ import AddATripModal from "../AddATripModal";
 import PlacesAutocomplete from "../PlacesAutocomplete";
 
 const libraries = ["places"];
-const Maps = ({ apiKey, showInModal, tripId, destination, setDestination}) => {
+const Maps = ({ apiKey, showInModal, tripId, destination, setDestination, setLongitude, setLatitude}) => {
   // const [showInModal, setShowInModal] = useState(true)
   // const [showMap, setShowMap] = useState(true)
   const { isLoaded } = useLoadScript({
@@ -46,7 +46,7 @@ const Maps = ({ apiKey, showInModal, tripId, destination, setDestination}) => {
   return (
     <>
       {showInModal && isLoaded && (
-        <PlacesAutocomplete destination={destination} setDestination={setDestination}/>
+        <PlacesAutocomplete destination={destination} setDestination={setDestination} setLongitude={setLongitude} setLatitude={setLatitude}/>
       )}
 
       {tripId && isLoaded && (
@@ -69,73 +69,80 @@ const containerStyle = {
 
 const Map = () => {
   // setNoShowInModal(false)
-  const [selected, setSelected] = useState(false);
-  const [cityMarkers, setCityMarkers] = useState([]);
-  const [selectedMarker, setSelectedMarker] = useState(null);
+  // const [selected, setSelected] = useState(false);
+  // const [cityMarkers, setCityMarkers] = useState([]);
+  // const [selectedMarker, setSelectedMarker] = useState(null);
   const currentTrip = useSelector((state) => state.map.trip);
-  const mapRef = useRef();
-  const center = useMemo(
-    () => ({
-      lat: parseFloat(currentTrip?.lat),
-      lng: parseFloat(currentTrip?.lng),
-    }),
-    [currentTrip]
-  );
+  console.log("THIS IS CURRENT TRIP----------", currentTrip)
+  // const mapRef = useRef();
+  // const center = useMemo(
+  //   () => ({
+  //     lat: parseFloat(currentTrip?.lat),
+  //     lng: parseFloat(currentTrip?.lng),
+  //   }),
+  //   [currentTrip]
+  // );
 
-  useEffect(() => {
-    (async () => {
-      const res = await fetch(
-        `/api/map/${currentTrip?.lat}/${currentTrip?.lng}/${5}`
-      );
-      if (res.ok) {
-        const data = await res.json();
-        if (data.places.length > 0) {
-          setCityMarkers(data.places);
-        }
-      }
-    })();
-    setSelected(true);
-  }, [currentTrip]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const res = await fetch(
+  //       `/api/map/${currentTrip?.lat}/${currentTrip?.lng}/${5}`
+  //     );
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       if (data.places.length > 0) {
+  //         setCityMarkers(data.places);
+  //       }
+  //     }
+  //   })();
+  //   setSelected(true);
+  // }, [currentTrip]);
 
-  const onLoad = useCallback((map) => (mapRef.current = map), []);
-  const trackNewCenter = async () => {
-    setSelectedMarker(null);
-    const lat = mapRef.current?.getCenter().lat();
-    const lng = mapRef.current?.getCenter().lng();
-    const zoom = mapRef.current?.getZoom();
-    if (lat && lng) {
-      const res = await fetch(`/api/map/${lat}/${lng}/${zoom}`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data.places.length > 0) {
-          setCityMarkers(data.places);
-        }
-      }
-    }
+  // const onLoad = useCallback((map) => (mapRef.current = map), []);
+  // const trackNewCenter = async () => {
+  //   setSelectedMarker(null);
+  //   const lat = mapRef.current?.getCenter().lat();
+  //   const lng = mapRef.current?.getCenter().lng();
+  //   const zoom = mapRef.current?.getZoom();
+  //   if (lat && lng) {
+  //     const res = await fetch(`/api/map/${lat}/${lng}/${zoom}`);
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       if (data.places.length > 0) {
+  //         setCityMarkers(data.places);
+  //       }
+  //     }
+  //   }
+  // };
+
+  const center = {
+    lat: 21.3156030000,
+    lng: -157.8580930000,
   };
+
   return (
     <>
     {/* {setShowInModal(false) && ( */}
       <div className="maps-container">
         <div className="maps">
           <div>
-            <PlacesAutocomplete
+            {/* <PlacesAutocomplete
               setCityMarkers={setCityMarkers}
               setSelected={(position) => {
                 setSelected(true);
                 mapRef.current?.panTo(position);
               }}
-            />
+            /> */}
           </div>
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
             zoom={10}
-            onLoad={onLoad}
-            onCenterChanged={trackNewCenter}
-            onClick={() => setSelectedMarker(null)}
+            // onLoad={onLoad}
+            // onCenterChanged={trackNewCenter}
+            // onClick={() => setSelectedMarker(null)}
           >
-            {selected && (
+            {/* {selected && (
               <MarkerClusterer>
                 {(clusterer) =>
                   cityMarkers?.map((mark, i) => (
@@ -162,7 +169,7 @@ const Map = () => {
                   ))
                 }
               </MarkerClusterer>
-            )}
+            )} */}
           </GoogleMap>
         </div>
       </div>
@@ -171,51 +178,5 @@ const Map = () => {
   );
 };
 
-// const PlacesAutocomplete = ({ setSelected, setCityMarkers }) => {
-//   const {
-//     ready,
-//     value,
-//     setValue,
-//     suggestions: { status, data },
-//     clearSuggestions,
-//   } = usePlacesAutocomplete();
-
-//   const handleSelect = async (address) => {
-//     const results = await getGeocode({ address });
-//     const { lat, lng } = await getLatLng(results[0]);
-//     setSelected({ lat, lng });
-//     const zoom = 10;
-
-//     const res = await fetch(`/api/map/${lat}/${lng}/${zoom}`);
-//     if (res.ok) {
-//       const data = await res.json();
-
-//       setCityMarkers(data.places);
-//     }
-//     setValue(address, false);
-//     clearSuggestions();
-//   };
-
-//   return (
-//     <>
-//       <Combobox onSelect={handleSelect}>
-//         <ComboboxInput
-//           value={value}
-//           onChange={(e) => setValue(e.target.value)}
-//           disabled={!ready}
-//           placeholder="Search an address"
-//         />
-//         <ComboboxPopover>
-//           <ComboboxList>
-//             {status === "OK" &&
-//               data?.map(({ place_id, description }) => (
-//                 <ComboboxOption key={place_id} value={description} />
-//               ))}
-//           </ComboboxList>
-//         </ComboboxPopover>
-//       </Combobox>
-//     </>
-//   );
-// };
 
 export default React.memo(Maps);

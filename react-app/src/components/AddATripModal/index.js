@@ -26,6 +26,8 @@ function AddATripModal() {
   const sessionUser = useSelector((state) => state.session.user);
   const key = useSelector(state => state.map.key)
   const [showInModal, setShowInModal] = useState(true)
+  const [latitude, setLatitude] =useState("")
+  const [longitude, setLongitude] = useState("")
  
 
   const [ownerId, setOwnerId] = useState(sessionUser?.id);
@@ -84,6 +86,10 @@ function AddATripModal() {
     newTripData.ownerId = ownerId;
     newTripData.name = name;
     newTripData.destination = destination;
+
+    console.log("THUS IS LATITUDE======", latitude)
+    newTripData.lat = latitude;
+    newTripData.lng = longitude;
     newTripData.imageUrl = imageUrl;
     newTripData.startDate = startDate;
     newTripData.endDate = endDate;
@@ -156,7 +162,7 @@ function AddATripModal() {
                     placeholder="Trip Destination"
                     value={destination}
                   /> */}
-                  <MapContainer showInModal={showInModal} setDestination={setDestination} destination={destination}/>
+                  <MapContainer showInModal={showInModal} setDestination={setDestination} destination={destination} setLongitude={setLongitude} setLatitude={setLatitude}/>
                   {/* <label className="triplabel">Trip Start City:</label> */}
                   {/* <PlacesAutocomplete /> */}
                   <label className="triplabel">Trip Main Image URL:</label>

@@ -91,7 +91,7 @@ import {
 // };
 
 
-const PlacesAutocomplete = ({destination, setDestination}) => {
+const PlacesAutocomplete = ({destination, setDestination, setLongitude, setLatitude}) => {
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
 
@@ -130,16 +130,18 @@ const handleSelect = async (val) => {
   const results = await getGeocode({ address: val })
         const { lat, lng } = await getLatLng(results[0])
         console.log("THIS IS LAT< LNG------", lat, lng)
+        setLatitude(lat)
+        setLongitude(lng)
         // setSelected({ lat, lng })
         const zoom = 10
 
-        const res = await fetch(`/api/map/${lat}/${lng}/${zoom}`)
-        if (res.ok) {
-            const data = await res.json()
-            console.log("THIS IS DATA--------", data)
+        // const res = await fetch(`/api/map/${lat}/${lng}/${zoom}`)
+        // if (res.ok) {
+        //     const data = await res.json()
+        //     console.log("THIS IS DATA--------", data)
 
-            // setCityMarkers(data.places)
-        }
+        //     // setCityMarkers(data.places)
+        // }
         setValue(val, false)
         // console.log("THIS IS DESTINATION--------", destination)
         setDestination(val)

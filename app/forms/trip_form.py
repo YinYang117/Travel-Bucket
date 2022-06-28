@@ -8,6 +8,8 @@ class NewTrip(FlaskForm):
     name = StringField("Trip Name", validators=[DataRequired()])
     destination = StringField("Destination", validators=[DataRequired()])
     imageUrl = StringField("Image URL", validators=[DataRequired()])
+    lng = IntegerField()
+    lat = IntegerField()
     startDate = DateField("Start Date", validators=[DataRequired()])
     endDate = DateField("End Date", validators=[DataRequired()])
     submit = SubmitField("Submit")
