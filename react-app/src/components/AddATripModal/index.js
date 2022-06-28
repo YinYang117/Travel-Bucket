@@ -37,21 +37,21 @@ import { getKey } from '../../store/map';
 // };
 
 function AddATripModal() {
-  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
-  const key = useSelector(state => state.map.key)
-  const [showInModal, setShowInModal] = useState(true)
- 
-
+  // const key = useSelector(state => state.map.key)
+  
+  
   const [ownerId, setOwnerId] = useState(sessionUser?.id);
-  const [name, setName] = useState("");
+  const [showInModal, setShowInModal] = useState(true)
+  const [showModal, setShowModal] = useState(false);
   const [destination, setDestination] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
+  const [name, setName] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   // const { isLoaded } = useLoadScript({
