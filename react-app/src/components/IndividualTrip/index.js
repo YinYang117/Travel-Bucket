@@ -56,12 +56,12 @@ function IndividualTrip() {
     if (!sessionUser) history.push("/");
   }, [sessionUser]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (tripId) {
-      dispatch(tripActions.loadATrip(tripId));
-      dispatch(invitedUsersActions.loadInvitedUsers(tripId));
-      dispatch(noteActions.getTripNotes(tripId));
-      dispatch(eventActions.loadAllEvents(tripId));
+      await dispatch(tripActions.loadATrip(tripId));
+      await dispatch(invitedUsersActions.loadInvitedUsers(tripId));
+      await dispatch(noteActions.getTripNotes(tripId));
+      await dispatch(eventActions.loadAllEvents(tripId));
       // dispatch(setTripMap(tripId));
     }
   }, [tripId]);

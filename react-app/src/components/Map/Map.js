@@ -126,8 +126,8 @@ const Map = ({tripId}) => {
 
 
 
-  const long = parseInt(trip?.lng)
-  const latit = parseInt(trip?.lat)
+  const long = parseFloat(trip?.lng)
+  const latit = parseFloat(trip?.lat)
 
   console.log("THIS IS LONG=================", long)
   console.log("THIS IS LAT==================", latit)
