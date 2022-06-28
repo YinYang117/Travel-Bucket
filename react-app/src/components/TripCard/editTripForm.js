@@ -62,8 +62,6 @@ function EditTripForm ({ hideModal, trip }) {
       });
   };
 
-  console.log("Editing trip", )
-
   const handleCancelClick = (e) => {
     e.preventDefault()
     hideModal();

@@ -11,6 +11,7 @@ function EditEvent({closeModal, event}) {
     const sessionUser = useSelector(state => state.session.user);
     let startHolder = new Date(event.startDate)
     let endHolder = new Date(event.endDate)
+
     const [name, setName] = useState(event.name);
     const [description, setDescription] = useState(event.description);
     const [location, setLocation] = useState(event.location);
@@ -66,51 +67,47 @@ function EditEvent({closeModal, event}) {
       };
 
     return (
-        <>
-            <div className="formContainer5">
-                <h1> Edit An Event </h1>
-                <form
-                    className="edit-event-form"
-                    onSubmit={e => {
-                        e.preventDefault();
-                        submitEdits();
-                    }}>
-                    <ul className="errors">
-                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
-                    <label className='eventlabel'>
-                        Event Name:
-                    </label>
-                    <input onChange={e => setName(e.target.value)} type="text" className="edit-event-name" placeholder='Event Name' value={name} />
-                    <label className='eventlabel'>
-                        Event Description:
-                    </label>
-                    <input onChange={e => setDescription(e.target.value)} type="text" className="edit-event-description" placeholder='Event Description' value={description} />
-                    <label className='eventlabel'>
-                        Event Location:
-                    </label>
-                    <input onChange={e => setLocation(e.target.value)} type="text" className="edit-event-location" placeholder='Event Location' value={location} />
-                    <label className='eventlabel'>
-                        Event Image URL:
-                    </label>
-                    <input onChange={e => setImageUrl(e.target.value)} type="text" className="edit-event-image" placeholder='Image Url' value={imageUrl} />
-                    <label className='eventlabel'>
-                        Event Start:
-                    </label>
-                    <input onChange={e => setStartDate(e.target.value)} type="date" className="edit-event-start-date" value={startDate} />
-                    <label className='eventlabel'>
-                        Event End:
-                    </label>
-                    <input onChange={e => setEndDate(e.target.value)} type="date" className="edit-event-end-date" value={endDate} />
-                    <div id="edit_trip_buttons">
-                        <button id="new-event-submit" type='submit' >Submit Edit Event</button>
-                        <button id="new-event-submit" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>
-                    </div>
-                </form>
-            </div>
-
-
-        </>
+        <div className="formContainer5">
+            <h1> Edit An Event </h1>
+            <form
+                className="edit-event-form"
+                onSubmit={e => {
+                    e.preventDefault();
+                    submitEdits();
+                }}>
+                <ul className="errors">
+                {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <label className='eventlabel'>
+                    Event Name:
+                </label>
+                <input onChange={e => setName(e.target.value)} type="text" className="edit-event-name" placeholder='Event Name' value={name} />
+                <label className='eventlabel'>
+                    Event Description:
+                </label>
+                <input onChange={e => setDescription(e.target.value)} type="text" className="edit-event-description" placeholder='Event Description' value={description} />
+                <label className='eventlabel'>
+                    Event Location:
+                </label>
+                <input onChange={e => setLocation(e.target.value)} type="text" className="edit-event-location" placeholder='Event Location' value={location} />
+                <label className='eventlabel'>
+                    Event Image URL:
+                </label>
+                <input onChange={e => setImageUrl(e.target.value)} type="text" className="edit-event-image" placeholder='Image Url' value={imageUrl} />
+                <label className='eventlabel'>
+                    Event Start:
+                </label>
+                <input onChange={e => setStartDate(e.target.value)} type="date" className="edit-event-start-date" value={startDate} />
+                <label className='eventlabel'>
+                    Event End:
+                </label>
+                <input onChange={e => setEndDate(e.target.value)} type="date" className="edit-event-end-date" value={endDate} />
+                <div id="edit_trip_buttons">
+                    <button id="new-event-submit" type='submit' >Submit Edit Event</button>
+                    <button id="new-event-submit" className="cancelEdits" onClick={handleCancelClick}>Cancel</button>
+                </div>
+            </form>
+        </div>
     );
 }
 export default EditEvent;

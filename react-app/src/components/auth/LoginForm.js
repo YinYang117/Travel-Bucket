@@ -38,9 +38,6 @@ const LoginForm = () => {
     return;
   }
 
-
-
-
   return (
     <form onSubmit={onLogin}>
       <div>

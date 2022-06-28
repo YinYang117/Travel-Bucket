@@ -10,7 +10,7 @@ function DeleteTripForm ({ hideModal, trip }) {
       dispatch(deleteTrip(trip.id))
       hideModal();
   }
-  
+
   const handleCancelClick = (e) => {
     e.preventDefault()
     hideModal();

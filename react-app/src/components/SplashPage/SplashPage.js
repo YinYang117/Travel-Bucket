@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import travel from "./travel.jpg";
 import intro1 from "./intro1.jpg";
 import intro2 from "./intro2.png";
@@ -8,7 +6,7 @@ import intro4 from "./intro4.jpg";
 import "./SplashPage.css";
 
 function SplashPage() {
-  // // gets rid of scrollbar
+  // // gets rid of scrollbar. On wider screens the lower content is cut off.
   // useEffect(() => {
   //   document.body.style.overflow = "hidden";
   //   return () => {
