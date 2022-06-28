@@ -27,6 +27,8 @@ function AddATripModal() {
   const [showModal, setShowModal] = useState(false);
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [longitude, setLongitude] = useState(0.0);
+  const [latitude, setLatitude] = useState(0.0);
   const [imageUrl, setImageUrl] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);

@@ -1,6 +1,8 @@
 from .db import db
 import simplejson as json
 
+# Currently NOT USED
+# TODO delete this or use it
 
 class Event_location(db.Model):
 

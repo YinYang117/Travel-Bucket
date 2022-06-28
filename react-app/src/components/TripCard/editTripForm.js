@@ -7,11 +7,26 @@ function EditTripForm ({ hideModal, trip }) {
   const dispatch = useDispatch();
   let startHolder = new Date(trip.startDate)
   let endHolder = new Date(trip.endDate)
+
+  const addingZeros = (date) => {
+    let zeroDate = [];
+    zeroDate.push(date.getFullYear())
+    zeroDate.push("-")
+    let month = date.getMonth() + 1
+    if (month < 10) month = "0" + month
+    zeroDate.push(month)    
+    zeroDate.push("-")
+    let day = date.getDate() + 1
+    if (day < 10) day = "0" + day
+    zeroDate.push(day)
+    return zeroDate.join("")
+  }
+  
   const [name, setName] = useState(trip.name);
   const [destination, setDestination] = useState(trip.destination);
   const [imageUrl, setImageUrl] = useState(trip.imageUrl);
-  const [startDate, setStartDate] = useState(startHolder.getFullYear()+"-"+(startHolder.getMonth()+1)+"-"+(startHolder.getDate()+1));
-  const [endDate, setEndDate] = useState(endHolder.getFullYear()+"-"+(endHolder.getMonth()+1)+"-"+(endHolder.getDate()+1));
+  const [startDate, setStartDate] = useState(addingZeros(startHolder));
+  const [endDate, setEndDate] = useState(addingZeros(endHolder));
   const [errors, setErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
@@ -46,6 +61,8 @@ function EditTripForm ({ hideModal, trip }) {
           if (data && data.errors) setErrors(data.errors);
       });
   };
+
+  console.log("Editing trip", )
 
   const handleCancelClick = (e) => {
     e.preventDefault()

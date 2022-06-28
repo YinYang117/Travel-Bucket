@@ -1,5 +1,6 @@
 from .db import db
-from datetime import date
+from datetime import date, datetime
+import simplejson as json
 
 
 class Event(db.Model):
@@ -12,8 +13,10 @@ class Event(db.Model):
     description = db.Column(db.String(4000), nullable=False)
     image_url = db.Column(db.String, nullable=False)
     location = db.Column(db.String(255), nullable=False)
-    start_date = db.Column(db.Date, nullable=True)
-    end_date = db.Column(db.Date, nullable=True)
+    lat = db.Column(db.Numeric(15, 10), nullable=False)
+    lng = db.Column(db.Numeric(15, 10), nullable=False)
+    start_date = db.Column(db.DateTime, nullable=True)
+    end_date = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.Date, nullable=False, default=date.today)
     updated_at = db.Column(db.Date, nullable=False, default=date.today)
 
@@ -32,6 +35,8 @@ class Event(db.Model):
             "description": self.description,
             "imageUrl": self.image_url,
             "location": self.location,
+            'lat': json.dumps(self.lat, use_decimal=True),
+            'lng': json.dumps(self.lng, use_decimal=True),
             "startDate": self.start_date,
             "endDate": self.end_date,
             "createdAt": self.created_at,
