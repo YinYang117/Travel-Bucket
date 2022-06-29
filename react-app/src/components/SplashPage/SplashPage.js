@@ -72,9 +72,7 @@ function SplashPage() {
       <a>
         <img src={travel} alt="Travel" className="travel" />
       </a>
-      <div id='intro-text'>
-        The best site to plan your next trip!
-      </div>
+      <div id="intro-text">The best site to plan your next trip!</div>
       <div className="gallery">
         <div className="gallery_info">
           <div>
@@ -82,9 +80,7 @@ function SplashPage() {
               <img src={intro1} className="gallery_img" alt=""></img>
             </figure>
           </div>
-          <div className="gallery_name">
-            Add places you wanna go with 1 click
-          </div>
+          <div className="gallery_name">Add locations with one click</div>
           <div className="gallery_description">
             Ready for a vacation? Travel Bucket is here
           </div>
@@ -129,9 +125,7 @@ function SplashPage() {
               <img src={intro4} className="gallery_img" alt=""></img>
             </figure>
           </div>
-          <div className="gallery_name">
-            Collaborate with friends in real time
-          </div>
+          <div className="gallery_name">Share trip itinerary with friends</div>
           <div className="gallery_description">
             Plan along with your friends with trip invites.
           </div>

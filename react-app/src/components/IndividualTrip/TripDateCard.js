@@ -42,11 +42,9 @@ function TripDateCard({ events, notes, tripDate }) {
   return (
     <>
       <div className="tripDateCard-container">
-        <h1>Daily Itinerary</h1>
-        <div className="tripDate-container">
-          {tripDate?.getUTCMonth() + 1} / {tripDate?.getUTCDate()} -{" "}
-          {day}
-        </div>
+        <h1 className="tripDate-container">
+          {tripDate?.getUTCMonth() + 1} / {tripDate?.getUTCDate()} - {day}
+        </h1>
         {events &&
           events.map((event) => (
             <div className="event-container" key={event.id}>

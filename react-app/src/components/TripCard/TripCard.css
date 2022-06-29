@@ -170,6 +170,22 @@
 
 #delete:hover,
 #delete:active {
+    background-color: #de3939;
+}
+
+#cancel {
+    margin-top: 10px;
+    width: 100%;
+    color: #ffffff;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#cancel:hover,
+#cancel:active {
     color: #080710;
     background-color: #ffffff;
 }

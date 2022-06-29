@@ -1,32 +1,43 @@
 import { useDispatch } from "react-redux";
-import { deleteTrip } from '../../store/trip'
-import './TripCard.css';
+import { deleteTrip } from "../../store/trip";
+import "./TripCard.css";
 
-function DeleteTripForm ({ hideModal, trip }) {
+function DeleteTripForm({ hideModal, trip }) {
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      dispatch(deleteTrip(trip.id))
-      hideModal();
-  }
+    dispatch(deleteTrip(trip.id));
+    hideModal();
+  };
 
   const handleCancelClick = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     hideModal();
   };
 
   return (
     <div className="formContainer6">
       <form id="delete_trip_form" onSubmit={handleSubmit}>
-        <h3>Are you sure you want to delete your <span id="delete_trip_name">{trip.name}</span> Trip?</h3>
+        <h3 id="delete-texts">
+          Are you sure you want to delete your{" "}
+          <span id="delete_trip_name">{trip.name}</span> Trip?
+        </h3>
         <div id="delete_trip_buttons">
-          <button id="delete" className="deleteButton" type="submit">Confirm Delete</button>
-          <button id="delete" className="cancelDelete" onClick={handleCancelClick}>Cancel</button>
+          <button id="delete" className="deleteButton" type="submit">
+            Confirm Delete
+          </button>
+          <button
+            id="cancel"
+            className="cancelDelete"
+            onClick={handleCancelClick}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>
-  )
+  );
 }
 
 export default DeleteTripForm;
