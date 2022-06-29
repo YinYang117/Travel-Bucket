@@ -15,15 +15,14 @@ import {
 } from "@react-google-maps/api";
 import MapContainer from "../Map";
 
-
 function AddATripModal() {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   // const key = useSelector(state => state.map.key)
-  
+
   const [ownerId, setOwnerId] = useState(sessionUser?.id);
-  const [showInModal, setShowInModal] = useState(true)
+  const [showInModal, setShowInModal] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -43,24 +42,23 @@ function AddATripModal() {
 
   const url =
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-    // useEffect (() => {
-    //     const placesLibraryScript = document.getElementById("places-script");
-    //     let key;
-    //     const getKey = async () => {
-    //       const res = await fetch("/api/map/key", {
-    //         method: "POST",
-    //       });
-        
-    //       if (res.ok) {
-    //         const data = await res.json();
-    //         key = data.googleMapsAPIKey;
-    //         placesLibraryScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initMap`;
-    //       }
-    //     };
-    //     getKey();
-    // },[])
+  // useEffect (() => {
+  //     const placesLibraryScript = document.getElementById("places-script");
+  //     let key;
+  //     const getKey = async () => {
+  //       const res = await fetch("/api/map/key", {
+  //         method: "POST",
+  //       });
 
-  
+  //       if (res.ok) {
+  //         const data = await res.json();
+  //         key = data.googleMapsAPIKey;
+  //         placesLibraryScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initMap`;
+  //       }
+  //     };
+  //     getKey();
+  // },[])
+
   useEffect(() => {
     let errors = [];
     if (!imageUrl.match(url)) errors.push("Please enter a valid URL.");
@@ -87,7 +85,7 @@ function AddATripModal() {
     newTripData.imageUrl = imageUrl;
     newTripData.startDate = startDate;
     newTripData.endDate = endDate;
-    
+
     dispatch(tripActions.newTrip(newTripData))
       .then(() => {
         setName("");
@@ -107,9 +105,9 @@ function AddATripModal() {
   };
 
   const showing = () => {
-    setShowModal(true)
-    setShowInModal(true)
-  }
+    setShowModal(true);
+    setShowInModal(true);
+  };
 
   return (
     <>
@@ -119,7 +117,7 @@ function AddATripModal() {
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <div className="formContainer3">
-            <h1> Add A Trip </h1>
+            <h1 id="trip-add"> Add A Trip </h1>
             <form
               className="new-trip-form"
               onSubmit={(e) => {
@@ -140,7 +138,13 @@ function AddATripModal() {
                 value={name}
               />
               <label className="triplabel">Trip Destination:</label>
-              <MapContainer showInModal={showInModal} setDestination={setDestination} destination={destination} setLongitude={setLongitude} setLatitude={setLatitude}/>
+              <MapContainer
+                showInModal={showInModal}
+                setDestination={setDestination}
+                destination={destination}
+                setLongitude={setLongitude}
+                setLatitude={setLatitude}
+              />
               <label className="triplabel">Trip Main Image URL:</label>
               <input
                 onChange={(e) => setImageUrl(e.target.value)}

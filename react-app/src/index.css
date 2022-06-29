@@ -755,3 +755,22 @@ h2 {
 #delete-texts {
   font-size: 14pt;
 }
+
+#trip-add,
+.triplabel,
+.new-trip-name,
+.new-trip-image,
+.new-trip-start-date,
+.new-trip-end-date,
+#edit-trip-start-date {
+  color: white;
+}
+
+.new-note-errors li,
+.errors li,
+.new-trip-errors li,
+.new-event-errors li,
+.user-errors div {
+  color: rgb(246, 76, 76);
+  list-style-type: none;
+}
