@@ -4,7 +4,15 @@ import * as eventActions from "../../store/event";
 import { useHistory } from "react-router-dom";
 import { TripContext } from '../../context/Trip';
 import './EventModal.css';
-
+//import DateTimePicker from 'react-datetime-picker';
+//import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle';
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
+//import { DateRangePicker } from 'react-date-range';
+//import { DateRange } from 'react-date-range';
+import DatePicker from 'react-date-picker';
+import "react-datepicker/dist/react-datepicker.css";
 
 function Event({closeModal}) {
     const { currentTrip } = useContext(TripContext);
@@ -17,8 +25,10 @@ function Event({closeModal}) {
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
     const [imageUrl, setImageUrl] = useState("");
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    // const [startDate, setStartDate] = useState('');
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    // const [endDate, setEndDate] = useState('');
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
@@ -45,7 +55,7 @@ function Event({closeModal}) {
     const submitNewEvent = () => {
 
         setHasSubmitted(true)
-        if (errors.length > 0) return; 
+        if (errors.length > 0) return;
 
         const newEventData = {};
         setOwnerId(sessionUser.id)
@@ -100,7 +110,8 @@ function Event({closeModal}) {
                 <label className='eventlabel'>
                     Event Start:
                 </label>
-                <input onChange={e => setStartDate(e.target.value)} type="date" className="new-event-start-date" value={startDate} />
+                <DatePicker className="react-date-picker" selected={startDate} value={startDate} minDate={new Date()} onChange={e => setStartDate(new Date(e))} />
+                {/* <input onChange={e => setStartDate(e.target.value)} type="date" className="new-event-start-date" value={startDate} /> */}
                 <label className='eventlabel'>
                     Event End:
                 </label>

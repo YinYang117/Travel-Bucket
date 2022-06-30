@@ -67,6 +67,7 @@ function AddATripModal() {
     if (!destination.length) errors.push("Please enter a destination.");
     if (!startDate.length) errors.push("Please enter a startDate.");
     if (!endDate.length) errors.push("Please enter a endDate.");
+    
 
     setErrors(errors);
   }, [name, startDate, destination, endDate, imageUrl]);

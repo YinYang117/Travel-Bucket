@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react-date-picker": "^8.4.0",
+    "react-date-range": "^1.4.0",
+    "react-datepicker": "^4.8.0",
+    "react-datetime-picker": "^3.5.0"
+  }
+}
