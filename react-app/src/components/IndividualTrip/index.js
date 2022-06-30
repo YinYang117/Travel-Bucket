@@ -101,7 +101,7 @@ function IndividualTrip() {
     dispatch(invitedUsersActions.removeInvitedUsers(user.id, tripId)).catch(
       async (res) => {
         const data = await res.json();
-        if (data && data.errors) ;
+        if (data && data.errors);
       }
     );
   };
@@ -158,7 +158,7 @@ function IndividualTrip() {
             className="background-image-trip"
           >
             <div className="trip-box">
-              <h1>{trip?.name}</h1>
+              <h1 className="main-header">{trip?.name}</h1>
               <h2 id="destination-name">{trip?.destination}</h2>
               <h3>
                 {stringStartDate} to {stringEndDate}
@@ -173,9 +173,9 @@ function IndividualTrip() {
               Invite A User To Your Trip!
             </button>
           </div>
-          {invitedUsers && invitedUsers.map((user) => (
+          {invitedUsers &&
+            invitedUsers.map((user) => (
               <div key={user.id}>
-                
                 {user?.username}
                 <button
                   className="deleteuser"
@@ -215,15 +215,18 @@ function IndividualTrip() {
           )}
           <TripNotes />
           <div className="events-and-map">
-            <div>
-              {tripDates &&
-                tripDates.map((tripDate) => (
-                  <TripDateCard
-                    key={tripDate}
-                    events={eventFilter(tripDate)}
-                    tripDate={tripDate}
-                  />
-                ))}
+            <div className="daily-itinerary">
+              <h1 className="daily-header">Daily Itinerary</h1>
+              <div>
+                {tripDates &&
+                  tripDates.map((tripDate) => (
+                    <TripDateCard
+                      key={tripDate}
+                      events={eventFilter(tripDate)}
+                      tripDate={tripDate}
+                    />
+                  ))}
+              </div>
             </div>
             <div className="map-div">
               <MapContainer tripId={tripId} />
