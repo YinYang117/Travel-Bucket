@@ -76,14 +76,3 @@
     color: rgb(255, 255, 255);
     background-color: #ff0000;
 }
-
-.about-us {
-    border-bottom: 4px solid transparent;
-    display: inline;
-    margin: 0 auto;
-}
-
-.about-us.active,
-.about-us:hover {
-    border-color: #f3fd40;
-}
