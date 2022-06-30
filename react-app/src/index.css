@@ -774,3 +774,13 @@ h2 {
   color: rgb(246, 76, 76);
   list-style-type: none;
 }
+
+.new-note-text {
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgba(255,255,255,0.07);
+  resize: vertical;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14pt;
+}
