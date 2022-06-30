@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteTrip } from '../../store/trip'
-import './DeleteTrip.css';
+import './TripCard.css';
 
 function DeleteTripForm ({ hideModal, trip }) {
   const dispatch = useDispatch();
@@ -10,6 +10,7 @@ function DeleteTripForm ({ hideModal, trip }) {
       dispatch(deleteTrip(trip.id))
       hideModal();
   }
+
   const handleCancelClick = (e) => {
     e.preventDefault()
     hideModal();

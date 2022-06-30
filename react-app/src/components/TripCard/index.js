@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useSelector } from 'react-redux';
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal"
 import { TripContext } from '../../context/Trip';
 import DeleteTripForm from "./deleteTripForm";
@@ -10,16 +8,17 @@ import "./TripCard.css";
 
 
 function TripCard ({trip}) {
-    const history = useHistory()
-    const sessionUser = useSelector(state => state.session.user);
-
-    const { currentTrip, setCurrentTrip } = useContext(TripContext);
+    const { setCurrentTrip } = useContext(TripContext);
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
+    const [showAutoEdit, setShowAutoEdit] = useState(false)
 
-    useEffect(() => {
-        if (!sessionUser) history.push('/')
-    }, [sessionUser])
+    const submitting = () => {
+
+        setShowEditModal(!showEditModal)
+        setShowAutoEdit(true)
+
+    }
 
     let startDate;
     let endDate;
@@ -27,11 +26,13 @@ function TripCard ({trip}) {
     if (typeof(trip.startDate) === 'string') {
         startDate = trip.startDate.slice(0, 17);
         endDate = trip.endDate.slice(0, 17);
-        return (
+    }
+
+    return (
         <div className="trip-container">
                 <h2 id="trip-name">{trip.name}</h2>
                 <h3 id="destination-name">{trip.destination}</h3>
-                <NavLink to={`/trips/${trip.id}`} onClick={setCurrentTrip(trip)}>
+                <NavLink to={`/trips/${trip?.id}`} onClick={setCurrentTrip(trip)}>
                     <img id="trip-image" src={trip?.imageUrl} alt={`${trip?.name} alt`} className="image"/>
                 </NavLink>
                 <div className="date-container">
@@ -40,10 +41,10 @@ function TripCard ({trip}) {
                     <div>{endDate}</div>
                 </div>
                 <div>
-                    <button className="button5" onClick={e => setShowEditModal(!showEditModal)}>Edit</button>
+                    <button className="button5" onClick={submitting}>Edit</button>
                     {showEditModal && (
                         <Modal onClose={() => setShowEditModal(false)}>
-                            <EditTripForm  hideModal={() => setShowEditModal(false)} trip={trip} />
+                            <EditTripForm  hideModal={() => setShowEditModal(false)} trip={trip} showAutoEdit={showAutoEdit}/>
                         </Modal>
                     )}
                     <button className="button6" onClick={e => setShowDeleteModal(true)}>Delete Trip</button>
@@ -54,8 +55,7 @@ function TripCard ({trip}) {
                     )}
                 </div>
         </div>
-        )
-    }
+    )
 }
 
 export default TripCard;

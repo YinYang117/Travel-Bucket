@@ -1,6 +1,7 @@
 from .db import db
 from datetime import date
 from .trip_invites import trip_invites
+import simplejson as json
 
 class Trip(db.Model):
     __tablename__ = 'trips'
@@ -9,6 +10,8 @@ class Trip(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     destination = db.Column(db.String(255), nullable=False)
+    lat = db.Column(db.Numeric(15, 10), nullable=False)
+    lng = db.Column(db.Numeric(15, 10), nullable=False)
     image_url = db.Column(db.String, nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
@@ -19,6 +22,7 @@ class Trip(db.Model):
     invited_users = db.relationship("User", secondary=trip_invites, back_populates="invited_trips")
     events = db.relationship("Event", back_populates="trip", cascade="all, delete-orphan")
     notes = db.relationship("Note", back_populates="trip", cascade="all, delete-orphan")
+    location = db.relationship("Location", back_populates="trip", cascade="all, delete-orphan", uselist=False)
 
 
     @property
@@ -28,6 +32,8 @@ class Trip(db.Model):
             "ownerId": self.owner_id,
             "name": self.name,
             "destination": self.destination,
+            'lat': json.dumps(self.lat, use_decimal=True),
+            'lng': json.dumps(self.lng, use_decimal=True),
             "imageUrl": self.image_url,
             "startDate": self.start_date,
             "endDate": self.end_date,

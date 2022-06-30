@@ -10,8 +10,6 @@ import {createContext} fron "react";
 
 export const LanguageContext = createContext();
 
-
-
 then in index.js, or main <App /> component, wrap it around app
 
 import {LanguageContext} from "./context/"  or whatever your path is
@@ -24,8 +22,5 @@ import {LanguageContext} from "./context/"  or whatever your path is
      </LanguageContext.Provider>
 </React.StrictMode>
 document.getElementById('root')
-
-
-
 
 .Provider expects a value prop. Specifically value

@@ -38,9 +38,12 @@ def trips():
             owner_id=form.data["ownerId"],
             name=form.data["name"],
             destination=form.data["destination"],
+            lng=form.data["lng"],
+            lat=form.data["lat"],
             image_url=form.data["imageUrl"],
             start_date=form.data["startDate"],
             end_date=form.data["endDate"],
+
         )
         db.session.add(new_trip)
         db.session.commit()
@@ -86,11 +89,13 @@ def change_trip(id):
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             trip = Trip.query.get(id)
-            trip.name= form.data["name"]
-            trip.destination = form.data["destination"]
-            trip.image_url = form.data["imageUrl"]
-            trip.start_date = form.data["startDate"]
-            trip.end_date = form.data["endDate"]
+            trip.name= form.data["name"],
+            trip.destination = form.data["destination"],
+            trip.lng=form.data["lng"],
+            trip.lat=form.data["lat"],
+            trip.image_url = form.data["imageUrl"],
+            trip.start_date = form.data["startDate"],
+            trip.end_date = form.data["endDate"],
             current_time = date.today()
             trip.updated_at = current_time
 

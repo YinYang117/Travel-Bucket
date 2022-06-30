@@ -34,11 +34,12 @@ const deleteTripAction = (id) => {
 // thunks return a function that returns an action
 
 export const newTrip = (newTrip) => async (dispatch) => {
-    const { ownerId, name, destination, imageUrl, startDate, endDate } = newTrip
+    const { ownerId, name, destination, imageUrl, startDate, endDate, lng, lat } = newTrip
+     console.log("THIS IS LNG--------", lng)
     const response = await fetch('/api/trips/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ownerId, name, destination, imageUrl, startDate, endDate })
+        body: JSON.stringify({ ownerId, name, destination, imageUrl, startDate, endDate, lng, lat })
     });
 
     if (response.ok) {
@@ -104,6 +105,8 @@ export const loadATrip = (id) => async (dispatch) => {
 }
 
 
+
+
 // end of thunks
 /////////////////////////////////////////
 // reducer
@@ -111,7 +114,7 @@ export const loadATrip = (id) => async (dispatch) => {
 
 const initialState = {};
 const tripsReducer = (state = initialState, action) => {
-    let newState = Object.assign({}, state)
+    let newState = Object.assign({}, state);
     switch (action.type) {
         case LOAD_SINGLE_TRIP:
             newState[action.payload.id] = action.payload

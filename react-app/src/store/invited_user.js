@@ -50,7 +50,9 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({invitedUserId, tripId})
         })
-        disptach(addInvitedUser(data.invitedUser))
+
+        if (response2.ok) disptach(addInvitedUser(data.invitedUser))
+
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {

@@ -15,7 +15,6 @@ button {
 }
 
 /* Scroll bar */
-
 ::-webkit-scrollbar {
   width: 13px;
 }
@@ -215,7 +214,6 @@ h2 {
 }
 
 /* Bubbles effect */
-
 .bubbles {
   position: absolute;
   width: 100%;
@@ -225,7 +223,7 @@ h2 {
 .bubble {
   position: absolute;
   left: var(--bubble-left-offset);
-  bottom: -75%;
+  bottom: -30%;
   display: block;
   width: var(--bubble-radius);
   height: var(--bubble-radius);
@@ -233,6 +231,7 @@ h2 {
   animation: float-up var(--bubble-float-duration) var(--bubble-float-delay)
     ease-in infinite;
 }
+
 .bubble::before {
   position: absolute;
   content: "";

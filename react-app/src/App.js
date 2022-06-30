@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import NavBar from './components/Navigation/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
 import Home from './components/Home';
 import IndividualTrip from './components/IndividualTrip';
 import { authenticate } from './store/session';
@@ -34,12 +32,6 @@ function App() {
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
         <ProtectedRoute path='/Home' >
           <Home/>
         </ProtectedRoute>

@@ -8,7 +8,6 @@ import './EventModal.css';
 
 function Event({closeModal}) {
     const { currentTrip } = useContext(TripContext);
-
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
@@ -21,9 +20,7 @@ function Event({closeModal}) {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [errors, setErrors] = useState([]);
-    const [tripId, setTripId] = useState(currentTrip?.id);
     const [hasSubmitted, setHasSubmitted] = useState(false)
-
 
     useEffect(() => {
         if (!sessionUser) history.push('/')
@@ -35,7 +32,6 @@ function Event({closeModal}) {
         let errors = [];
         if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
         if (!imageUrl.length) errors.push("Please enter a URL.")
-
         if (!name.length) errors.push("Please enter a name.")
         if (!description.length) errors.push("Please enter a description.")
         if (!location.length) errors.push("Please enter a location.")
@@ -74,48 +70,45 @@ function Event({closeModal}) {
 
 
     return (
-        <>
-            <div className="formContainer4">
-                <h1> Add An Event </h1>
-                <form
-                    className="new-event-form"
-                    onSubmit={e => {
-                        e.preventDefault();
-                        submitNewEvent();
-                    }}>
-                    <ul className="new-event-errors">
-                        {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
-                    <label className='eventlabel'>
-                        Event Name:
-                    </label>
-                    <input onChange={e => setName(e.target.value)} type="text" className="new-event-name" placeholder='Event Name' value={name} />
-                    <label className='eventlabel'>
-                        Event Description:
-                    </label>
-                    <input onChange={e => setDescription(e.target.value)} type="text" className="new-event-description" placeholder='Event Description' value={description} />
-                    <label className='eventlabel'>
-                        Event Location:
-                    </label>
-                    <input onChange={e => setLocation(e.target.value)} type="text" className="new-event-location" placeholder='Event Location' value={location} />
-                    <label className='eventlabel'>
-                        Event Image URL:
-                    </label>
-                    <input onChange={e => setImageUrl(e.target.value)} type="text" className="new-event-image" placeholder='Image Url' value={imageUrl} />
-                    <label className='eventlabel'>
-                        Event Start:
-                    </label>
-                    <input onChange={e => setStartDate(e.target.value)} type="date" className="new-event-start-date" value={startDate} />
-                    <label className='eventlabel'>
-                        Event End:
-                    </label>
-                    <input onChange={e => setEndDate(e.target.value)} type="date" className="new-event-end-date" value={endDate} />
-                    <button id="new-event-submit" type='submit' >Submit New event</button>
-                </form>
-            </div>
-
-
-        </>
+        <div className="formContainer4">
+            <h1> Add An Event </h1>
+            <form
+                className="new-event-form"
+                onSubmit={e => {
+                    e.preventDefault();
+                    submitNewEvent();
+                }}>
+                <ul className="new-event-errors">
+                    {hasSubmitted && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <label className='eventlabel'>
+                    Event Name:
+                </label>
+                <input onChange={e => setName(e.target.value)} type="text" className="new-event-name" placeholder='Event Name' value={name} />
+                <label className='eventlabel'>
+                    Event Description:
+                </label>
+                <input onChange={e => setDescription(e.target.value)} type="text" className="new-event-description" placeholder='Event Description' value={description} />
+                <label className='eventlabel'>
+                    Event Location:
+                </label>
+                <input onChange={e => setLocation(e.target.value)} type="text" className="new-event-location" placeholder='Event Location' value={location} />
+                <label className='eventlabel'>
+                    Event Image URL:
+                </label>
+                <input onChange={e => setImageUrl(e.target.value)} type="text" className="new-event-image" placeholder='Image Url' value={imageUrl} />
+                <label className='eventlabel'>
+                    Event Start:
+                </label>
+                <input onChange={e => setStartDate(e.target.value)} type="date" className="new-event-start-date" value={startDate} />
+                <label className='eventlabel'>
+                    Event End:
+                </label>
+                <input onChange={e => setEndDate(e.target.value)} type="date" className="new-event-end-date" value={endDate} />
+                <button id="new-event-submit" type='submit' >Submit New event</button>
+            </form>
+        </div>
     );
 }
+
 export default Event;
