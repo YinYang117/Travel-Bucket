@@ -15,7 +15,7 @@ const loadKey = (key) => {
 //   };
 // };
 
-export const getKey = () => async (dispatch) => {
+export const getKey = () => async dispatch => {
   const res = await fetch("/api/map/key", {
     method: "POST",
   });
