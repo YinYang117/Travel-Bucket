@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import * as sessionActions from "../../store/session";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
@@ -17,9 +16,7 @@ function LoginForm() {
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
-    if (data) {
-      setErrors(data);
-    }
+    if (data) setErrors(data);
     history.push("/Home");
   };
 
@@ -32,6 +29,7 @@ function LoginForm() {
   };
 
   if (sessionUser) return <Redirect to="/Home" />;
+  
   return (
     <div className="formContainer">
       <form className="form" onSubmit={onLogin}>

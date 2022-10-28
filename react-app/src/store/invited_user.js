@@ -3,9 +3,9 @@ const LOAD_INVITED_USERS = "invited_user/loadInvitedUsers"
 const POST_INVITED_USERS = "invited_user/postInvitedUsers"
 const DELETE_INVITED_USERS = "invited_user/deleteInvitedUsers"
 
-// CONSTANTS display text in actions log
+// cost constants in SCREAMING_SNAKE_CASE -> display text in action logs
 /////////////////////////////////////////
-// action creators
+// action creator funcs
 // actions are just objects
 
 const addInvitedUser = (user) => {
@@ -15,10 +15,10 @@ const addInvitedUser = (user) => {
     };
 }
 
-const getInvitedUsers = (trips) => {
+const getInvitedUsers = (invitedUsers) => {
     return {
         type: LOAD_INVITED_USERS,
-        payload: trips
+        payload: invitedUsers
     };
 };
 
@@ -31,7 +31,7 @@ const deleteInvitedUsers = (id) => {
 
 // end of actions
 /////////////////////////////////////////
-// thunks return a function that returns an action
+// thunks -> return an async function that returns an action
 
 export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
     const {tripId, userName} = tripAndUserName
@@ -64,20 +64,11 @@ export const postInvitedUsers = (tripAndUserName) => async (disptach) => {
 export const loadInvitedUsers = (tripId) => async (dispatch) => {
     const res = await fetch(`/api/trips/${tripId}/users`)
     if (res.ok) {
-        const data = await res.json();
-        dispatch(getInvitedUsers(data))
+        const invitedUsers = await res.json();
+        //  [ {1: {userObj}}, {2: {userObj}} ]
+        dispatch(getInvitedUsers(invitedUsers))
     }
 }
-
-// export const loadInvitedUserTrips = (userId) => async (dispatch) => {
-//     const res = await fetch(`/api/invited_users/${userId}trips`)
-
-//     if (res.ok) {
-//         const data = await res.json();
-//         dispatch(getInvitedUsers(data))
-//     }
-// }
-
 
 export const removeInvitedUsers = (userId, tripId) => async (dispatch) => {
     const invitedUserId = parseInt(userId, 10)
@@ -92,9 +83,7 @@ export const removeInvitedUsers = (userId, tripId) => async (dispatch) => {
     }
 }
 
-
-const initialState = {};
-const invitedUsersReducer = (state = initialState, action) => {
+const invitedUsersReducer = (state = {}, action) => {
     let newState = Object.assign({}, state)
     switch (action.type) {
         case POST_INVITED_USERS:
@@ -103,7 +92,6 @@ const invitedUsersReducer = (state = initialState, action) => {
         case LOAD_INVITED_USERS:
             newState = action.payload
             return newState
-            // assumes incoming trips are flattened
         case DELETE_INVITED_USERS:
             delete newState[action.payload]
             return newState

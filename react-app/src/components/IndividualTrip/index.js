@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { TripContext } from "../../context/Trip";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import * as invitedUsersActions from "../../store/invited_user";
-import * as noteActions from "../../store/note";
-import * as tripActions from "../../store/trip";
-import * as eventActions from "../../store/event";
-// import {setTripMap} from "../../store/map";
+import { getTripNotes } from "../../store/note";
+import { loadATrip } from "../../store/trip";
+import { loadAllEvents } from "../../store/event";
+
 import TripDateCard from "./TripDateCard";
 import TripNotes from "../NoteCards";
 import MapContainer from "../Map";
@@ -20,62 +21,56 @@ function IndividualTrip() {
   const trip = useSelector((state) => state.trips[tripId]);
   const sessionUser = useSelector((state) => state.session.user);
   const eventsObj = useSelector((state) => state.events);
+  const invitedUsers = useSelector((state) => Object.values(state.invited))
 
   const { setCurrentTrip } = useContext(TripContext);
 
   const [stringStartDate, setStringStartDate] = useState("");
   const [stringEndDate, setStringEndDate] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [errors, setErrors] = useState([]);
-  const invitedUsersObj = useSelector((state) => state.invited);
-  const invitedUsers = Object.values(invitedUsersObj);
+  const [tripDates, setTripDates] = useState([]);
+  const [events, setEvents] = useState([]);
 
-  //("THIS IS FOR INVITED USERS------------", invitedUsers)
+  //  THIS IS FOR INVITED USERS------------
   const [errorsAddedUser, setErrorsAddedUser] = useState([]);
   const [showAddedUserForm, setAddedUserForm] = useState(false);
   const [userName, setUserName] = useState("");
-  const [tripDates, setTripDates] = useState([]);
-  const [events, setEvents] = useState([]);
   const [users, setUsers] = useState([]);
 
+
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("/api/users/");
-      const responseData = await response.json();
-      setUsers(responseData.users);
+    async function fetchAndSetUsers() {
+      const res = await fetch("/api/users/");
+      const data = await res.json();
+      setUsers(data.users);
     }
-    fetchData();
+    fetchAndSetUsers();
   }, []);
 
   useEffect(() => {
     if (!sessionUser) history.push("/");
-  }, [sessionUser]);
+  }, [history, sessionUser]);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (tripId) {
-      await dispatch(tripActions.loadATrip(tripId));
-      await dispatch(invitedUsersActions.loadInvitedUsers(tripId));
-      await dispatch(noteActions.getTripNotes(tripId));
-      await dispatch(eventActions.loadAllEvents(tripId));
-      // dispatch(setTripMap(tripId));
+      dispatch(loadATrip(tripId))
+      .then(() => dispatch(invitedUsersActions.loadInvitedUsers(tripId)))
+      .then(() => dispatch(getTripNotes(tripId)))
+      .then(()=>  dispatch(loadAllEvents(tripId)))
     }
-  }, [tripId]);
+  }, [dispatch, tripId]);
 
   useEffect(() => {
     setEvents(Object.values(eventsObj));
   }, [eventsObj]);
 
   useEffect(() => {
-    let errorsAddedUser = [];
-
+    let newErrors = [];
     let existUser = users.filter((user) => user.username === userName);
-
-    if (!userName.length) errorsAddedUser.push("Please enter a user.");
-    if (!existUser.length)
-      errorsAddedUser.push("Please enter an existing user.");
-
-    setErrorsAddedUser(errorsAddedUser);
-  }, [userName]);
+    if (!userName.length) newErrors.push("Please enter a user.");
+    if (!existUser.length) newErrors.push("User does not exist.");
+    setErrorsAddedUser(newErrors);
+  }, [users, userName]);
 
   useEffect(() => {
     if (trip) {
@@ -86,7 +81,7 @@ function IndividualTrip() {
       setStringEndDate(endDate);
       setCurrentTrip(trip);
     }
-  }, [trip]);
+  }, [trip, setCurrentTrip]);
 
   const submitUser = () => {
     setHasSubmitted(true);
@@ -98,27 +93,35 @@ function IndividualTrip() {
   };
 
   const deleteInvitedUser = (user) => {
-    dispatch(invitedUsersActions.removeInvitedUsers(user.id, tripId)).catch(
-      async (res) => {
+    dispatch(invitedUsersActions.removeInvitedUsers(user.id, tripId))
+    //TODO should res actually be error at this stage? Because it's in a .catch, instead of .then  Also there's no try block...
+    .catch( async (res) => {
         const data = await res.json();
-        if (data && data.errors);
-      }
-    );
+        if (data && data.errors) {
+          //TODO render error occured.
+        };
+      });
   };
 
+  //  itineraryMaker creates JS dates for each day in a trip in state
   const itineraryMaker = (tripStart, tripEnd) => {
-    let endDate = new Date(tripEnd);
-    let itinerary = [];
+    let tripEndDate = new Date(tripEnd);
+    let tripDatesHolder = [];
+    
     for (
-      let currentDate = new Date(tripStart);
-      currentDate <= endDate;
-      currentDate.setDate(currentDate.getDate() + 1)
+      let validDate = new Date(tripStart);
+      validDate <= tripEndDate;
+      validDate.setDate(validDate.getDate() + 1)
     ) {
-      itinerary.push(new Date(currentDate));
+      tripDatesHolder.push(validDate)
     }
-    setTripDates(itinerary);
+
+    // Sets state as an array of dates
+    setTripDates(tripDatesHolder);
   };
 
+  // Filters through all events to pick only events happening on a certain date.
+  // Setup to work with multi-day events to set them on each 
   const eventFilter = (tripDate) => {
     let dailyEvents = [];
     events.forEach((event) => {
@@ -137,12 +140,12 @@ function IndividualTrip() {
       else if (eventStartDate < tripDate && eventEndDate > tripDate) {
         let currentDay = new Date(eventStartDate);
         while (currentDay <= eventEndDate) {
-          currentDay.setDate(currentDay.getDate() + 1);
           if (
             currentDay.getMonth() === tripDate.getMonth() &&
             currentDay.getDate() === tripDate.getDate()
-          )
-            dailyEvents.push(event);
+          ) dailyEvents.push(event);
+
+          currentDay.setDate(currentDay.getDate() + 1);
         }
       }
     });

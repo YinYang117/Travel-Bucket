@@ -5,7 +5,7 @@ import EditEvent from "../EventModal/EditEventForm";
 import DeleteEvent from "../EventModal/DeleteEventForm";
 import "./individualPage.css";
 
-function TripDateCard({ events, notes, tripDate }) {
+function TripDateCard({ events, tripDate }) {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);

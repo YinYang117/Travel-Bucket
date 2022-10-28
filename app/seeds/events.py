@@ -2,7 +2,6 @@ from app.models import db, Event
 from datetime import date
 
 
-# Adds some events, you can add other events here if you want
 def seed_events():
     today = date.today()
     event1 = Event(
