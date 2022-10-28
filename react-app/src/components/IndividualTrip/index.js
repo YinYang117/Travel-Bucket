@@ -94,11 +94,12 @@ function IndividualTrip() {
 
   const deleteInvitedUser = (user) => {
     dispatch(invitedUsersActions.removeInvitedUsers(user.id, tripId))
-    //TODO should res actually be error at this stage? Because it's in a .catch, instead of .then  Also there's no try block...
+    // TODO research if res should actually be error at this stage? 
+    // Thinking ^ because it's in a .catch, instead of .then...  But also there's no try block here...
     .catch( async (res) => {
         const data = await res.json();
         if (data && data.errors) {
-          //TODO render error occured.
+          //TODO render error message if this happens, which it shouldn't
         };
       });
   };

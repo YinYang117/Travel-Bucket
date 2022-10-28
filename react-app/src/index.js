@@ -11,10 +11,6 @@ import { TripProvider } from './context/Trip';
 
 const store = configureStore();
 
-const render = (Status) => {
-  return <h1>{Status}</h1>;
-};
-
 ReactDOM.render(
   <React.StrictMode>
     <TripProvider>
