@@ -10,6 +10,7 @@ function TripDateCard({ events, tripDate }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
+  // Get tripdate day of week in a string
   const dayNum = tripDate?.getUTCDay();
   let day;
   switch (dayNum) {
