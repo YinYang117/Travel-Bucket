@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 import simplejson as json
 
 # Currently NOT USED
@@ -8,8 +8,11 @@ class Event_location(db.Model):
 
     __tablename__= 'event_locations'
 
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key= True)
-    event_id = db.Column(db.Integer, db.ForeignKey("events.id"), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("events.id")), nullable=False)
     info = db.Column(db.String)
     location = db.Column(db.String)
     address = db.Column(db.String)

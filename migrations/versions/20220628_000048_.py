@@ -1,13 +1,15 @@
 """empty message
 
 Revision ID: 452549a5125e
-Revises: 
+Revises:
 Create Date: 2022-06-28 00:00:48.318176
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = '452549a5125e'
@@ -27,6 +29,8 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     op.create_table('trips',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
@@ -42,6 +46,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE trips SET SCHEMA {SCHEMA};")
     op.create_table('events',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
@@ -58,6 +64,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['trip_id'], ['trips.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE events SET SCHEMA {SCHEMA};")
     op.create_table('locations',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('trip_id', sa.Integer(), nullable=False),
@@ -66,6 +74,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['trip_id'], ['trips.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE locations SET SCHEMA {SCHEMA};")
     op.create_table('notes',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
@@ -78,6 +88,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['trip_id'], ['trips.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE notes SET SCHEMA {SCHEMA};")
     op.create_table('trip_invites',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('trip_id', sa.Integer(), nullable=False),
@@ -85,6 +97,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'trip_id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE trip_invites SET SCHEMA {SCHEMA};")
     op.create_table('event_locations',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('event_id', sa.Integer(), nullable=False),
@@ -99,6 +113,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['event_id'], ['events.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE event_locations SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
