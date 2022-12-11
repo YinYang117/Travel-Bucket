@@ -6,4 +6,4 @@ trip_invites = db.Table("trip_invites",
 )
 
 if environment == "production":
-    <instance_variable>.schema = SCHEMA
+    trip_invites.schema = SCHEMA
