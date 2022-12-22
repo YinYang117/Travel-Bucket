@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://travel-bucket-app.herokuapp.com">
+  <a href="https://travel-bucket.onrender.com/">
     <img src="react-app/public/static/icon.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -12,7 +12,7 @@
   <p align="center">
     A portfolio clone of Wanderlog
     <br />
-    <a href="https://travel-bucket-app.herokuapp.com/"><strong>Explore the website »</strong></a>
+    <a href="https://travel-bucket.onrender.com/"><strong>Explore the website »</strong></a>
     <br />
   </p>
 </div>
@@ -60,7 +60,7 @@ Travel Bucket, a Wanderlog clone, is a travel planning website for users to cust
 
 * [Javascript](https://www.javascript.com)
 * [PostgreSQL](https://www.postgresql.org/docs/)
-* [Heroku](https://www.heroku.com)
+* [Render](https://www.render.com)
 * [Flask](https://flask.palletsprojects.com/en/2.1.x/)
 * [SQLAlchemy](https://www.sqlalchemy.org/)
 * [React](https://reactjs.org/)
