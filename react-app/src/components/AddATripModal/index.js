@@ -3,23 +3,13 @@ import { Modal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import * as tripActions from "../../store/trip";
 import { useHistory } from "react-router-dom";
-
-import usePlacesAutocomplete from "use-places-autocomplete";
 import "./AddATrip.css";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  MarkerClusterer,
-  InfoWindow,
-} from "@react-google-maps/api";
 import MapContainer from "../Map";
 
 function AddATripModal() {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
-  // const key = useSelector(state => state.map.key)
 
   const [ownerId, setOwnerId] = useState(sessionUser?.id);
   const [showInModal, setShowInModal] = useState(true);
@@ -34,33 +24,12 @@ function AddATripModal() {
   const [name, setName] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
-  // const { isLoaded } = useLoadScript({
-  //   id: "google-map-script",
-  //   googleMapsApiKey: apiKey,
-  //   libraries,
-  // });
-
-  const url =
-    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-  // useEffect (() => {
-  //     const placesLibraryScript = document.getElementById("places-script");
-  //     let key;
-  //     const getKey = async () => {
-  //       const res = await fetch("/api/map/key", {
-  //         method: "POST",
-  //       });
-
-  //       if (res.ok) {
-  //         const data = await res.json();
-  //         key = data.googleMapsAPIKey;
-  //         placesLibraryScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initMap`;
-  //       }
-  //     };
-  //     getKey();
-  // },[])
+  // regex to check for valid urls. Can still be spoofed though.
+  // const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
   useEffect(() => {
     let errors = [];
+    const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
     if (!imageUrl.match(url)) errors.push("Please enter a valid URL.");
     if (!imageUrl.length) errors.push("Please enter a URL.");
     if (!name.length) errors.push("Please enter a name.");
@@ -96,7 +65,7 @@ function AddATripModal() {
         setErrors([]);
         setShowModal(false);
         history.push("/Home");
-        // need a .then and redirect IF you add a new trip while on another trip details page
+        // todo need a .then and redirect IF you add a new trip while on another trip details page
       })
       .catch(async (res) => {
         const data = await res.json();
