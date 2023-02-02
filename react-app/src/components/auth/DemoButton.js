@@ -3,7 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 
-function DemoButton(){
+function DemoButton() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [email, setEmail] = useState("");
@@ -14,9 +14,7 @@ function DemoButton(){
     e.preventDefault();
     const data = await dispatch(login(email, password));
 
-    if (data) {
-      setErrors(data);
-    }
+    if (data) setErrors(data);
     history.push("/Home")
   };
 
@@ -24,14 +22,14 @@ function DemoButton(){
     <form onSubmit={onLogin}>
       <div>
         <button onClick={e => {
-        setEmail("demo@aa.io")
-        setPassword("password")
+          setEmail("demo@aa.io")
+          setPassword("password")
         }} type="demo">Demo User</button>
       </div>
       <div>
-          {errors?.map((error) => (
-            <div key={error}>{error}</div>
-          ))}
+        {errors?.map((error) => (
+          <div key={error}>{error}</div>
+        ))}
       </div>
     </form>
   );

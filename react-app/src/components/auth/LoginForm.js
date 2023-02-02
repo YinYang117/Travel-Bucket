@@ -15,13 +15,9 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
-    if (data) {
-      setErrors(data);
-    }
-
-    if (user) {
-      history.push("/Home")
-    }
+    
+    if (data) setErrors(data);
+    if (user) history.push("/Home")
   };
 
   const updateEmail = (e) => {
