@@ -30,15 +30,15 @@ function EventFormModal() {
                         <div key={event.id}>{event.name}</div>
                         <button onClick={e => setShowEditModal(!showEditModal)}>Edit</button>
                         {showEditModal && (
-                        <Modal onClose={() => setShowEditModal(false)}>
-                            <EditEvent  closeModal={() => setShowEditModal(false)} event={event} />
-                        </Modal>
+                            <Modal onClose={() => setShowEditModal(false)}>
+                                <EditEvent closeModal={() => setShowEditModal(false)} event={event} />
+                            </Modal>
                         )}
                         <button onClick={e => setShowDeleteModal(true)}>Delete Event</button>
                         {showDeleteModal && (
-                        <Modal onClose={() => setShowDeleteModal(false)}>
-                            <DeleteEvent hideModal={() => setShowDeleteModal(false)} event={event} />
-                        </Modal>
+                            <Modal onClose={() => setShowDeleteModal(false)}>
+                                <DeleteEvent hideModal={() => setShowDeleteModal(false)} event={event} />
+                            </Modal>
                         )}
                     </>
                 )

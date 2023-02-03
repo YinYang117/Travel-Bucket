@@ -15,7 +15,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -33,13 +33,13 @@ function App() {
           <LoginForm />
         </Route>
         <ProtectedRoute path='/Home' >
-          <Home/>
+          <Home />
         </ProtectedRoute>
         <ProtectedRoute path="/trips/:tripId">
           <IndividualTrip />
         </ProtectedRoute>
         <ProtectedRoute path='/events' >
-          <EventModal/>
+          <EventModal />
         </ProtectedRoute>
         <Route path='/' >
           <SplashPage />

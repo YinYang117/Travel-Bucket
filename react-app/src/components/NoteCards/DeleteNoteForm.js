@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { removeNote } from "../../store/note";
 import "./NoteCards.css";
 
+
 function DeleteNote({ hideModal, note }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);

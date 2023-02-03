@@ -32,11 +32,10 @@ function EditTripForm ({ hideModal, trip, showAutoEdit }) {
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [editLat, setEditLat] = useState("")
   const [editLng, setEditLng] = useState("")
-
-  const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
-
+  
   useEffect(() => {
       let errors = [];
+      const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
       if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
       if(!imageUrl.length) errors.push("Please enter a URL.")
       if(!name.length) errors.push("Please enter a trip name.")

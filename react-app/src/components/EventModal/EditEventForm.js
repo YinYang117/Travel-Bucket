@@ -25,9 +25,9 @@ function EditEvent({closeModal, event}) {
         if (!sessionUser) history.push('/')
     }, [sessionUser])
 
-    const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
-
+    
     useEffect(() => {
+        const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
         let errors = [];
         if(!(imageUrl.match(url))) errors.push("Please enter a valid URL.")
         if (!imageUrl.length) errors.push("Please enter a URL.")

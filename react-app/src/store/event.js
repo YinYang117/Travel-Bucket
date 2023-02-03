@@ -5,7 +5,6 @@ const DELETE_EVENT = "event/deleteEvent"
 // CONSTANTS display text in actions log
 /////////////////////////////////////////
 // action creators
-// actions are just objects
 
 const addEvent = (event) => {
     return {
@@ -85,14 +84,9 @@ export const deleteEvent = (id) => async (dispatch) => {
     else return ['An error occurred. Please try again.']
 }
 
-
-
-
-
 // end of thunks
 /////////////////////////////////////////
 // reducer
-
 
 const initialState = {};
 const eventsReducer = (state = initialState, action) => {
@@ -111,6 +105,5 @@ const eventsReducer = (state = initialState, action) => {
             return state;
     }
 }
-
 
 export default eventsReducer;

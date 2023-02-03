@@ -1,34 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import * as sessionActions from '../../store/session';
-import { useHistory } from "react-router-dom";
 import './Navigation.css'
 import LogoutButton from "../auth/LogoutButton";
 import { ProfileModal } from "../../context/ProfileModal";
 
 function ProfileButton() {
     const user = useSelector(state => state.session.user);
-    const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const openMenu = () => {
-        if (showMenu) return;
-        setShowMenu(true);
-    };
 
     useEffect(() => {
         if (!showMenu) return;
-
-        const closeMenu = () => {
-            setShowMenu(false);
-        };
-
+        const closeMenu = () => setShowMenu(false);
         document.addEventListener('click', closeMenu);
-
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
-
-
 
     return (
         <>

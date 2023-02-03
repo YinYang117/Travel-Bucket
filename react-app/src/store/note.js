@@ -35,7 +35,6 @@ const deleteNote = (id) => {
 
 export const postNewNote = (postNote) => async (disptach) => {
     const { ownerId, tripId, note } = postNote
-    // add tripDate to notes after everything else working
     const response = await fetch(`/api/notes/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,20 +58,6 @@ export const getTripNotes = (tripId) => async (dispatch) => {
     }
 }
 
-// export const editNote = (editedNote) => async (dispatch) => {
-//     const id = parseInt(editedNote.id, 10)
-//     const res = await fetch(`/api/notes/${id}`, {
-//     method: 'PUT',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(editedNote)
-//     });
-
-//     if(res.ok) {
-//         const note = await res.json()
-//         dispatch(addNote(note))
-//     }
-// }
-
 export const removeNote = (idString) => async (dispatch) => {
     const id = parseInt(idString, 10)
     const res = await fetch(`/api/notes/${id}`, {
@@ -84,11 +69,9 @@ export const removeNote = (idString) => async (dispatch) => {
     }
 }
 
-
 // end of thunks
 /////////////////////////////////////////
 // reducer
-
 
 const initialState = {};
 const notesReducer = (state = initialState, action) => {
@@ -107,6 +90,5 @@ const notesReducer = (state = initialState, action) => {
             return state;
     }
 }
-
 
 export default notesReducer;

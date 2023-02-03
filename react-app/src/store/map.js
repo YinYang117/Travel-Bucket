@@ -8,13 +8,6 @@ const loadKey = (key) => {
   };
 };
 
-// const loadTripArea = (map) => {
-//   return {
-//     type: LOAD_TRIP_AREA,
-//     payload: map,
-//   };
-// };
-
 export const getKey = () => async (dispatch) => {
   const res = await fetch("/api/map/key", {
     method: "POST",
@@ -26,16 +19,6 @@ export const getKey = () => async (dispatch) => {
     dispatch(loadKey(data.googleMapsAPIKey));
   }
 };
-
-// export const setTripMap = (tripId) => async (dispatch) => {
-//   const res = await fetch(`/api/map/${tripId}`);
-
-//   if (res.ok) {
-//     const data = await res.json();
-
-//     dispatch(loadTripArea(data));
-//   }
-// }
 
 const initialState = { key: null };
 

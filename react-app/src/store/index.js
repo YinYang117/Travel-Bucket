@@ -10,10 +10,10 @@ import map from './map'
 const rootReducer = combineReducers({
   session,
   map,
-  trips:tripsReducer,
-  notes:notesReducer,
-  invited:invitedUsersReducer,
-  events:eventsReducer,
+  trips: tripsReducer,
+  notes: notesReducer,
+  invited: invitedUsersReducer,
+  events: eventsReducer,
 });
 
 let enhancer;

@@ -69,16 +69,6 @@ export const loadInvitedUsers = (tripId) => async (dispatch) => {
     }
 }
 
-// export const loadInvitedUserTrips = (userId) => async (dispatch) => {
-//     const res = await fetch(`/api/invited_users/${userId}trips`)
-
-//     if (res.ok) {
-//         const data = await res.json();
-//         dispatch(getInvitedUsers(data))
-//     }
-// }
-
-
 export const removeInvitedUsers = (userId, tripId) => async (dispatch) => {
     const invitedUserId = parseInt(userId, 10)
     const res = await fetch(`/api/trips/${tripId}/users`, {
@@ -91,7 +81,6 @@ export const removeInvitedUsers = (userId, tripId) => async (dispatch) => {
         dispatch(deleteInvitedUsers(invitedUserId))
     }
 }
-
 
 const initialState = {};
 const invitedUsersReducer = (state = initialState, action) => {

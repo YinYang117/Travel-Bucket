@@ -1,4 +1,3 @@
-
 const LOAD_ALL_USER_RELATED_TRIPS = "trip/loadAllUserRelatedTrips"
 const LOAD_SINGLE_TRIP = "trip/loadSingleTrip"
 const DELETE_TRIP = "trip/deleteTrip"
@@ -35,7 +34,6 @@ const deleteTripAction = (id) => {
 
 export const newTrip = (newTrip) => async (dispatch) => {
     const { ownerId, name, destination, imageUrl, startDate, endDate, lng, lat } = newTrip
-     console.log("THIS IS LNG--------", lng)
     const response = await fetch('/api/trips/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -45,10 +43,12 @@ export const newTrip = (newTrip) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addTrip(data))
-    } else if (response.status < 500) {
+    }
+    else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) return data.errors;
-    } else return ['An error occurred. Please try again.']
+    }
+    else return ['An error occurred. Please try again.']
 }
 
 export const loadAllUserRelatedTrips = (userId) => async (dispatch) => {
@@ -59,24 +59,15 @@ export const loadAllUserRelatedTrips = (userId) => async (dispatch) => {
     }
 }
 
-// export const loadInvitedUserTrips = (userId) => async (dispatch) => {
-//     const res = await fetch(`/api/invited_users/${userId}/trips`)
-
-//     if (res.ok) {
-//         const data = await res.json();
-//         dispatch(getInvitedUsers(data))
-//     }
-// }
-
 export const editTrip = (editedTrip) => async (dispatch) => {
     const id = parseInt(editedTrip.id, 10)
     const res = await fetch(`/api/trips/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(editedTrip)
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editedTrip)
     });
 
-    if(res.ok) {
+    if (res.ok) {
         const trip = await res.json()
         dispatch(addTrip(trip))
     }
@@ -88,7 +79,7 @@ export const deleteTrip = (idString) => async (dispatch) => {
         method: 'DELETE',
     })
 
-    if(res.ok) {
+    if (res.ok) {
         dispatch(deleteTripAction(id))
     }
 }
@@ -104,13 +95,9 @@ export const loadATrip = (id) => async (dispatch) => {
     else return ['An error occurred. Please try again.']
 }
 
-
-
-
 // end of thunks
 /////////////////////////////////////////
 // reducer
-
 
 const initialState = {};
 const tripsReducer = (state = initialState, action) => {
@@ -129,6 +116,5 @@ const tripsReducer = (state = initialState, action) => {
             return state;
     }
 }
-
 
 export default tripsReducer;

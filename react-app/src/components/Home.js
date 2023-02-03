@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import TripCard from "./TripCard";
@@ -19,27 +19,25 @@ function Home() {
   }, [sessionUser]);
 
   return (
-    <>
-      <div className="page-container">
-        <h1 id="all-trips"> Your Trips </h1>
-        <div className="trip-gallery">
-          {trips &&
-            trips?.map((trip) => <TripCard key={trip?.id} trip={trip} />)}
-          {trips?.length === 0 && (
-            <div className="trip-container">
-              <h3 id="no-trip">Plan a Trip Now!</h3>
-              <img
-                id="trip-image"
-                src="/static/travel.png"
-                alt="Where to?"
-                className="image"
-              />
-              <AddATripModal />
-            </div>
-          )}
-        </div>
+    <div className="page-container">
+      <h1 id="all-trips"> Your Trips </h1>
+      <div className="trip-gallery">
+        {trips &&
+          trips?.map((trip) => <TripCard key={trip?.id} trip={trip} />)}
+        {trips?.length === 0 && (
+          <div className="trip-container">
+            <h3 id="no-trip">Plan a Trip Now!</h3>
+            <img
+              id="trip-image"
+              src="/static/travel.png"
+              alt="Where to?"
+              className="image"
+            />
+            <AddATripModal />
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
 

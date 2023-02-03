@@ -6,13 +6,6 @@ import intro4 from "./intro4.jpg";
 import "./SplashPage.css";
 
 function SplashPage() {
-  // // gets rid of scrollbar. On wider screens the lower content is cut off.
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-  //   return () => {
-  //     document.body.style.overflow = "visible";
-  //   };
-  // }, []);
 
   return (
     <>

@@ -24,7 +24,6 @@ function NewNoteForm({ closeModal }) {
     const noteData = {};
     noteData.note = note;
     noteData.tripId = currentTrip.id;
-    // noteData.tripDate = tripDate
     noteData.ownerId = sessionUser.id;
 
     dispatch(noteActions.postNewNote(noteData))

@@ -1,6 +1,8 @@
+import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteEvent } from "../../store/event";
 import "./DeleteEventModal.css";
+
 
 function DeleteEvent({ hideModal, event }) {
   const dispatch = useDispatch();

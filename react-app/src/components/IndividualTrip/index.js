@@ -6,7 +6,6 @@ import * as invitedUsersActions from "../../store/invited_user";
 import * as noteActions from "../../store/note";
 import * as tripActions from "../../store/trip";
 import * as eventActions from "../../store/event";
-// import {setTripMap} from "../../store/map";
 import TripDateCard from "./TripDateCard";
 import TripNotes from "../NoteCards";
 import MapContainer from "../Map";
@@ -16,26 +15,22 @@ function IndividualTrip() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { tripId } = useParams();
-
   const trip = useSelector((state) => state.trips[tripId]);
   const sessionUser = useSelector((state) => state.session.user);
   const eventsObj = useSelector((state) => state.events);
-
   const { setCurrentTrip } = useContext(TripContext);
-
   const [stringStartDate, setStringStartDate] = useState("");
   const [stringEndDate, setStringEndDate] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const [tripDates, setTripDates] = useState([]);
+  const [events, setEvents] = useState([]);
+
+  // invited users related
   const invitedUsersObj = useSelector((state) => state.invited);
   const invitedUsers = Object.values(invitedUsersObj);
-
-  //("THIS IS FOR INVITED USERS------------", invitedUsers)
   const [errorsAddedUser, setErrorsAddedUser] = useState([]);
   const [showAddedUserForm, setAddedUserForm] = useState(false);
   const [userName, setUserName] = useState("");
-  const [tripDates, setTripDates] = useState([]);
-  const [events, setEvents] = useState([]);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -51,13 +46,12 @@ function IndividualTrip() {
     if (!sessionUser) history.push("/");
   }, [sessionUser]);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (tripId) {
-      await dispatch(tripActions.loadATrip(tripId));
-      await dispatch(invitedUsersActions.loadInvitedUsers(tripId));
-      await dispatch(noteActions.getTripNotes(tripId));
-      await dispatch(eventActions.loadAllEvents(tripId));
-      // dispatch(setTripMap(tripId));
+      dispatch(tripActions.loadATrip(tripId));
+      dispatch(invitedUsersActions.loadInvitedUsers(tripId));
+      dispatch(noteActions.getTripNotes(tripId));
+      dispatch(eventActions.loadAllEvents(tripId));
     }
   }, [tripId]);
 
@@ -67,13 +61,11 @@ function IndividualTrip() {
 
   useEffect(() => {
     let errorsAddedUser = [];
-
     let existUser = users.filter((user) => user.username === userName);
 
     if (!userName.length) errorsAddedUser.push("Please enter a user.");
     if (!existUser.length)
       errorsAddedUser.push("Please enter an existing user.");
-
     setErrorsAddedUser(errorsAddedUser);
   }, [userName]);
 
@@ -98,18 +90,13 @@ function IndividualTrip() {
   };
 
   const deleteInvitedUser = (user) => {
-    dispatch(invitedUsersActions.removeInvitedUsers(user.id, tripId)).catch(
-      async (res) => {
-        const data = await res.json();
-        if (data && data.errors);
-      }
-    );
+    dispatch(invitedUsersActions.removeInvitedUsers(user.id, tripId))
   };
 
   const itineraryMaker = (tripStart, tripEnd) => {
     let endDate = new Date(tripEnd);
     let itinerary = [];
-    for (
+    for ( // fancy loop iteration variables for easy logic of every day of the trip
       let currentDate = new Date(tripStart);
       currentDate <= endDate;
       currentDate.setDate(currentDate.getDate() + 1)
@@ -150,91 +137,89 @@ function IndividualTrip() {
   };
 
   return (
-    <>
-      <div className="individual-trip">
-        <div className="center-trip">
-          <div
-            style={{ backgroundImage: `url(${trip?.imageUrl})` }}
-            className="background-image-trip"
+    <div className="individual-trip">
+      <div className="center-trip">
+        <div
+          style={{ backgroundImage: `url(${trip?.imageUrl})` }}
+          className="background-image-trip"
+        >
+          <div className="trip-box">
+            <h1 className="main-header">{trip?.name}</h1>
+            <h2 id="destination-name">{trip?.destination}</h2>
+            <h3>
+              {stringStartDate} to {stringEndDate}
+            </h3>
+          </div>
+        </div>
+        <div>
+          <button
+            className="adduser"
+            onClick={(e) => setAddedUserForm(!showAddedUserForm)}
           >
-            <div className="trip-box">
-              <h1 className="main-header">{trip?.name}</h1>
-              <h2 id="destination-name">{trip?.destination}</h2>
-              <h3>
-                {stringStartDate} to {stringEndDate}
-              </h3>
+            Invite A User To Your Trip!
+          </button>
+        </div>
+        {invitedUsers &&
+          invitedUsers.map((user) => (
+            <div key={user.id}>
+              {user?.username}
+              <button
+                className="deleteuser"
+                onClick={(e) => deleteInvitedUser(user)}
+              >
+                Remove User
+              </button>
+            </div>
+          ))}
+        {showAddedUserForm && (
+          <form
+            className="new-note-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              submitUser();
+            }}
+          >
+            <ul className="new-note-errors">
+              {hasSubmitted &&
+                errorsAddedUser.map((error, idx) => (
+                  <li key={idx}>{error}</li>
+                ))}
+            </ul>
+            <div className="addUserDiv">
+              <input
+                onChange={(e) => setUserName(e.target.value)}
+                type="text"
+                className="add-user"
+                placeholder="Type username here..."
+                value={userName}
+              />
+              <button className="add-user-submit" type="submit">
+                Submit User
+              </button>
+            </div>
+          </form>
+        )}
+        <TripNotes />
+        <div className="events-and-map">
+          <div className="daily-itinerary">
+            <h1 className="daily-header">Daily Itinerary</h1>
+            <div>
+              {tripDates &&
+                tripDates.map((tripDate) => (
+                  <TripDateCard
+                    key={tripDate}
+                    events={eventFilter(tripDate)}
+                    tripDate={tripDate}
+                  />
+                ))}
             </div>
           </div>
-          <div>
-            <button
-              className="adduser"
-              onClick={(e) => setAddedUserForm(!showAddedUserForm)}
-            >
-              Invite A User To Your Trip!
-            </button>
-          </div>
-          {invitedUsers &&
-            invitedUsers.map((user) => (
-              <div key={user.id}>
-                {user?.username}
-                <button
-                  className="deleteuser"
-                  onClick={(e) => deleteInvitedUser(user)}
-                >
-                  Remove User
-                </button>
-              </div>
-            ))}
-          {showAddedUserForm && (
-            <form
-              className="new-note-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                submitUser();
-              }}
-            >
-              <ul className="new-note-errors">
-                {hasSubmitted &&
-                  errorsAddedUser.map((error, idx) => (
-                    <li key={idx}>{error}</li>
-                  ))}
-              </ul>
-              <div className="addUserDiv">
-                <input
-                  onChange={(e) => setUserName(e.target.value)}
-                  type="text"
-                  className="add-user"
-                  placeholder="Type username here..."
-                  value={userName}
-                />
-                <button className="add-user-submit" type="submit">
-                  Submit User
-                </button>
-              </div>
-            </form>
-          )}
-          <TripNotes />
-          <div className="events-and-map">
-            <div className="daily-itinerary">
-              <h1 className="daily-header">Daily Itinerary</h1>
-              <div>
-                {tripDates &&
-                  tripDates.map((tripDate) => (
-                    <TripDateCard
-                      key={tripDate}
-                      events={eventFilter(tripDate)}
-                      tripDate={tripDate}
-                    />
-                  ))}
-              </div>
-            </div>
-            <div className="map-div">
-              <MapContainer tripId={tripId} />
-            </div>
+          <div className="map-div">
+            <MapContainer tripId={tripId} />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
